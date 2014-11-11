@@ -12,4 +12,21 @@ class Project < ActiveRecord::Base
     five_ten:   {name: "5-10 minutes", additional_price: 39},
     ten_twenty: {name: "10-20 minutes", additional_price: 79}
   }
+
+  before_validation :generate_uuid, :on => :create,
+                                    :if => Proc.new { |p| p.uuid.blank? }
+
+  validates :uuid, :presence => true,
+                   :uniqueness => true
+
+
+  def to_param
+    uuid
+  end
+
+  private
+
+  def generate_uuid
+    self.uuid = UUID.new.generate
+  end
 end

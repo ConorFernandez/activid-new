@@ -20,10 +20,13 @@ ActiveRecord::Schema.define(version: 20141110153051) do
     t.string   "name"
     t.string   "category"
     t.string   "desired_length"
+    t.string   "uuid"
     t.text     "instructions"
     t.boolean  "allow_to_be_featured", default: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "projects", ["uuid"], name: "index_projects_on_uuid", using: :btree
 
 end
