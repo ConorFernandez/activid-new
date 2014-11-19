@@ -29,7 +29,9 @@ module ProjectsHelper
     "<li style=\"display: inline-block; margin-right: 1em\">#{content}</li>".html_safe
   end
 
-  def direct_upload_field_tag(name, presigned_post)
+  def direct_upload_field_tag(name)
+    presigned_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read)
+
     data = {
       "data-post-url" => presigned_post.url,
       "data-form-data" => presigned_post.fields.to_json

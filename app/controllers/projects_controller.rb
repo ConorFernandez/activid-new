@@ -15,10 +15,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def step2
-    @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read)
-  end
-
   private
 
   def project_params
