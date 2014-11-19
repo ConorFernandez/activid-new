@@ -5,6 +5,8 @@
 = form_for :project do |f|
   = hidden_field_tag :step, 2
 
+  = direct_upload_field_tag("video_file", @s3_direct_post)
+
   %p
     = f.submit "Next"
 

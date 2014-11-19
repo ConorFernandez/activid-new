@@ -28,4 +28,13 @@ module ProjectsHelper
 
     "<li style=\"display: inline-block; margin-right: 1em\">#{content}</li>".html_safe
   end
+
+  def direct_upload_field_tag(name, presigned_post)
+    data = {
+      "data-post-url" => presigned_post.url,
+      "data-form-data" => presigned_post.fields.to_json
+    }
+
+    file_field_tag(name, {class: "direct-upload"}.merge(data))
+  end
 end
