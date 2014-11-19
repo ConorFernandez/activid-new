@@ -1,0 +1,12 @@
+= render "step_navigation", project: @project, step: 2
+
+%h2 Upload from your computer
+
+= form_for :project do |f|
+  = hidden_field_tag :step, 2
+
+  %p
+    = f.submit "Next"
+
+%p Note 1: When uploading video files, make sure you’re on a strong internet connection. Your files might take some time to upload. You can leave this page open, set your computer to never enter sleep mode, and come back when they’re finished!
+%p Note 2: Longer uploaded footage incurs additional cost. 00-30 minutes: $0, 30-60 minutes: $20, 60-90 minutes: $40, 90-120 minutes: $60. Uploading more than 120 min- utes? We’ll contact you with a custom quote.

@@ -12,7 +12,7 @@ module ProjectsHelper
     end
   end
 
-  def step_navigation_link(project, step_name, active)
+  def step_navigation_link(project, step, step_name, active)
     if !project.persisted? || active
       content = step_name
     else
