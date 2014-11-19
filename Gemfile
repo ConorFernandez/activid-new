@@ -8,9 +8,14 @@ gem "pg"
 gem "pry"
 gem "rails", "4.1.7"
 gem "sass-rails", "~> 4.0.3"
-gem "unicorn"
 gem "uglifier", ">= 1.3.0"
+gem "unicorn"
 gem "uuid"
+
+group :development do
+  gem "better_errors"
+  gem "binding_of_caller"
+end
 
 group :production do
   gem "rails_12factor"
