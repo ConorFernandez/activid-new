@@ -1,0 +1,6 @@
+= render "step_navigation", project: @project, step: 3
+
+%h2 Choose from our music
+
+= form_for @project do |f|
+  %p= f.submit "Next"
