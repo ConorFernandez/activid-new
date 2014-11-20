@@ -42,7 +42,7 @@ attachFileUpload = (fileInput, presignedPost) ->
       # create hidden field
       input = $("<input />",
         type: "hidden"
-        name: fileInput.attr("name")
+        name: "file_upload_urls[]"
         value: url
       )
       form.append input

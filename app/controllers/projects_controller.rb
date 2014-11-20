@@ -17,6 +17,7 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update(project_params)
+      attach_file_uploads(@project) if current_step == 2
       redirect_to next_step_path(@project)
     else
       render current_step_action
@@ -48,7 +49,7 @@ class ProjectsController < ApplicationController
   end
 
   def next_step_path(project)
-    case params[:step] ? params[:step].to_i : nil
+    case current_step
     when 1 then project_step2_path(project)
     when 2 then project_step3_path(project)
     when 3 then project_step4_path(project)
@@ -57,7 +58,18 @@ class ProjectsController < ApplicationController
   end
 
   def current_step_action
-    step = params[:step].to_i
-    (1..4).include?(step) ? "step#{step}".to_sym : raise("Could not determine current step")
+    (1..4).include?(current_step) ? "step#{current_step}".to_sym : raise("Could not determine current step action")
+  end
+
+  def current_step
+    params[:step].try(:to_i)
+  end
+
+  def attach_file_uploads(project)
+    file_uploads = (params[:file_upload_urls] || []).map do |url|
+      project.file_uploads.where(url: url).first || FileUpload.create(url: url)
+    end
+
+    project.update(file_uploads: file_uploads)
   end
 end
