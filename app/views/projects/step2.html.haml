@@ -2,10 +2,12 @@
 
 %h2 Upload from your computer
 
-= form_for @project do |f|
+= form_for @project, html: {class: "direct-upload"} do |f|
   = hidden_field_tag :step, 2
 
-  = direct_upload_field_tag("video_file")
+  .file-upload-area
+
+  %button.add-file Add file
 
   %p
     = f.submit "Next"

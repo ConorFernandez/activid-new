@@ -15,6 +15,15 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def presigned_post
+    presigned_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read)
+
+    render json: {
+      post_url: presigned_post.url.to_s,
+      form_data: presigned_post.fields
+    }
+  end
+
   private
 
   def project_params
