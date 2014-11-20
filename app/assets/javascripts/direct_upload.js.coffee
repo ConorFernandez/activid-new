@@ -6,7 +6,7 @@ addFileUpload = ->
     $("<p>").append(fileUpload).appendTo(form.find(".file-upload-area"))
     attachFileUpload(fileUpload, data)
 
-attachFileUpload = (fileInput, data) ->
+attachFileUpload = (fileInput, presignedPost) ->
   form = $(fileInput.parents("form:first"))
   submitButton = form.find("input[type=\"submit\"]")
   progressBar = $("<div class='bar'></div>")
@@ -14,10 +14,10 @@ attachFileUpload = (fileInput, data) ->
   fileInput.after barContainer
   fileInput.fileupload
     fileInput: fileInput
-    url: data.post_url
+    url: presignedPost.post_url
     type: "POST"
     autoUpload: true
-    formData: data.form_data
+    formData: presignedPost.form_data
     paramName: "file" # S3 does not like nested name fields i.e. name="user[avatar_url]"
     dataType: "XML" # S3 returns XML if success_action_status is set to 201
     replaceFileInput: false
@@ -31,13 +31,13 @@ attachFileUpload = (fileInput, data) ->
       submitButton.prop "disabled", true
       progressBar.css("background", "green").css("display", "block").css("width", "0%").text "Uploading..."
 
-    done: (e, data) ->
+    done: (e, data) =>
       submitButton.prop "disabled", false
       progressBar.text "Uploading done"
 
       # extract key and generate URL from response
       key = $(data.jqXHR.responseXML).find("Key").text()
-      url = "//<%= @s3_direct_post.url.host %>/" + key
+      url = "//#{presignedPost.remote_host}/#{key}"
 
       # create hidden field
       input = $("<input />",

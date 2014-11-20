@@ -20,7 +20,8 @@ class ProjectsController < ApplicationController
 
     render json: {
       post_url: presigned_post.url.to_s,
-      form_data: presigned_post.fields
+      form_data: presigned_post.fields,
+      remote_host: presigned_post.url.host
     }
   end
 
