@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 
 gem "aws-sdk"
+gem "devise"
 gem "coffee-rails", "~> 4.0.0"
 gem "haml-rails"
 gem "jquery-rails"
