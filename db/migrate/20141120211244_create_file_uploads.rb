@@ -1,7 +1,7 @@
 class CreateFileUploads < ActiveRecord::Migration
   def change
     create_table :file_uploads do |t|
-      t.string :url, :attachable_type, :uuid, :thumbnail_url
+      t.string :url, :attachable_type, :uuid
       t.integer :attachable_id, :zencoder_job_id, :duration
 
       t.timestamps

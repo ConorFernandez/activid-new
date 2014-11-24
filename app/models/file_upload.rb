@@ -13,12 +13,18 @@ class FileUpload < ActiveRecord::Base
   end
 
   def queue_zencoder_job
-    job = Zencoder::Job.create({:input => "s3:#{url}"})
+    job = Zencoder::Job.create({
+      input: "s3:#{url}",
+      outputs: {
+        type: "transfer-only"
+      }
+    })
+
     update(zencoder_job_id: job.body["id"])
   end
 
   def zencoder_job
-    Zencoder::Job.details(zencoder_job_id)
+    zencoder_job_id ? Zencoder::Job.details(zencoder_job_id) : nil
   end
 
   private
