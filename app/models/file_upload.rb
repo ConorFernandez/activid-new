@@ -27,6 +27,10 @@ class FileUpload < ActiveRecord::Base
     zencoder_job_id ? Zencoder::Job.details(zencoder_job_id) : nil
   end
 
+  def file_name
+    url.split("/").last
+  end
+
   private
 
   def generate_uuid
