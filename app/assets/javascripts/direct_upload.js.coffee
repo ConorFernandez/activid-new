@@ -1,13 +1,15 @@
 addFileUpload = ->
   form = $("form.direct-upload")
   fileUpload = $("<input>").attr({type: "file"})
+  container = $("<div>").addClass("file-upload")
 
   $.get "/projects/presigned_post", (data, status) ->
-    $("<p>").append(fileUpload).appendTo(form.find(".file-upload-area"))
+    container.append(fileUpload).appendTo(form.find(".file-upload-area"))
     attachFileUpload(fileUpload, data)
 
 attachFileUpload = (fileInput, presignedPost) ->
   form = $(fileInput.parents("form:first"))
+  uploadContainer = $(fileInput.parents(".file-upload:first"))
   submitButton = form.find("input[type=\"submit\"]")
   progressBar = $("<div class='bar'></div>")
   barContainer = $("<div class='progress'></div>").append(progressBar)
@@ -39,13 +41,13 @@ attachFileUpload = (fileInput, presignedPost) ->
       key = $(data.jqXHR.responseXML).find("Key").text()
       url = "//#{presignedPost.remote_host}/#{key}"
 
-      # create hidden field
-      input = $("<input />",
-        type: "hidden"
-        name: "file_upload_urls[]"
-        value: url
-      )
-      form.append input
+      $.ajax
+        type: "POST"
+        url: "/file_uploads"
+        data: {file_upload: {url: url}}
+        success: (data) ->
+          uploadContainer.html(data)
+
 
     fail: (e, data) ->
       submitButton.prop "disabled", false
