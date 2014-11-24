@@ -3,4 +3,5 @@
 %h2 Choose from our music
 
 = form_for @project do |f|
+  = hidden_field_tag :step, 3
   %p= f.submit "Next"
