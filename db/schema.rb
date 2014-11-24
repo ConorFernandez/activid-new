@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(version: 20141120211244) do
     t.string   "url"
     t.string   "attachable_type"
     t.string   "uuid"
-    t.string   "thumbnail_url"
     t.integer  "attachable_id"
     t.integer  "zencoder_job_id"
     t.integer  "duration"

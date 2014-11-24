@@ -1,8 +1,8 @@
 dU =
   addFileUpload: ->
     form = $("form.direct-upload")
-    fileUpload = $("<input>").attr({type: "file"})
-    container = $("<div>").addClass("file-upload")
+    fileUpload = $("<input>", type: "file")
+    container = $("<div>", class: "file-upload")
 
     $.get "/projects/presigned_post", (data, status) ->
       container.append(fileUpload).appendTo(form.find(".file-upload-area"))
@@ -12,8 +12,8 @@ dU =
     form = $(fileInput.parents("form:first"))
     uploadContainer = $(fileInput.parents(".file-upload:first"))
     submitButton = form.find("input[type=\"submit\"]")
-    progressBar = $("<div class='bar'></div>")
-    barContainer = $("<div class='progress'></div>").append(progressBar)
+    progressBar = $("<div>", class: "bar")
+    barContainer = $("<div>", class: "progress").append(progressBar)
     fileInput.after barContainer
     fileInput.fileupload
       fileInput: fileInput
@@ -32,11 +32,10 @@ dU =
       start: (e) ->
         dU.addFileUpload()
         submitButton.prop "disabled", true
-        progressBar.css("background", "green").css("display", "block").css("width", "0%").text "Uploading..."
+        progressBar.css("background", "green").css("display", "block").css("width", "0%").text("Uploading...")
 
       done: (e, data) =>
-        submitButton.prop "disabled", false
-        progressBar.text "Uploading done"
+        progressBar.text("Uploading done")
 
         # extract key and generate URL from response
         key = $(data.jqXHR.responseXML).find("Key").text()
@@ -47,7 +46,9 @@ dU =
           url: "/file_uploads"
           data: {file_upload: {url: url}}
           success: (data) ->
-            uploadContainer.html(data)
+            input = $("<input>", type: "hidden", name: "file_upload_uuids[]", value: data.uuid)
+            uploadContainer.append(input)
+            submitButton.prop("disabled", false)
 
       fail: (e, data) ->
         submitButton.prop "disabled", false
