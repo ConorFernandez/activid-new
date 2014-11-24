@@ -1,10 +1,14 @@
 one:
+  uuid: uuid-one
   url: "url/one.mp4"
   attachable: has_files (Project)
 two:
+  uuid: uuid-two
   url: "url/two.mp4"
   attachable: has_files (Project)
 three:
+  uuid: uuid-three
   url: "url/three.mp4"
 four:
+  uuid: uuid-four
   url: "url/four.mp4"

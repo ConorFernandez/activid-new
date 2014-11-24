@@ -67,6 +67,6 @@ class ProjectsController < ApplicationController
 
   def attach_file_uploads(project)
     ids = (params[:file_upload_ids] || [])
-    project.update(file_uploads: ids.map{|id| FileUpload.find(id)})
+    project.update(file_uploads: ids.map{|id| FileUpload.where(uuid: id).first})
   end
 end

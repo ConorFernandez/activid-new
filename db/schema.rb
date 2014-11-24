@@ -19,12 +19,14 @@ ActiveRecord::Schema.define(version: 20141120211244) do
   create_table "file_uploads", force: true do |t|
     t.string   "url"
     t.string   "attachable_type"
+    t.string   "uuid"
     t.integer  "attachable_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "file_uploads", ["attachable_id", "attachable_type"], name: "index_file_uploads_on_attachable_id_and_attachable_type", using: :btree
+  add_index "file_uploads", ["uuid"], name: "index_file_uploads_on_uuid", using: :btree
 
   create_table "projects", force: true do |t|
     t.string   "name"

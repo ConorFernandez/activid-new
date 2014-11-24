@@ -22,7 +22,7 @@ class ProjectsControllerTest < ActionController::TestCase
 
     assert_equal 0, project.file_uploads.count
 
-    put :update, id: project.uuid, step: 2, file_upload_ids: files.map(&:id)
+    put :update, id: project.uuid, step: 2, file_upload_ids: files.map(&:uuid)
 
     assert_equal 2, project.file_uploads.count
     assert_equal files.map(&:id).sort, project.reload.file_uploads.map(&:id).sort
@@ -52,7 +52,7 @@ class ProjectsControllerTest < ActionController::TestCase
 
     assert_equal 2, project.file_uploads.count
 
-    put :update, id: project.uuid, step: 2, file_upload_ids: files.map(&:id)
+    put :update, id: project.uuid, step: 2, file_upload_ids: files.map(&:uuid)
 
     assert_equal 3, project.file_uploads.count
     assert_equal files.map(&:id).sort, project.reload.file_uploads.map(&:id).sort
@@ -64,7 +64,7 @@ class ProjectsControllerTest < ActionController::TestCase
 
     assert_equal 2, project.file_uploads.count
 
-    put :update, id: project.uuid, step: 2, file_upload_ids: files.map(&:id)
+    put :update, id: project.uuid, step: 2, file_upload_ids: files.map(&:uuid)
 
     assert_equal 2, project.file_uploads.count
     assert_equal files.map(&:id).sort, project.reload.file_uploads.map(&:id).sort
