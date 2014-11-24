@@ -4,7 +4,10 @@ class FileUploadsController < ApplicationController
   def create
     @file_upload = FileUpload.new(file_upload_params)
 
-    unless @file_upload.save
+    if @file_upload.save
+      # todo: move this to a background worker
+      @file_upload.queue_zencoder_job
+    else
       render status: 400
     end
   end

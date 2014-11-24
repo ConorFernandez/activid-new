@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20141120211244) do
     t.string   "uuid"
     t.string   "thumbnail_url"
     t.integer  "attachable_id"
-    t.integer  "transcoding_job_id"
+    t.integer  "zencoder_job_id"
     t.integer  "duration"
     t.datetime "created_at"
     t.datetime "updated_at"
