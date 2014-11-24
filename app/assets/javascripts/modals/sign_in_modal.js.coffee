@@ -4,4 +4,4 @@ class @SignInModal extends Modal
     @template = Handlebars.compile($("#sign-in-modal-template").html())
     @$modal = $(@template())
 
-    super(@$modal)
+    super(@$modal, @options)

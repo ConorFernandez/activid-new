@@ -1,10 +1,10 @@
 class @Modal
 
-  constructor: (@$modal) ->
+  constructor: (@$modal, @options = {}) ->
 
   open: ->
     @$modal.appendTo($("body"))
-    @_bindCloseEvents(@close)
+    @_bindCloseEvents(@close) unless @options.unclosable
 
   close: ->
     @$modal.remove()

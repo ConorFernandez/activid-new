@@ -1,5 +1,9 @@
 = render "step_navigation", project: @project, step: 4
 
+- unless current_user
+  :javascript
+    new SignUpModal({unclosable: true}).open()
+
 %h2 Checkout
 
 = form_for @project do |f|

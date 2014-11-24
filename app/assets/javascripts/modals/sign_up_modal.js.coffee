@@ -4,4 +4,4 @@ class @SignUpModal extends Modal
     @template = Handlebars.compile($("#sign-up-modal-template").html())
     @$modal = $(@template())
 
-    super(@$modal)
+    super(@$modal, @options)
