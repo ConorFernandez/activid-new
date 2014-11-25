@@ -1,9 +1,13 @@
 %h1{style: "float: left"}= link_to "Activid", root_path
 
-%ul{style: "float: right"}
-  %li{style: "display: inline-block; margin-right: 1em"} How It Works
-  %li{style: "display: inline-block; margin-right: 1em"} Pricing
-  %li{style: "display: inline-block; margin-right: 1em"} Log In
-  %li{style: "display: inline-block; margin-right: 1em"}= link_to "Get Started", new_project_path
+%ul.header-nav
+  - if current_user
+    %li= "logged-in as #{current_user.email}"
+    %li= link_to "log out", destroy_user_session_path, method: :delete
+  - else
+    %li How It Works
+    %li Pricing
+    %li Log In
+    %li= link_to "Get Started", new_project_path
 
 %div{style: "clear: both"}
