@@ -18,7 +18,13 @@ class @SignUpModal extends Modal
         url: $form.attr("action")
         data: $form.serialize()
         success: (data) =>
-          window.location = $form.data("post-sign-in-path")
+          window.location = $form.data("post-sign-up-path")
         error: (e) =>
           errors = $.parseJSON(e.responseText)["errors"]
           @_renderErrors(errors)
+
+  _renderErrors: (errors) ->
+    errorStrings = Object.keys(errors).map (key) ->
+      " #{key} #{errors[key][0]}"
+
+    @$modal.find(".errors").html(errorStrings.toString())

@@ -5,7 +5,7 @@
 
       <div class="errors"></div>
 
-      <%= form_tag user_registration_path(format: :json), {"data-post-sign-in-path" => post_sign_in_modal_path} do |f| %>
+      <%= form_tag user_registration_path(format: :json), {"data-post-sign-up-path" => post_sign_up_modal_path} do |f| %>
         <p>
           <%= label_tag :user_email, "Email address" %>
           <br>

@@ -2,6 +2,23 @@
   <div class="modal-wrapper">
     <div class="modal-block">
       <h1>Sign In</h1>
+      <div class="errors"></div>
+
+      <%= form_tag user_session_path(format: :json), {"data-post-sign-in-path" => post_sign_in_modal_path} do |f| %>
+        <p>
+          <%= label_tag :user_email, "Email address" %>
+          <br>
+          <%= text_field_tag "user[email]"  %>
+        </p>
+
+        <p>
+          <%= label_tag :user_password, "Password" %>
+          <br>
+          <%= password_field_tag "user[password]" %>
+        </p>
+
+        <button class="submit">Sign In</button>
+      <% end %>
     </div>
   </div>
 </script>
