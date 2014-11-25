@@ -31,9 +31,31 @@ class FileUpload < ActiveRecord::Base
     url.split("/").last
   end
 
+  def determine_duration(from_job = nil)
+    duration = duration_from_job(from_job)
+
+    if duration.nil?
+      return nil
+    else
+      duration_in_seconds = duration / 1000
+      update(duration: duration_in_seconds)
+      return duration_in_seconds
+    end
+  end
+
   private
 
   def generate_uuid
     self.uuid = UUID.new.generate
+  end
+
+  def duration_from_job(from_job = nil)
+    job = from_job || zencoder_job
+
+    if job.nil? || job.body["job"].nil? || job.body["job"]["input_media_file"].nil?
+      nil
+    else
+      job.body["job"]["input_media_file"]["duration_in_ms"]
+    end
   end
 end
