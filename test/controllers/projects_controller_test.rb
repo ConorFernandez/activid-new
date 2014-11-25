@@ -69,4 +69,25 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_equal 2, project.file_uploads.count
     assert_equal files.map(&:id).sort, project.reload.file_uploads.map(&:id).sort
   end
+
+  test "PUT update associates current_user with project if project has none" do
+    project = projects(:has_files)
+    sign_in users(:joey)
+
+    assert_equal nil, project.user
+
+    put :update, id: project.uuid, step: 4
+
+    assert_equal users(:joey), project.reload.user
+  end
+
+  test "PUT update does not associate current_user with project if project already has one" do
+    project = projects(:has_files)
+    project.update(user: users(:joey))
+    sign_in users(:wilson)
+
+    put :update, id: project.uuid, step: 4
+
+    assert_equal users(:joey), project.reload.user
+  end
 end

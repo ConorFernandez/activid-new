@@ -1,8 +1,13 @@
 class ProjectsController < ApplicationController
   before_filter :load_project, only: [:update, :step1, :step2, :step3, :step4]
+  before_filter :authenticate_user!, only: :index
 
   def new
     @project = Project.new
+  end
+
+  def index
+    @projects = current_user.projects
   end
 
   def create
@@ -17,7 +22,9 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update(project_params)
-      attach_file_uploads(@project) if current_step == 2
+      @project.update(user: current_user) if @project.user.nil? && current_user.present?
+      attach_file_uploads(@project)       if current_step == 2
+
       redirect_to next_step_path(@project)
     else
       render current_step_action
@@ -53,7 +60,7 @@ class ProjectsController < ApplicationController
     when 1 then project_step2_path(project)
     when 2 then project_step3_path(project)
     when 3 then project_step4_path(project)
-    else root_path
+    else current_user ? projects_path : project_step4_path(project)
     end
   end
 

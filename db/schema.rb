@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20141124190459) do
   add_index "file_uploads", ["uuid"], name: "index_file_uploads_on_uuid", using: :btree
 
   create_table "projects", force: true do |t|
+    t.integer  "user_id"
     t.string   "name"
     t.string   "category"
     t.string   "desired_length"

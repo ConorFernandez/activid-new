@@ -1,6 +1,7 @@
 class CreateProjects < ActiveRecord::Migration
   def change
     create_table :projects do |t|
+      t.integer :user_id
       t.string :name, :category, :desired_length, :uuid
       t.text :instructions
       t.boolean :allow_to_be_featured, default: true

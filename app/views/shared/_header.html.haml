@@ -2,8 +2,10 @@
 
 %ul.header-nav
   - if current_user
+    %li= link_to "Projects", projects_path
     %li= "logged-in as #{current_user.email}"
     %li= link_to "log out", destroy_user_session_path, method: :delete
+
   - else
     %li How It Works
     %li Pricing

@@ -13,6 +13,8 @@ class Project < ActiveRecord::Base
     ten_twenty: {name: "10-20 minutes", additional_price: 79}
   }
 
+  belongs_to :user
+
   has_many :file_uploads, as: :attachable
 
   before_validation :generate_uuid, :on => :create,
