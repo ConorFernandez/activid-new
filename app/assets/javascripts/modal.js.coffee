@@ -4,7 +4,7 @@ class @Modal
 
   open: ->
     @$modal.appendTo($("body"))
-    @_bindCloseEvents(@close) unless @options.unclosable
+    @_bindCloseEvents(@close) unless @options.inescapable
 
   close: ->
     @$modal.remove()
