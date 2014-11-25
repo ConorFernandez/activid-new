@@ -4,6 +4,7 @@ class @SignInModal extends Modal
     @template = Handlebars.compile($("#sign-in-modal-template").html())
     @$modal = $(@template())
 
+    @_bindLinks()
     @_bindSubmit()
 
     super(@$modal, @options)
@@ -21,3 +22,8 @@ class @SignInModal extends Modal
           window.location = $form.data("post-sign-in-path")
         error: (e) =>
           @$modal.find(".errors").html("Invalid email address or password. Please try again.")
+
+  _bindLinks: ->
+    @$modal.find("a.sign-up").click (e) =>
+      @close()
+      new SignUpModal(@options).open()

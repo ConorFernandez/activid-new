@@ -4,6 +4,7 @@ class @SignUpModal extends Modal
     @template = Handlebars.compile($("#sign-up-modal-template").html())
     @$modal = $(@template())
 
+    @_bindLinks()
     @_bindSubmit()
 
     super(@$modal, @options)
@@ -28,3 +29,8 @@ class @SignUpModal extends Modal
       " #{key} #{errors[key][0]}"
 
     @$modal.find(".errors").html(errorStrings.toString())
+
+  _bindLinks: ->
+    @$modal.find("a.sign-in").click (e) =>
+      @close()
+      new SignInModal(@options).open()
