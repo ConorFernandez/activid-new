@@ -20,3 +20,9 @@ class @Modal
   _bindClickOutsideTarget: (callback) ->
     @$modal.on 'click', (event) =>
       callback.call(this) if $(event.target).hasClass('modal-wrapper')
+
+  _renderErrors: (errors) ->
+    errorStrings = Object.keys(errors).map (key) ->
+      " #{key} #{errors[key][0]}"
+
+    @$modal.find(".errors").html(errorStrings.toString())
