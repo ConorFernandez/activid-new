@@ -15,4 +15,5 @@
 //= require jquery.ui.widget
 //= require jquery.fileupload
 //= require handlebars
+//= require stripe
 //= require_tree .

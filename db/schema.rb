@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141124190459) do
+ActiveRecord::Schema.define(version: 20141126220223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,14 +30,23 @@ ActiveRecord::Schema.define(version: 20141124190459) do
   add_index "file_uploads", ["attachable_id", "attachable_type"], name: "index_file_uploads_on_attachable_id_and_attachable_type", using: :btree
   add_index "file_uploads", ["uuid"], name: "index_file_uploads_on_uuid", using: :btree
 
+  create_table "payment_methods", force: true do |t|
+    t.string   "token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "projects", force: true do |t|
     t.integer  "user_id"
+    t.integer  "payment_method_id"
+    t.string   "uuid"
     t.string   "name"
     t.string   "category"
     t.string   "desired_length"
-    t.string   "uuid"
+    t.string   "turnaround"
     t.text     "instructions"
     t.boolean  "allow_to_be_featured", default: true
+    t.boolean  "watermark",            default: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end

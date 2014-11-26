@@ -90,4 +90,15 @@ class ProjectsControllerTest < ActionController::TestCase
 
     assert_equal users(:joey), project.reload.user
   end
+
+  test "PUT update attaches a payment method if a token is provided" do
+    project = projects(:has_files)
+    token = "asdf1234"
+
+    assert_equal nil, project.payment_method
+
+    put :update, id: project.uuid, step: 4, payment_method_token: token
+
+    assert_equal token, project.reload.payment_method.token
+  end
 end

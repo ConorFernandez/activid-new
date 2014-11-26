@@ -24,6 +24,7 @@ class ProjectsController < ApplicationController
     if @project.update(project_params)
       @project.update(user: current_user) if @project.user.nil? && current_user.present?
       attach_file_uploads(@project)       if current_step == 2
+      attach_payment_method(@project)     if params[:payment_method_token].present?
 
       redirect_to next_step_path(@project)
     else
@@ -45,7 +46,7 @@ class ProjectsController < ApplicationController
 
   def project_params
     if params[:project].present?
-      params.require(:project).permit(:name, :category, :desired_length, :instructions, :allow_to_be_featured)
+      params.require(:project).permit(:name, :category, :desired_length, :instructions, :allow_to_be_featured, :watermark, :turnaround)
     else
       {}
     end
@@ -75,5 +76,10 @@ class ProjectsController < ApplicationController
   def attach_file_uploads(project)
     ids = (params[:file_upload_uuids] || [])
     project.update(file_uploads: ids.map{|id| FileUpload.where(uuid: id).first})
+  end
+
+  def attach_payment_method(project)
+    payment_method = PaymentMethod.create!(token: params[:payment_method_token])
+    project.update(payment_method: payment_method)
   end
 end

@@ -46,8 +46,7 @@ dU =
           url: "/file_uploads"
           data: {file_upload: {url: url}}
           success: (data) ->
-            input = $("<input>", type: "hidden", name: "file_upload_uuids[]", value: data.uuid)
-            uploadContainer.append(input)
+            uploadContainer.append $("<input>", type: "hidden", name: "file_upload_uuids[]", value: data.uuid)
             submitButton.prop("disabled", false)
 
       fail: (e, data) ->

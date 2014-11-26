@@ -7,6 +7,9 @@
     = csrf_meta_tags
 
   %body
+    :javascript
+      Stripe.setPublishableKey("#{ENV["STRIPE_PUBLISHABLE_KEY"]}");
+
     = render "shared/modals/sign_up"
     = render "shared/modals/sign_in"
     = render "shared/header"

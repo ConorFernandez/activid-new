@@ -6,6 +6,42 @@
 
 %h2 Checkout
 
-= form_for @project do |f|
+= form_for @project, html: {class: "checkout"} do |f|
   = hidden_field_tag :step, 4
+
+  %table
+    %tbody
+      %tr
+        %td= "Video Type: #{@project.category_name}"
+        %td= number_to_currency @project.category_cost
+      %tr
+        %td= "Desired Length: #{@project.desired_length_name}"
+        %td= @project.desired_length_cost == 0 ? "-" : number_to_currency(@project.desired_length_cost)
+      %tr
+        %td Uploaded Footage:
+        %td
+      %tr
+        %td= f.select :turnaround, options_for_turnaround
+        %td= "-"
+      %tr
+        %td= f.select :watermark, options_for_watermark
+        %td= "-"
+
+  %hr
+
+  .payment-errors
+
+  .cc-card
+    %input{type: "text", placeholder: "Credit Card Number", "data-stripe" => "number"}
+
+  .cc-exp
+    %input{type: "text", placeholder: "mm/yyyy", id: "stripe-exp"}
+    %input{type: "hidden", id: "stripe-exp-year", "data-stripe" => "exp-year"}
+    %input{type: "hidden", id: "stripe-exp-month", "data-stripe" => "exp-month"}
+
+  .cc-cvc
+    %input{type: "text", placeholder: "CVC", "data-stripe" => "cvc"}
+
+  .cc-logo= image_tag("stripe.png")
+
   %p= f.submit "Finish"
