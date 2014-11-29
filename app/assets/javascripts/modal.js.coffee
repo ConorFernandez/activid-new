@@ -4,6 +4,11 @@ class @Modal
 
   open: ->
     @$modal.appendTo($("body"))
+
+    setTimeout ( =>
+      @$modal.addClass("show-modal")
+    ), 0
+
     @_bindCloseEvents(@close) unless @options.inescapable
 
   close: ->

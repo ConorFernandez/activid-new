@@ -1,0 +1,40 @@
+$modalSpeed: 0.33s
+
+/*-----------  Modals  -----------*/
+
+.modal-wrapper
+  left: 0
+  top: -100%
+  width: 100%
+  height: 100%
+  padding: 3.33em
+  z-index: 100000
+  position: fixed
+  overflow-x: auto
+  overflow-y: scroll
+  background-color: rgba(0,0,0,0)
+  @include transition(top 0 $modalSpeed, background-color $modalSpeed)
+
+  .modal-block
+    opacity: 0
+    width: 55em
+    margin: auto
+    margin-top: -10em
+    position: relative
+    padding: 1.75em 5em
+    border-radius: 3px
+    background-color: $white
+    box-shadow: 0.33em 0.33em 1em rgba($grayDarker, 0.08)
+    @include transition(margin-top $modalSpeed, opacity $modalSpeed/2 $modalSpeed/2)
+
+  /*-----------  Animations  -----------*/
+
+  &.show-modal
+    top: 0
+    background-color: rgba(0,0,0,0.33)
+    @include transition(top 0, background-color $modalSpeed)
+
+    .modal-block
+      opacity: 1
+      margin-top: 0
+      @include transition(margin-top $modalSpeed, opacity $modalSpeed)
