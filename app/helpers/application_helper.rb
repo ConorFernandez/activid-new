@@ -8,6 +8,6 @@ module ApplicationHelper
   end
 
   def page_classes
-    ""
+    params[:action]
   end
 end
