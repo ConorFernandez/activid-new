@@ -1,0 +1,22 @@
+/*-----------  Footer  -----------*/
+
+.global-footer
+  color: $white
+  background-color: $grayDark
+  @include full-span(3em $gutter)
+
+  @include media($tabletBreak)
+    text-align: center
+
+  a:not(.button)
+    color: $gray
+    line-height: 200%
+    margin-right: 1.75em
+    @include inline-block()
+
+    &:hover
+      color: $white
+
+    &.active
+      color: $white
+      pointer-events: none

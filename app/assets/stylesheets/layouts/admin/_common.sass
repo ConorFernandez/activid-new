@@ -1,0 +1,44 @@
+/*-----------  Editors Block  -----------*/
+
+.editor-block
+  @include panel(1px, $gutterSm)  
+  
+  header
+    padding: 0.75em
+    @include justify-content(space-between)
+    @include align-items(center)
+    @include display(flex)
+
+    img
+      height: 3em
+      @include flex(0 0 3em)
+
+    a,
+    span
+      padding: 0 0.5em
+      font-size: 1.75em
+      @include flex(1 1 auto)
+
+    .rating-wrapper
+      text-align: right
+      margin-left: 0.5em
+      @include flex(0 0 10em)
+
+      i
+        font-size: 1.5em
+
+  /*-----------  Sidebar  -----------*/
+
+  aside
+
+    .editor-meta
+      @extend small
+
+      span
+        color: $grayDark
+        font-size: 120%
+        display: block
+
+    .button
+      font-size: 0.75em
+      margin: 0 0 0.33em

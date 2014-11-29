@@ -1,0 +1,45 @@
+/*-----------  Step Breadcrumbs  -----------*/
+
+.step-wrapper
+  margin-bottom: 1.5em
+  @include justify-content(space-around)
+  @include align-items(stretch)
+  @include display(flex)
+  
+  .step-block
+    color: $gray
+    padding: 0 0 0.5em
+    position: relative
+    @include flex(0 1 auto)
+    @include transition()
+
+    &:after
+      left: 0
+      right: 0
+      opacity: 0
+      height: 4px
+      content: ''
+      bottom: -0.2em
+      position: absolute
+      background-color: $blue
+      @include transition()
+
+  /*-----------  Link Actions  -----------*/
+
+  a.step-block:hover
+    cursor: pointer
+
+    &:after
+      bottom: 0
+      opacity: 0.5
+    
+  /*-----------  Selected State  -----------*/
+
+  .step-block.selected
+    color: $grayDark
+
+    &:after,
+    &:hover:after
+      bottom: 0
+      opacity: 1
+  

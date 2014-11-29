@@ -1,0 +1,80 @@
+/*-----------  Home Page  -----------*/
+
+body.index
+
+  .home-hero,
+  .home-wrapup
+    text-align: center
+    box-shadow: inset $shadow
+    @include full-bg('bg-blurry.jpg')
+
+    .button
+      font-size: 145%
+      box-shadow: $shadow
+
+  .home-hero
+    padding-bottom: 9em
+
+    p
+      color: $gray
+      font-size: 1.15em
+
+  .home-wrapup
+    padding-top: 5em
+    padding-bottom: 5em
+
+    .button
+      margin-top: 1em
+
+  /*-----------  Marketing Section  -----------*/
+
+  .home-marketing
+    text-align: center
+    border-top: $border
+    border-bottom: $border
+    border-width: 2px
+
+    .panel-wrapper
+      margin-top: -8em
+      margin-bottom: 4em
+
+    .marketing-wrapper
+      margin: 0 auto
+      @include clearfix()
+
+      .marketing-block
+        width: 48%
+        text-align: left
+        margin-bottom: 2em
+        @include inline-block()
+
+        &:nth-child(odd)
+          float: left
+          clear: both
+
+        &:nth-child(even)
+          float: right
+
+        .marketing-text,
+        .marketing-image
+          @include inline-block()
+
+        .marketing-image
+          width: 22%
+          height: 0
+          border: $border
+          overflow: hidden
+          margin-right: 5%
+          border-radius: 10em
+          padding-bottom: 22%
+          background-color: $white
+          @include full-bg()
+
+        .marketing-text
+          width: 73%
+          font-size: 90%
+
+        @include media($middleBreak)
+          width: 100%
+          float: none
+          margin-bottom: 3em

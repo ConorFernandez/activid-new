@@ -1,0 +1,55 @@
+/*-----------  Project Checkout  -----------*/
+
+body.projects_create_checkout
+
+  form
+    text-align: left
+    @include panel() 
+
+  table
+    width: 100%
+
+    td:last-child
+      text-align: right
+      font-size: 1.25em
+
+      strong
+        font-size: 1.25em
+
+  /*-----------  Credit Card Layout  -----------*/
+
+  .cc-exp,
+  .cc-ccv
+    width: 33%
+    margin-right: 3%
+    @include inline-block()
+
+  .cc-logo
+    width: 18%
+    @include inline-block()
+
+  .total-block
+    margin: -0.75em 0
+    text-align: right
+
+    #{$all-headers}
+      margin: 0 0 0 0.25em
+      @include inline-block(baseline)
+
+  /*-----------  Bottom Buttons  -----------*/
+
+  .button-wrapper
+
+    .button
+      margin-left: 0.5em   
+
+    a:not(.button)
+      font-style: italic
+      line-height: 2.25em
+
+      &:hover
+        color: $blue
+        text-decoration: underline
+
+    a
+      float: right !important

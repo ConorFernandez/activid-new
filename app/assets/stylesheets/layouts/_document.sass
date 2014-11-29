@@ -1,0 +1,73 @@
+/*-----------  Body  -----------*/
+
+*, *:after, *:before
+  @include box-sizing(border-box)
+
+html,
+body
+  margin: 0
+  padding: 0
+  width: 100%
+  height: 100%
+
+body
+  color: $grayDark
+  font-size: $emBase
+  letter-spacing: 0.05em
+  @include antialiased()
+  @include body-font()
+
+/*-----------  temporary Impersonation Bar  -----------*/
+
+.tmp-impersonation
+  font-size: 0.85em
+  padding: 0.67em 1.5em
+  background-color: $black
+
+  span
+    color: $white
+    font-style: italic
+    padding-right: 1.5em
+
+  a
+    color: $white
+    margin-right: 0.75em
+    padding-right: 0.75em
+    border-right: 1px solid $gray
+
+    &:last-child
+      border-right: 0
+
+    &:hover
+      color: $blueLight
+
+/*-----------  Global Wrapper  -----------*/
+
+.global-wrapper
+  position: relative
+  background-color: $grayLighter
+
+  @include media($tabletBreak)
+    top: 0
+    right: 0
+    width: 100%
+    height: 100%
+    position: fixed
+    overflow-x: hidden
+    overflow-y: scroll
+    -webkit-overflow-scrolling: touch
+    @include transition(right 0.33s ease-in-out)
+
+    &.mobile-menu-active
+      right: 15em  
+      box-shadow: 0 0 3em rgba(0,0,0,0.5)
+
+      .mobile-menu-trigger
+        color: $blue !important
+
+/*-----------  Global Content  -----------*/
+
+.global-content
+
+  > section
+    @include full-span($gutterLg $gutter)

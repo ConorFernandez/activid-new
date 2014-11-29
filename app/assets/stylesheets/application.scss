@@ -1,0 +1,39 @@
+//= require 'normalize-rails'
+//= require_self
+
+//-----------  External Libraries  -----------//
+
+@import 'bourbon';                    // Mixin Library (http://bourbon.io)
+@import 'neat';                       // Bourbon Grid & Media Query Extension Library (http://neat.bourbon.io)
+
+//-----------  Application Settings  -----------//
+
+@import 'settings/variables';         // Global Variables & Settings
+@import 'settings/mixins';            // Additional Custom Mixins
+@import 'settings/fonts';             // Custom Font & Typeface Settings & Mixins
+@import 'settings/structure';         // Sturctural Settings & Mixins
+
+//-----------  HTML Elements  -----------//
+
+@import 'elements/*';                 // Standard HTML Elements 
+@import 'elements/forms/*';           // HTML Form Elements & Buttons
+
+//-----------  Custom Components  -----------//
+
+@import 'components/panel';           // Panel Component
+@import 'components/*';               // Reusable Components
+
+//-----------  Page Layouts  -----------//
+
+@import 'layouts/common';             // Common Layout Blocks
+@import 'layouts/document';           // Document Layouts
+@import 'layouts/global/*';           // Global Layouts (header, footer, etc)
+
+@import 'layouts/editor/*';           // Editor Screen
+@import 'layouts/admin/*';            // Admin Screen
+
+@import 'layouts/pages/*';            // Static Pages
+@import 'layouts/devise/*';           // User Authentication Screens
+
+@import 'layouts/projects/*';         // Project Screens
+

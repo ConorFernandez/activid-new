@@ -1,0 +1,23 @@
+/*-----------  Discussion  -----------*/
+
+.discussion-block
+  margin-bottom: 2em
+  @include clearfix()
+
+  .discussion-title
+    float: left
+    font-size: 1.15em
+    font-style: italic
+
+  .discussion-timestamp
+    color: $gray
+    float: right
+    font-size: 0.9em
+    line-height: 128%
+
+  .discussion-content
+    clear: both
+    padding-top: 0.75em
+
+  textarea + .button
+    float: right

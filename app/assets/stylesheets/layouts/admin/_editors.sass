@@ -1,0 +1,47 @@
+/*-----------  Editors List  -----------*/
+
+body.editor_single
+
+  .editor-block
+
+    header
+
+      a
+        pointer-events: none
+
+  /*-----------  History Lists  -----------*/
+
+  .history-list
+    width: 100%
+    margin-bottom: 1em
+    @include inline-block(top)
+
+    h6
+      margin-bottom: 0.67em
+
+    small
+      font-style: italic
+      margin-left: 0.25em
+
+    ul
+      margin: 0
+      padding: 0
+
+      li
+        font-size: 0.9em
+        margin-bottom: 0.5em
+        @include ellipsis()
+    
+        small
+          float: right
+
+        a
+          font-style: italic
+          
+          &:hover
+            color: $blue
+
+    &:last-child
+      margin-right: 0
+      margin-bottom: 0s
+

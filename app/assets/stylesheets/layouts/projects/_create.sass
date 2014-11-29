@@ -1,0 +1,79 @@
+/*-----------  Project Creation  -----------*/
+
+body.projects_create
+
+  form
+    margin: 0 auto 4em
+    @include panel()
+
+    #{$all-headers}
+      margin-top: 2rem
+
+    p
+      color: $gray
+      font-size: 0.9em
+
+      i.icon-attention
+        color: darkgoldenrod
+        margin-right: 0.33em
+
+    > *:first-child
+      margin-top: 0
+
+    .input-group
+      width: 50%
+      @include inline-block()
+
+      &:nth-child(odd)
+        padding-right: 1em
+
+      &:nth-child(even)
+        padding-left: 1em
+
+      @include media($middleBreak)
+        width: 100%
+        padding-left: 0 !important
+        padding-right: 0 !important
+
+    input + label
+      display: block
+      text-align: left
+      margin: 1em 0 2em
+      white-space: normal
+
+    small
+      clear: both
+      display: block
+      max-width: 25em
+      margin: 0 auto 1.5em
+
+  /*-----------  Music Selections  -----------*/
+
+  .music-wrapper
+    height: 10em
+    overflow: scroll
+    margin: 0 auto 2em
+    @include panel(1px, 1em)
+
+    .music-block
+
+      label
+        width: 100%
+        display: block
+        margin: 0.2em 0
+
+        i
+          margin: 0 0.3em
+          font-size: 0.75em
+
+  /*-----------  Bottom Buttons  -----------*/
+
+  .button-wrapper
+    margin-top: 1em
+    @include clearfix()
+
+    *:first-child
+      float: left
+
+    *:last-child
+      float: right        

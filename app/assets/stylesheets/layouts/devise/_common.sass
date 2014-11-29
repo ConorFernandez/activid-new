@@ -1,0 +1,45 @@
+/*-----------  Devise Screens  -----------*/
+
+body.login_index,
+body.signup_index,
+body.login_password
+
+  .global-content
+    box-shadow: inset $shadow
+    @include full-bg('bg-blurry.jpg')
+
+  form
+    margin-top: 3em
+    margin-bottom: 3em
+    text-align: center
+    box-shadow: $shadow
+    max-width: $blockWidth
+    @include panel(0)
+
+    p
+      color: $gray
+      font-size: 0.9em
+      margin: -1.75em 1.5em 2em
+
+    #{$all-headers}
+      margin-bottom: 2rem
+
+    #{$all-buttons}
+      float: right
+      margin-top: 2rem
+
+    .devise-links
+      float: left
+      margin-top: 2rem
+
+      a
+        color: $gray
+        display: block
+        font-size: 80%
+        line-height: 150%
+        text-align: left
+        font-style: italic
+
+        &:hover
+          color: $blue
+          text-decoration: underline

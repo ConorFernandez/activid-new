@@ -1,0 +1,47 @@
+/*-----------  Mobile Menu  -----------*/
+
+.global-mobile-menu
+  height: 100%
+  color: $white
+  display: none
+
+  @include media($tabletBreak)
+    top: 0
+    right: 0
+    bottom: 0
+    width: 100%
+    height: 100%
+    float: right
+    display: block
+    overflow: hidden
+    background-color: darken($black, 3%)
+    -webkit-overflow-scrolling: touch
+
+    ul
+      opacity: 0
+      width: 15em
+      float: right
+      text-align: right
+      margin-right: -$gutter
+      @include transition(all 0.33s ease-in-out)
+
+      li
+        display: block
+        text-align: left
+        border-bottom: 1px solid rgba($white, 0.05)
+
+        a
+          color: $white
+          display: block
+          font-size: 0.9em
+          padding: 1em 1.25em
+          text-decoration: none
+          text-transform: uppercase
+          @include antialiased()
+
+          &:hover
+            color: $blue
+
+    &.mobile-menu-active ul
+      opacity: 1
+      margin-right: 0

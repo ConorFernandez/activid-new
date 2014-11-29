@@ -1,0 +1,47 @@
+/*-----------  Longtext  -----------*/
+
+.longtext
+  overflow: hidden
+  position: relative
+  max-height: 11.25em
+  padding-bottom: 1.5em
+  @include transition()
+
+  &:before,
+  &:after
+    left: 0
+    bottom: 0
+    content: ''
+    width: 100%
+    position: absolute
+    @include transition()
+
+  &:before
+    content: ''
+    height: 4.5em
+    @include background-image(linear-gradient(to top, rgba($white, 1) 33%, rgba($white, 0)))
+
+  &:after
+    color: $blue
+    font-size: 0.75em
+    content: 'Show All'
+    font-style: italic
+    padding-top: 0.75em
+    background-color: $white
+    text-decoration: underline
+
+  /*-----------  Hover  -----------*/
+  
+  &:hover:after
+    color: $blueDark
+    cursor: pointer
+
+  /*-----------  Revealed State  -----------*/
+
+  &.revealed
+
+    &:before
+      bottom: -4.5em
+
+    &:after
+      content: 'Show Less'

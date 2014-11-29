@@ -1,0 +1,75 @@
+/*-----------  Project Blocks  -----------*/
+
+.project-block
+  margin-bottom: 2em
+  @include panel(1px, $gutterSm)
+  
+  header
+
+    #{$all-headers}
+      margin: 0 
+
+    .project-status
+      right: $gutterSm
+      font-style: italic
+      @include vertical-align(absolute)
+
+  /*-----------  Meta Blocks  -----------*/
+
+  .project-meta
+    margin-bottom: 0.5em
+
+  /*-----------  Listing Overview  -----------*/
+
+  .project-overview
+    @include justify-content(space-between)
+    @include align-items(flex-start)
+    @include display(flex)
+
+    > *
+      @include flex(1 0 auto)
+
+  /*-----------  Alert Panel  -----------*/
+
+  .alert-wrapper
+    position: relative
+    padding: $gutterSm
+    background-color: $blueLight
+    margin: (-$gutterSm) (-$gutterSm) $gutterSm (-$gutterSm)    
+
+    .thumbnail-block
+      margin-right: $gutterSm
+
+    /*-----------  Awaiting Cut  -----------*/
+  
+    &.waiting
+      text-align: center
+      padding-top: $gutterLg
+      padding-bottom: $gutterLg
+
+    /*-----------  Submitted & Needs Approval  -----------*/
+  
+    &.approval
+
+      .thumbnail-block
+        vertical-align: bottom
+
+      .button
+        margin-right: 2em
+
+      a
+        color: $blueDark
+        font-size: 0.85em
+        font-style: italic
+        border-bottom: 1px solid rgba($blue, 0)
+
+        &:hover
+          border-bottom-color: $blue
+
+      span
+        position: absolute
+
+        &.alert
+          color: $red
+          right: $gutterSm
+          font-style: italic

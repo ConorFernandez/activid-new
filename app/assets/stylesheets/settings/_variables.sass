@@ -1,0 +1,57 @@
+/*-----------  Colors  -----------*/
+
+$white        : #FFFFFF
+
+$grayLightest : #F8F8F6
+$grayLighter  : #F6F5F1
+$grayLight    : #E6E4DC
+$gray         : #928F82
+$grayDark     : #5A5852
+$grayDarker   : #2B2A27
+
+$black        : $grayDarker
+
+$blueLight    : #b0e4e8
+$blue         : #36B1B9
+$blueDark     : #2C9AA1
+
+$red          : #EE0011
+
+/*-----------  Social Colors  -----------*/
+
+$twitter      : rgb(  0, 172, 237)
+$facebook     : rgb( 59,  89, 152)
+$linkedin     : rgb(  0, 123, 182)
+$pinterest    : rgb(203,  32,  39)
+$google       : rgb(221,  75,  57)
+
+/*-----------  Sizing  -----------*/
+
+$emBase       : 18px
+
+$maxWidth     : 78em
+$smallWidth   : 32em
+$blockWidth   : 52em
+
+$gutter       : 2em
+$gutterSm     : $gutter / 1.75
+$gutterLg     : $gutter * 1.75
+
+/*-----------  Styling Defaults  -----------*/
+
+$border       : 1px solid $grayLight
+$shadow       : 3px 3px 12px rgba(0,0,0,0.05)
+
+/*-----------  Animations  -----------*/
+
+@include keyframes(spin)
+  from
+    @include transform(rotate(0deg))
+  to 
+    @include transform(rotate(-360deg))
+
+@include keyframes(barberpole)
+  from
+    background-position: 0 0
+  to
+    background-position: 80px 40px

@@ -1,0 +1,87 @@
+/*-----------  Header  -----------*/
+
+.global-header
+  border-bottom: $border
+  background-color: $white
+  @include full-span(1.25em $gutter)
+  border-width: 2px
+
+  /*-----------  Header Logo  -----------*/
+
+  .header-logo
+    float: left
+    width: 18em
+
+    .mobile-menu-trigger
+      top: 1px
+      right: 0
+      z-index: 1000
+      display: none
+      cursor: pointer
+      color: $grayLight
+      font-size: 2.75em
+      position: absolute
+      @include transform(rotate(90deg))
+      @include transition()
+
+      &:before
+        margin-right: 0
+
+    @include media($tabletBreak)
+      float: none
+      width: 100%
+
+      .mobile-menu-trigger
+        top: 0.36em
+        right: 0.2em
+        display: block
+
+    @include media($mobileBreak)
+
+      .mobile-menu-trigger
+        top: 0.46em
+        font-size: 2.5em
+
+  /*-----------  Header Navigation  -----------*/
+
+  .header-navigation
+    text-align: right
+
+    > a:not(.button),
+    .dropdown-wrapper > a
+      color: $gray
+      font-size: 0.85em
+      margin-left: 1.5em
+      line-height: 2.5625rem
+      @include inline-block()
+
+      &:hover
+        color: $blue
+
+      &.active
+        color: $blueDark
+        pointer-events: none
+
+    .button
+      font-size: 0.85em
+      margin-left: 1.5em
+
+    .dropdown-wrapper
+      color: $grayDark
+      position: relative
+
+      i
+        top: 3px
+        color: $gray
+        padding-right: 0
+        position: relative
+
+      &:before
+        width: 100%
+
+      &:hover i,
+      &.activated i
+        color: $grayDark
+
+    @include media($tabletBreak)
+      display: none
