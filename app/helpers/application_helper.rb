@@ -6,4 +6,8 @@ module ApplicationHelper
       projects_path
     end
   end
+
+  def page_classes
+    ""
+  end
 end
