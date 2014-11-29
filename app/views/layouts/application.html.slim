@@ -19,7 +19,7 @@ html
     javascript:
       try{Typekit.load();}catch(e){}
 
-  body class="#{page_classes} #{(@project ? 'project_single' : '')} #{(@editor ? 'editor_single' : '')}"
+  body class=page_classes
     = render "shared/modals/sign_up"
     = render "shared/modals/sign_in"
 

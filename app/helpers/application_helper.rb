@@ -10,4 +10,13 @@ module ApplicationHelper
   def page_classes
     params[:action]
   end
+
+  def add_page_class(klass)
+    @page_classes ||= []
+    @page_classes << klass
+  end
+
+  def page_classes
+    (@page_classes || []).uniq.join(" ")
+  end
 end

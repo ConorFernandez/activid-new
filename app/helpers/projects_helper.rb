@@ -40,6 +40,6 @@ module ProjectsHelper
       content = link_to step_name, step_path
     end
 
-    "<li style=\"display: inline-block; margin-right: 1em\">#{content}</li>".html_safe
+    "<div class=\"step-block#{' selected' if active}\">#{content}</div>".html_safe
   end
 end
