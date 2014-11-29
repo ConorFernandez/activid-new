@@ -1,33 +1,26 @@
 <script id="sign-up-modal-template" type="text/x-handlebars-template">
-  <div class="modal-wrapper">
+  <div class="modal-wrapper sign-up-modal">
     <div class="modal-block">
-      <h1>Sign Up</h1>
+      <section>
+        <div class="compact-wrapper">
+          <%= form_tag user_registration_path(format: :json), {"data-post-sign-up-path" => post_sign_in_modal_path} do |f| %>
+            <h4>Create an account</h4>
+            <p>Creating an account allows you to save your work and complete your order</p>
 
-      <div class="errors"></div>
+            <div class="errors"></div>
 
-      <%= form_tag user_registration_path(format: :json), {"data-post-sign-up-path" => post_sign_in_modal_path} do |f| %>
-        <p>
-          <%= label_tag :user_email, "Email address" %>
-          <br>
-          <%= text_field_tag "user[email]"  %>
-        </p>
+            <%= text_field_tag "user[email]", nil, placeholder: "Email Address" %>
+            <%= password_field_tag "user[password]", nil, placeholder: "Password" %>
+            <%= password_field_tag "user[password_confirmation]", nil, placeholder: "Password Confirmation" %>
 
-        <p>
-          <%= label_tag :user_password, "Password" %>
-          <br>
-          <%= password_field_tag "user[password]" %>
-        </p>
+            <button class="submit">Sign Up</button>
 
-        <p>
-          <%= label_tag :user_password_confirmation, "Password confirmation" %>
-          <br>
-          <%= password_field_tag "user[password_confirmation]" %>
-        </p>
-
-        <button class="submit">Sign Up</button>
-      <% end %>
-
-      <p><a class="sign-in" href="#">Already have an account?</a></p>
+            <div class="devise-links">
+              <a class="sign-in" href="#">Already have an account?</a>
+            </div>
+          <% end %>
+        </div>
+      </section>
     </div>
   </div>
 </script>

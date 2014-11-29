@@ -28,7 +28,7 @@ class @SignUpModal extends Modal
     errorStrings = Object.keys(errors).map (key) ->
       " #{key} #{errors[key][0]}"
 
-    @$modal.find(".errors").html(errorStrings.toString())
+    @$modal.find(".errors").html("error: " + errorStrings.toString())
 
   _bindLinks: ->
     @$modal.find("a.sign-in").click (e) =>

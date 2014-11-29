@@ -1,0 +1,15 @@
+- add_page_class :projects_create
+
+section
+  .compact-wrapper
+    = render "step_navigation", project: @project, step: 3
+
+    = form_for @project do |f|
+      h5 Choose from our music
+      p Including music is optional, but we make it easy by providing some.
+
+      = hidden_field_tag :step, 3
+
+      .button-wrapper
+        = link_to "< Back", project_step2_path(@project), :class => "button alt"
+        = f.submit "Checkout >", class: "alt"

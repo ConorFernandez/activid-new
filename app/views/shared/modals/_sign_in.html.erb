@@ -1,26 +1,23 @@
 <script id="sign-in-modal-template" type="text/x-handlebars-template">
-  <div class="modal-wrapper">
+  <div class="modal-wrapper sign-in-modal">
     <div class="modal-block">
-      <h1>Sign In</h1>
-      <div class="errors"></div>
+      <section>
+        <div class="compact-wrapper">
+          <%= form_tag user_session_path(format: :json), {"data-post-sign-in-path" => post_sign_in_modal_path} do |f| %>
+            <h4>Sign In</h4>
+            <div class="errors"></div>
 
-      <%= form_tag user_session_path(format: :json), {"data-post-sign-in-path" => post_sign_in_modal_path} do |f| %>
-        <p>
-          <%= label_tag :user_email, "Email address" %>
-          <br>
-          <%= text_field_tag "user[email]"  %>
-        </p>
+            <%= text_field_tag "user[email]", nil, placeholder: "Email Address" %>
+            <%= password_field_tag "user[password]", nil, placeholder: "Password" %>
 
-        <p>
-          <%= label_tag :user_password, "Password" %>
-          <br>
-          <%= password_field_tag "user[password]" %>
-        </p>
+            <button class="submit">Sign In</button>
 
-        <button class="submit">Sign In</button>
-      <% end %>
-
-      <p><a class="sign-up" href="#">Don't have an account yet?</a></p>
+            <div class="devise-links">
+              <a class="sign-up" href="#">Create an account</a>
+            </div>
+          <% end %>
+        </div>
+      </section>
     </div>
   </div>
 </script>
