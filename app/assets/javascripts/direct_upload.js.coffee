@@ -2,19 +2,21 @@ dU =
   addFileUpload: ->
     form = $("form.direct-upload")
     fileUpload = $("<input>", type: "file")
-    container = $("<div>", class: "file-upload")
+    container = $("<div>", class: "upload-block-placeholder")
 
     $.get "/projects/presigned_post", (data, status) ->
-      container.append(fileUpload).appendTo(form.find(".file-upload-area"))
+      container.append(fileUpload).insertBefore(form.find(".upload-wrapper footer"))
       dU.attachFileUpload(fileUpload, data)
 
   attachFileUpload: (fileInput, presignedPost) ->
     form = $(fileInput.parents("form:first"))
-    uploadContainer = $(fileInput.parents(".file-upload:first"))
+    uploadContainer = $(fileInput.parents(".upload-block-placeholder:first"))
+
     submitButton = form.find("input[type=\"submit\"]")
-    progressBar = $("<div>", class: "bar")
-    barContainer = $("<div>", class: "progress").append(progressBar)
-    fileInput.after barContainer
+    progressBar = $("<span>")
+    barContainer = $("<div>", class: "upload-progress").append(progressBar)
+    actionsContainer = $("<div>", class: "upload-actions").append(barContainer)
+
     fileInput.fileupload
       fileInput: fileInput
       url: presignedPost.post_url
@@ -27,16 +29,23 @@ dU =
 
       progressall: (e, data) ->
         progress = parseInt(data.loaded / data.total * 100, 10)
-        progressBar.css "width", progress + "%"
+        progressBar.css("width", progress + "%")
 
       start: (e) ->
+        # add element to be used by the next file upload
         dU.addFileUpload()
-        submitButton.prop "disabled", true
-        progressBar.css("background", "green").css("display", "block").css("width", "0%").text("Uploading...")
+
+        parts = e.target.value.split("\\")
+        fileName = parts[parts.length - 1]
+        uploadContainer.prepend($("<h6>", html: fileName))
+
+        uploadContainer.addClass("upload-block")
+
+        submitButton.prop("disabled", true)
+        progressBar.css("width", "0%")
+        fileInput.after(actionsContainer)
 
       done: (e, data) =>
-        progressBar.text("Uploading done")
-
         # extract key and generate URL from response
         key = $(data.jqXHR.responseXML).find("Key").text()
         url = "//#{presignedPost.remote_host}/#{key}"
@@ -50,8 +59,7 @@ dU =
             submitButton.prop("disabled", false)
 
       fail: (e, data) ->
-        submitButton.prop "disabled", false
-        progressBar.css("background", "red").text "Failed"
+        uploadContainer.remove()
 
 $ ->
   if $("form.direct-upload").length > 0

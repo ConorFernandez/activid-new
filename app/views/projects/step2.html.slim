@@ -1,0 +1,27 @@
+- add_page_class :projects_create
+
+section
+  .compact-wrapper
+    = render "step_navigation", project: @project, step: 2
+
+    = form_for @project, html: {class: "direct-upload"} do |f|
+      = hidden_field_tag :step, 2
+
+      h5 Upload files from your computer
+      p Add video or images - any type, no size limit!
+
+      .upload-wrapper
+        - @project.file_uploads.each do |file_upload|
+          .upload-block
+            h6= file_upload.file_name
+            = hidden_field_tag "file_upload_uuids[]", file_upload.uuid
+
+        footer
+          button.add-file Choose file
+
+      small Tip 1: When uploading video files, make sure you're on a strong internet connection.
+      small Tip 2: The files might take some time to upload. You can leave this page open, set your computer to never enter sleep mode, and come back when they're done!
+
+      .button-wrapper
+        = link_to "< Back", project_step1_path(@project), :class => "button alt"
+        = f.submit "Select Music >", class: "alt"
