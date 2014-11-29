@@ -1,0 +1,60 @@
+- add_page_class :projects_create
+- add_page_class :projects_create_checkout
+
+- unless current_user
+  javascript:
+    new SignUpModal({inescapable: true}).open()
+
+section
+  .compact-wrapper
+    = render "step_navigation", project: @project, step: 4
+
+    = form_for @project, html: {class: "checkout"} do |f|
+      = hidden_field_tag :step, 4
+
+      table
+        tr
+          td= "Video Type: #{@project.category_name}"
+          td= number_to_currency @project.category_cost
+        tr
+          td= "Desired Length: #{@project.desired_length_name}"
+          td= @project.desired_length_cost == 0 ? "-" : number_to_currency(@project.desired_length_cost)
+        tr
+          td Uploaded Footage:
+          td= "-"
+        tr
+          td
+            .select-wrapper= f.select :turnaround, options_for_turnaround
+          td= "-"
+        tr
+          td
+            .select-wrapper= f.select :watermark, options_for_watermark
+          td= "-"
+
+      hr
+
+        .payment-errors
+
+        .cc-card
+          input type="text" placeholder="Credit Card Number" data-stripe="number"
+
+        .cc-exp
+          input type="text" placeholder="mm/yyyy" id="stripe-exp"
+          input type="hidden" id="stripe-exp-year" data-stripe="exp-year"
+          input type="hidden" id="stripe-exp-month" data-stripe="exp-month"
+
+        .cc-ccv
+          input type="text" placeholder="CVC" data-stripe="cvc"
+
+        .cc-logo= image_tag("stripe.png")
+
+        p Don't worry, your credit card won't be charged until you're 100% satisfied with your video.
+
+      footer
+        .total-block
+          h5 Total:
+          h3 $100
+
+        .button-wrapper
+          = f.submit 'Post Project', :class => 'alt'
+          = link_to 'Post project later', projects_path
