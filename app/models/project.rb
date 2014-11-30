@@ -55,7 +55,7 @@ class Project < ActiveRecord::Base
     if price.nil?
       :draft
     else
-      :submitted
+      :waiting_for_editor
     end
   end
 
@@ -67,6 +67,10 @@ class Project < ActiveRecord::Base
     ]
 
     costs.sum * 100
+  end
+
+  def cache_price
+    update(price: calculated_price)
   end
 
   private

@@ -119,4 +119,18 @@ class ProjectsControllerTest < ActionController::TestCase
 
     assert_equal token, project.reload.payment_method.token
   end
+
+  test "checkout caches price on project and updates status" do
+    project = projects(:has_files)
+    token = "asdf1234"
+
+    assert_equal nil, project.price
+
+    put :update, id: project.uuid, step: 4, payment_method_token: token
+
+    project.reload
+
+    assert_equal :waiting_for_editor, project.status
+    assert_not_equal nil, project.price
+  end
 end
