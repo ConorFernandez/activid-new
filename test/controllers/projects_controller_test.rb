@@ -16,6 +16,24 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_redirected_to project_step2_path(project)
   end
 
+  test "POST create assigns project to current_user" do
+    user = users(:joey)
+    sign_in user
+
+    data = {
+      name: "My Project",
+      category: Project::CATEGORIES.keys.first,
+      desired_length: Project::LENGTHS.keys.first,
+      instructions: "None"
+    }
+
+    post :create, step: 1, project: data
+
+    project = Project.last
+
+    assert_equal user, project.user
+  end
+
   test "PUT update attaches file upload objects" do
     project = projects(:no_files)
     files = [file_uploads(:three), file_uploads(:four)]

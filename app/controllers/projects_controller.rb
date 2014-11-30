@@ -14,6 +14,7 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
 
     if @project.save
+      @project.update(user: current_user) if current_user.present?
       redirect_to next_step_path(@project)
     else
       render current_step_action
