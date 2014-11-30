@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141126220223) do
+ActiveRecord::Schema.define(version: 20141130233309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20141126220223) do
     t.boolean  "watermark",            default: true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "submitted_at"
   end
 
   add_index "projects", ["uuid"], name: "index_projects_on_uuid", using: :btree

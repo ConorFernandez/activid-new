@@ -1,22 +1,22 @@
 class Project < ActiveRecord::Base
   CATEGORIES = {
-    vacation:    {name: "Vacation", cost: 95},
+    vacation:    {name: "Vacation",    cost: 95},
     kickstarter: {name: "Kickstarter", cost: 195},
-    sports:      {name: "Sports", cost: 95},
-    weddings:    {name: "Weddings", cost: 329}
+    sports:      {name: "Sports",      cost: 95},
+    weddings:    {name: "Weddings",    cost: 329}
   }
 
   LENGTHS = {
-    two_three:  {name: "2-3 minutes", cost: 0},
-    three_five: {name: "3-5 minutes", cost: 0},
-    five_ten:   {name: "5-10 minutes", cost: 39},
+    two_three:  {name: "2-3 minutes",   cost: 0},
+    three_five: {name: "3-5 minutes",   cost: 0},
+    five_ten:   {name: "5-10 minutes",  cost: 39},
     ten_twenty: {name: "10-20 minutes", cost: 79}
   }
 
   TURNAROUNDS = {
-    seven_day: {name: "7-Day Turnaround", cost: 0},
-    five_day:  {name: "5-Day Turnaround", cost: 20},
-    three_day: {name: "3-Day Turnaround", cost: 30}
+    seven_day: {name: "7-Day Turnaround", cost: 0,  time: 7.days},
+    five_day:  {name: "5-Day Turnaround", cost: 20, time: 5.days},
+    three_day: {name: "3-Day Turnaround", cost: 30, time: 3.days}
   }
 
   belongs_to :user
@@ -51,11 +51,23 @@ class Project < ActiveRecord::Base
     LENGTHS[desired_length.try(:to_sym)].try(:[], :cost) || 0
   end
 
+  def cut_due_at
+    turnaround_time = TURNAROUNDS[turnaround.try(:to_sym)].try(:[], :time)
+
+    return false unless turnaround_time && submitted_at && needs_cut?
+
+    submitted_at + turnaround_time
+  end
+
+  def needs_cut?
+    [:submitted, :in_progress].include?(status)
+  end
+
   def status
     if price.nil?
       :draft
     else
-      :waiting_for_editor
+      :submitted
     end
   end
 
@@ -69,8 +81,8 @@ class Project < ActiveRecord::Base
     costs.sum * 100
   end
 
-  def cache_price
-    update(price: calculated_price)
+  def submit
+    update(price: calculated_price, submitted_at: Time.now)
   end
 
   private

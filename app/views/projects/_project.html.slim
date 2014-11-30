@@ -9,16 +9,17 @@
     .project-meta-wrapper
 
       /-----------  Cut Status  -----------/
-      .project-meta
-          | Cut due by:
-          span n/a
+      - if project.cut_due_at
+        .project-meta
+          | Cut due in:
+          span= "#{distance_of_time_in_words_to_now(project.cut_due_at)}#{project.cut_due_at < Time.now ? ' ago' : nil}"
 
       /-----------  Total Earnings  -----------/
       - if current_role == :admin
         .project-meta
           | Payment: 
           - if project.price
-            span= "#{project.price} ($60 editor / $80 Activid)"
+            span= "#{number_to_currency(project.price / 100)} ($60 editor / $80 Activid)"
           - else
             span n/a
 
@@ -41,10 +42,10 @@
             | Final payment amount:
           - else
             | Payment due upon approval:
-          span= project.price || 'n/a'
+          span= number_to_currency(project.price / 100) || 'n/a'
 
       /-----------  Assigned Editor  -----------/
-      - unless current_role == :editor || [:created, :waiting_for_editor].include?(project.status)
+      - unless current_role == :editor || [:created, :submitted].include?(project.status)
         .project-meta
           | Assigned editor:
           span

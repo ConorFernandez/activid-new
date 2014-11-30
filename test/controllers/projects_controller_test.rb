@@ -130,7 +130,20 @@ class ProjectsControllerTest < ActionController::TestCase
 
     project.reload
 
-    assert_equal :waiting_for_editor, project.status
+    assert_equal :submitted, project.status
     assert_not_equal nil, project.price
+  end
+
+  test "checkout sets submitted_at" do
+    project = projects(:has_files)
+    token = "asdf1234"
+
+    assert_equal nil, project.submitted_at
+
+    put :update, id: project.uuid, step: 4, payment_method_token: token
+
+    project.reload
+
+    assert_not_equal nil, project.submitted_at
   end
 end

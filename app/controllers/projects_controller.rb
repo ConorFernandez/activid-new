@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_filter :load_project, only: [:show, :update, :step1, :step2, :step3, :step4]
+  before_filter :ensure_project_is_editable, only: [:update, :step1, :step2, :step3, :step4]
   before_filter :authenticate_user!, only: :index
 
   def new
@@ -26,7 +27,7 @@ class ProjectsController < ApplicationController
       @project.update(user: current_user) if @project.user.nil? && current_user.present?
       attach_file_uploads(@project)       if current_step == 2
       attach_payment_method(@project)     if params[:payment_method_token].present?
-      @project.cache_price                if current_step == 4 && @project.payment_method.present?
+      @project.submit                     if current_step == 4 && @project.payment_method.present?
 
       redirect_to next_step_path(@project)
     else
@@ -56,6 +57,10 @@ class ProjectsController < ApplicationController
 
   def load_project
     @project = Project.where(uuid: params[:id]).first
+  end
+
+  def ensure_project_is_editable
+    raise ActiveRecord::RecordNotFound unless @project.status == :draft
   end
 
   def next_step_path(project)
