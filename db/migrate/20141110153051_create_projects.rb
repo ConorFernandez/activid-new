@@ -1,7 +1,7 @@
 class CreateProjects < ActiveRecord::Migration
   def change
     create_table :projects do |t|
-      t.integer :user_id, :payment_method_id
+      t.integer :user_id, :payment_method_id, :price
       t.string :uuid
       t.string :name, :category, :desired_length, :turnaround
       t.text :instructions

@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_filter :load_project, only: [:update, :step1, :step2, :step3, :step4]
+  before_filter :load_project, only: [:show, :update, :step1, :step2, :step3, :step4]
   before_filter :authenticate_user!, only: :index
 
   def new

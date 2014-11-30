@@ -51,6 +51,14 @@ class Project < ActiveRecord::Base
     LENGTHS[desired_length.try(:to_sym)].try(:[], :cost) || 0
   end
 
+  def status
+    if price.nil?
+      :pending
+    else
+      :submitted
+    end
+  end
+
   private
 
   def generate_uuid

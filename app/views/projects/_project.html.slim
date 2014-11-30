@@ -1,0 +1,85 @@
+.project-block
+
+  header
+    h5= project.name
+    .project-status= project.status.to_s.titleize
+
+  .project-overview
+
+    .project-meta-wrapper
+
+      /-----------  Cut Status  -----------/
+      .project-meta
+          | Cut due by:
+          span n/a
+
+      /-----------  Total Earnings  -----------/
+      - if role == :admin
+        .project-meta
+          | Payment: 
+          - if project.price
+            span= "#{project.price} ($60 editor / $80 Activid)"
+          - else
+            span n/a
+
+      /-----------  Editor Earnings  -----------/
+      - if role == :editor
+        .project-meta
+          | Editor Earnings:
+          span $60
+
+      /-----------  Customer  -----------/
+      - unless role == :user
+        .project-meta
+          | Customer:
+          span= project.user.email
+
+      /-----------  Payment Amount  -----------/
+      - if role == :user
+        .project-meta
+          - if project.status == :completed
+            | Final payment amount:
+          - else
+            | Payment due upon approval:
+          span= project.price || 'n/a'
+
+      /-----------  Assigned Editor  -----------/
+      - unless role == :editor || [:created, :submitted].include?(project.status)
+        .project-meta
+          | Assigned editor:
+          span
+            = image_tag 'editor-avatar.jpg'
+            = "Editor Name"
+
+    /-----------  Descriptive Meta  -----------/
+    - unless role == :user
+      .project-meta-wrapper
+
+        /-----------  Video Type -----------/
+        .project-meta
+          | Video type:
+          span= project.category_name
+
+        /-----------  Video Type -----------/
+        .project-meta
+          | Desired length:
+          span= project.desired_length_name
+
+        /-----------  Video Type -----------/
+        .project-meta
+          | Uploaded footage:
+          span= "<length here>"
+
+    /-----------  Link & Approval CTA  -----------/
+    .project-actions
+      - if role == 'user'
+        - if project.status == 'needs approval'
+          em Needs Your Approval!
+        - if project.status == :pending
+          = link_to 'finish', project_step4_path(project), :class => 'button'
+        - else
+          = link_to 'See More', project_path(project), :class => 'button'
+      - else 
+        = link_to 'See More', project_path(project), :class => 'button'
+
+

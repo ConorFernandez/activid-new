@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20141126220223) do
   create_table "projects", force: true do |t|
     t.integer  "user_id"
     t.integer  "payment_method_id"
+    t.integer  "price"
     t.string   "uuid"
     t.string   "name"
     t.string   "category"
