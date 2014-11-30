@@ -14,7 +14,7 @@
           span n/a
 
       /-----------  Total Earnings  -----------/
-      - if role == :admin
+      - if current_role == :admin
         .project-meta
           | Payment: 
           - if project.price
@@ -23,19 +23,19 @@
             span n/a
 
       /-----------  Editor Earnings  -----------/
-      - if role == :editor
+      - if current_role == :editor
         .project-meta
           | Editor Earnings:
           span $60
 
       /-----------  Customer  -----------/
-      - unless role == :user
+      - unless current_role == :user
         .project-meta
           | Customer:
           span= project.user.email
 
       /-----------  Payment Amount  -----------/
-      - if role == :user
+      - if current_role == :user
         .project-meta
           - if project.status == :completed
             | Final payment amount:
@@ -44,7 +44,7 @@
           span= project.price || 'n/a'
 
       /-----------  Assigned Editor  -----------/
-      - unless role == :editor || [:created, :submitted].include?(project.status)
+      - unless current_role == :editor || [:created, :submitted].include?(project.status)
         .project-meta
           | Assigned editor:
           span
@@ -52,7 +52,7 @@
             = "Editor Name"
 
     /-----------  Descriptive Meta  -----------/
-    - unless role == :user
+    - unless current_role == :user
       .project-meta-wrapper
 
         /-----------  Video Type -----------/
@@ -72,14 +72,14 @@
 
     /-----------  Link & Approval CTA  -----------/
     .project-actions
-      - if role == 'user'
+      - if current_role == :user
         - if project.status == 'needs approval'
           em Needs Your Approval!
         - if project.status == :pending
           = link_to 'finish', project_step4_path(project), :class => 'button'
         - else
           = link_to 'See More', project_path(project), :class => 'button'
-      - else 
+      - else
         = link_to 'See More', project_path(project), :class => 'button'
 
 
