@@ -53,10 +53,20 @@ class Project < ActiveRecord::Base
 
   def status
     if price.nil?
-      :pending
+      :draft
     else
       :submitted
     end
+  end
+
+  def calculated_price
+    costs = [
+      category_cost,
+      desired_length_cost,
+      (watermark ? 0 : 5)
+    ]
+
+    costs.sum * 100
   end
 
   private

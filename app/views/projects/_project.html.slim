@@ -75,8 +75,8 @@
       - if current_role == :user
         - if project.status == 'needs approval'
           em Needs Your Approval!
-        - if project.status == :pending
-          = link_to 'finish', project_step4_path(project), :class => 'button'
+        - if project.status == :draft
+          = link_to 'Continue Editing', project_step1_path(project), :class => 'button'
         - else
           = link_to 'See More', project_path(project), :class => 'button'
       - else
