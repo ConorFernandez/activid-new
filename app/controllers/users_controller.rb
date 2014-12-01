@@ -13,7 +13,7 @@ class UsersController < ApplicationController
       flash[:success] = "Your account has been updated."
       redirect_to projects_path
     else
-      flash.now[:error] = "There was a problem updating your account: #{@user.errors.full_messages.to_sentence.downcase}."
+      flash.now[:error] = "There was a problem updating your account: #{@user.errors.full_messages.first.downcase}."
       render action: :edit
     end
   end
@@ -21,6 +21,14 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:password, :password_confirmation)
+    user_keys = [:full_name]
+    password_keys = [:password, :password_confirmation]
+
+    if params[:user][:password].blank?
+      params.require(:user).permit(user_keys)
+    else
+      params[:user][:password_confirmation] ||= ""
+      params.require(:user).permit(user_keys + password_keys)
+    end
   end
 end

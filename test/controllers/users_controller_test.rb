@@ -1,0 +1,37 @@
+require 'test_helper'
+
+class UsersControllerTest < ActionController::TestCase
+  def setup
+    @user = users(:joey)
+  end
+
+  test "user can change name without providing password" do
+    sign_in(@user)
+
+    assert_not_equal "Sexton Hardcastle", @user.full_name
+
+    put :update, user: {full_name: "Sexton Hardcastle"}
+
+    assert_redirected_to projects_path
+    assert_equal "Sexton Hardcastle", @user.reload.full_name
+  end
+
+  test "user cannot change password without confirmation" do
+    sign_in(@user)
+
+    put :update, user: {password: "asdfasdf"}
+
+    assert_template :edit
+    assert !flash[:error].blank?
+  end
+
+  test "user can change password with confirmation" do
+    sign_in(@user)
+    old_hash = @user.encrypted_password
+
+    put :update, user: {password: "asdfasdf", password_confirmation: "asdfasdf"}
+
+    assert_redirected_to projects_path
+    assert_not_equal old_hash, @user.reload.encrypted_password
+  end
+end

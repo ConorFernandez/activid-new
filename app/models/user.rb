@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
 
   has_many :projects
 
+  validates_confirmation_of :password
+
   def role
     :user
   end

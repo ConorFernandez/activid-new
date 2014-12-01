@@ -5,7 +5,8 @@ section
     = form_for(@user, url: edit_account_path, html: { method: :put }) do |f|
       h4 Your Account
 
-      = f.password_field :password, autocomplete: "off", placeholder: "New Password (optional)"
+      = f.text_field :full_name, placeholder: "Full Name"
+      = f.password_field :password, autocomplete: "off", placeholder: "New Password (Optional)"
       = f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm New Password"
 
       = f.submit "Save"
