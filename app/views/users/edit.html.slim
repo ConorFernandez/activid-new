@@ -1,0 +1,11 @@
+- add_page_class :users_edit
+
+section
+  .compact-wrapper
+    = form_for(@user, url: edit_account_path, html: { method: :put }) do |f|
+      h4 Your Account
+
+      = f.password_field :password, autocomplete: "off", placeholder: "New Password (optional)"
+      = f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm New Password"
+
+      = f.submit "Save"

@@ -13,5 +13,8 @@ Rails.application.routes.draw do
 
   (1..4).each{ |i| get "projects/:id/step#{i}", to: "projects#step#{i}", as: "project_step#{i}" }
 
+  get "/account", to: "users#edit", as: "edit_account"
+  put "/account", to: "users#update"
+
   root "welcome#index"
 end

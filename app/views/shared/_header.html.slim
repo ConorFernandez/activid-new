@@ -19,7 +19,7 @@
     - if current_user && current_user.role == :user
       = link_to 'Start a New Project', new_project_path, :class => 'button'
       = link_to 'Projects', projects_path
-      = link_to 'Your Account', '#'
+      = link_to 'Your Account', edit_account_path
       = link_to "Log Out", destroy_user_session_path, method: :delete
 
     - elsif current_user && current_user.role == :editor
