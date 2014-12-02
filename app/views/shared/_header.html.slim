@@ -1,39 +1,39 @@
 .wide-wrapper
   .header-logo
     - if current_user && current_user.role == :user
-      = link_to '(logo)', projects_path, :alt => 'Activid', :class => 'button', :disabled => 'true'
+      = link_to "(logo)", projects_path, :alt => "Activid", :class => "button", :disabled => "true"
 
     - elsif current_user && current_user.role == :editor
-      = link_to '(logo)', '/editor/index.html', :alt => 'Activid', :class => 'button', :disabled => 'true'
+      = link_to "(logo)", "/editor/index.html", :alt => "Activid", :class => "button", :disabled => "true"
 
     - elsif current_user && current_user.role == :admin
-      = link_to '(logo)', '/admin/index.html', :alt => 'Activid', :class => 'button', :disabled => 'true'
+      = link_to "(logo)", "/admin/index.html", :alt => "Activid", :class => "button", :disabled => "true"
 
     - else
-      = link_to '(logo)', root_path, :alt => 'Activid', :class => 'button', :disabled => 'true'
+      = link_to "(logo)", root_path, :alt => "Activid", :class => "button", :disabled => "true"
 
     a.mobile-menu-trigger href="#"
       i.icon-menu
 
   nav.header-navigation
-    - if current_user && current_user.role == :user
-      = link_to 'Start a New Project', new_project_path, :class => 'button'
-      = link_to 'Projects', projects_path
-      = link_to 'Your Account', edit_account_path
+    - if current_role == "user"
+      = link_to "Start a New Project", new_project_path, :class => "button"
+      = link_to "Projects", projects_path
+      = link_to "Your Account", edit_account_path
       = link_to "Log Out", destroy_user_session_path, method: :delete
 
-    - elsif current_user && current_user.role == :editor
-      = link_to 'Projects', '/editor/index.html'
-      = link_to 'Your Account', '/editor/account.html'
-      = link_to 'Log Out', '/index.html'
+    - elsif current_role == "editor"
+      = link_to "Projects", projects_path
+      = link_to "Your Account", edit_account_path
+      = link_to "Log Out", destroy_user_session_path, method: :delete
 
-    - elsif current_user && current_user.role == :admin
-      = link_to 'Editors', '/admin/index.html'
-      = link_to 'Projects', '/admin/projects.html'
-      = link_to 'Log Out', '/index.html'
+    - elsif current_role == "admin"
+      = link_to "Editors", "/admin/index.html"
+      = link_to "Projects", "/admin/projects.html"
+      = link_to "Log Out", "/index.html"
 
     - else
       a How It Works
       a Pricing
       = link_to "Log In", "#", {class: "log-in-link"}
-      = link_to 'Get Started', new_project_path, :class => 'button'
+      = link_to "Get Started", new_project_path, :class => "button"
