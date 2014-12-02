@@ -12,14 +12,18 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.new(project_params)
+    @project = Project.new(project_params.merge(user: current_user))
 
     if @project.save
-      @project.update(user: current_user) if current_user.present?
       redirect_to next_step_path(@project)
     else
       render current_step_action
     end
+  end
+
+  def step4
+    # capture project on user's account if they sign up during project creation flow
+    @project.update(user: current_user) if @project.user.nil? && current_user.present?
   end
 
   def update
