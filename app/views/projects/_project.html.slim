@@ -42,7 +42,7 @@
             | Final payment amount:
           - else
             | Payment due upon approval:
-          span= number_to_currency(project.price / 100) || 'n/a'
+          span= project.price ? number_to_currency(project.price / 100) : 'n/a'
 
       /-----------  Assigned Editor  -----------/
       - unless current_role == :editor || [:created, :submitted].include?(project.status)
