@@ -1,14 +1,10 @@
 .wide-wrapper
   .header-logo
-    - if current_user && current_user.role == :user
-      = link_to "(logo)", projects_path, :alt => "Activid", :class => "button", :disabled => "true"
-
-    - elsif current_user && current_user.role == :editor
-      = link_to "(logo)", "/editor/index.html", :alt => "Activid", :class => "button", :disabled => "true"
-
-    - elsif current_user && current_user.role == :admin
-      = link_to "(logo)", "/admin/index.html", :alt => "Activid", :class => "button", :disabled => "true"
-
+    - if current_user
+      - if current_user.role == User::ROLE::ADMIN
+        = link_to "(logo)", "/admin/index.html", :alt => "Activid", :class => "button", :disabled => "true"
+      - else
+        = link_to "(logo)", projects_path, :alt => "Activid", :class => "button", :disabled => "true"
     - else
       = link_to "(logo)", root_path, :alt => "Activid", :class => "button", :disabled => "true"
 
@@ -16,18 +12,18 @@
       i.icon-menu
 
   nav.header-navigation
-    - if current_role == "user"
+    - if current_role == User::ROLE::USER
       = link_to "Start a New Project", new_project_path, :class => "button"
       = link_to "Projects", projects_path
       = link_to "Your Account", edit_account_path
       = link_to "Log Out", destroy_user_session_path, method: :delete
 
-    - elsif current_role == "editor"
+    - elsif current_role == User::ROLE::EDITOR
       = link_to "Projects", projects_path
       = link_to "Your Account", edit_account_path
       = link_to "Log Out", destroy_user_session_path, method: :delete
 
-    - elsif current_role == "admin"
+    - elsif current_role == User::ROLE::ADMIN
       = link_to "Editors", "/admin/index.html"
       = link_to "Projects", "/admin/projects.html"
       = link_to "Log Out", "/index.html"

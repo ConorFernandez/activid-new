@@ -15,7 +15,7 @@
           span= "#{distance_of_time_in_words_to_now(project.cut_due_at)}#{project.cut_due_at < Time.now ? ' ago' : nil}"
 
       /-----------  Total Earnings  -----------/
-      - if current_role == "admin"
+      - if current_role == User::ROLE::ADMIN
         .project-meta
           | Payment: 
           - if project.price
@@ -24,19 +24,19 @@
             span n/a
 
       /-----------  Editor Earnings  -----------/
-      - if current_role == "editor"
+      - if current_role == User::ROLE::EDITOR
         .project-meta
           | Editor Earnings:
           span $60
 
       /-----------  Customer  -----------/
-      - unless current_role == "user"
+      - unless current_role == User::ROLE::USER
         .project-meta
           | Customer:
           span= project.user.email
 
       /-----------  Payment Amount  -----------/
-      - if current_role == "user"
+      - if current_role == User::ROLE::USER
         .project-meta
           - if project.completed?
             | Final payment amount:
@@ -45,7 +45,7 @@
           span= project.price ? number_to_currency(project.price / 100) : 'n/a'
 
       /-----------  Assigned Editor  -----------/
-      - if current_role != "editor" && project.editor.present?
+      - if current_role != User::ROLE::EDITOR && project.editor.present?
         .project-meta
           | Assigned editor:
           span
@@ -53,7 +53,7 @@
             = "Editor Name"
 
     /-----------  Descriptive Meta  -----------/
-    - unless current_role == "user"
+    - unless current_role == User::ROLE::USER
       .project-meta-wrapper
 
         /-----------  Video Type -----------/
@@ -73,7 +73,7 @@
 
     /-----------  Link & Approval CTA  -----------/
     .project-actions
-      - if current_role == "user"
+      - if current_role == User::ROLE::USER
         - if project.needs_approval?
           em Needs Your Approval!
         - elsif project.draft?
@@ -82,5 +82,3 @@
           = link_to 'See More', project_path(project), :class => 'button'
       - else
         = link_to 'See More', project_path(project), :class => 'button'
-
-
