@@ -1,5 +1,5 @@
 user = User.create!(
-  email: "joey@polymathic.me",
+  email: "user@gmail.com",
   full_name: "joey user",
   password: "asdfasdf",
   password_confirmation: "asdfasdf",
@@ -7,7 +7,7 @@ user = User.create!(
 )
 
 editor = User.create!(
-  email: "joey-editor@polymathic.me",
+  email: "editor@gmail.com",
   full_name: "joey editor",
   password: "asdfasdf",
   password_confirmation: "asdfasdf",
@@ -15,7 +15,7 @@ editor = User.create!(
 )
 
 admin = User.create!(
-  email: "joey-admin@polymathic.me",
+  email: "admin@gmail.com",
   full_name: "joey admin",
   password: "asdfasdf",
   password_confirmation: "asdfasdf",
