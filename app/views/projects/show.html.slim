@@ -1,7 +1,13 @@
+- if current_user.editor?
+  - add_page_class :editor_projects
+
 section
   .bounds-wrapper
     .project-block
 
       header
         h5= @project.name
-        .project-status= @project.status.to_s.titleize
+        .project-status= display_status_for_project(@project)
+
+      = render "projects/alert", project: @project
+

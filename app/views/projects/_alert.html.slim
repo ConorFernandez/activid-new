@@ -1,0 +1,4 @@
+- if project.submitted? && project.editor.nil? && current_user.editor?
+  .alert-wrapper
+    h6= "Cut due in: #{cut_due_in(project)}"
+    .button Accept this project

@@ -2,7 +2,7 @@
 
   header
     h5= project.name
-    .project-status= project.status.to_s.titleize
+    .project-status= display_status_for_project(project)
 
   .project-overview
 
@@ -12,7 +12,7 @@
       - if project.cut_due_at
         .project-meta
           | Cut due in:
-          span= "#{distance_of_time_in_words_to_now(project.cut_due_at)}#{project.cut_due_at < Time.now ? ' ago' : nil}"
+          span= cut_due_in(project)
 
       /-----------  Total Earnings  -----------/
       - if current_user.admin?

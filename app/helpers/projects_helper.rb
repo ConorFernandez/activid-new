@@ -1,4 +1,16 @@
 module ProjectsHelper
+  def display_status_for_project(project)
+    if current_user && current_user.editor? && project.submitted?
+      "Available"
+    else
+      project.status.to_s.titleize
+    end
+  end
+
+  def cut_due_in(project)
+    "#{distance_of_time_in_words_to_now(project.cut_due_at)}#{project.cut_due_at < Time.now ? ' ago' : nil}"
+  end
+
   def options_for_category_select
     Project::CATEGORIES.map do |k, v|
       ["#{v[:name]} - starting at $#{v[:cost]}", k]
