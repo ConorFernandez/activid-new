@@ -9,6 +9,8 @@ module Project::Status
   def status
     if price.nil?
       STATUS::DRAFT
+    elsif editor.present?
+      STATUS::IN_PROGRESS
     else
       STATUS::SUBMITTED
     end

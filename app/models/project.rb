@@ -22,7 +22,7 @@ class Project < ActiveRecord::Base
   }
 
   belongs_to :user
-  belongs_to :editor, class_name: "User", foreign_key: "editor_id"
+  belongs_to :editor, class_name: "User"
   belongs_to :payment_method
 
   has_many :file_uploads, as: :attachable
@@ -32,11 +32,6 @@ class Project < ActiveRecord::Base
 
   validates :uuid, :presence => true,
                    :uniqueness => true
-
-  def editor
-    # TEMPORARY
-    nil
-  end
 
   def needs_approval?
     # TEMPORARY

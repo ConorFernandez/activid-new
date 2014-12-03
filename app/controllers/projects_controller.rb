@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
-  before_filter :load_project, only: [:show, :update, :step1, :step2, :step3, :step4]
+  before_filter :load_project, only: [:show, :update, :step1, :step2, :step3, :step4, :claim]
   before_filter :ensure_project_is_editable, only: [:update, :step1, :step2, :step3, :step4]
-  before_filter :authenticate_user!, only: :index
+  before_filter :authenticate_user!, except: [:new, :step1, :step2, :step3, :step4, :update]
 
   def new
     @project = Project.new
@@ -37,12 +37,20 @@ class ProjectsController < ApplicationController
       @project.update(user: current_user) if @project.user.nil? && current_user.present?
       attach_file_uploads(@project)       if current_step == 2
       attach_payment_method(@project)     if params[:payment_method_token].present?
-      @project.submit!                    if current_step == 4 && @project.payment_method.present?
+      @project.submit!                    if current_user && current_step == 4 && @project.payment_method.present?
 
       redirect_to next_step_path(@project)
     else
       render current_step_action
     end
+  end
+
+  def claim
+    raise ActiveRecord::RecordNotFound unless current_user.editor? && @project.editor.nil?
+
+    @project.update(editor: current_user)
+
+    redirect_to project_path(@project)
   end
 
   def presigned_post
@@ -67,6 +75,12 @@ class ProjectsController < ApplicationController
 
   def load_project
     @project = Project.where(uuid: params[:id]).first
+
+    if current_user.user?
+      raise ActiveRecord::RecordNotFound unless @project.user == current_user
+    elsif current_user.editor?
+      raise ActiveRecord::RecordNotFound unless @project.submitted? || @project.editor == current_user
+    end
   end
 
   def ensure_project_is_editable

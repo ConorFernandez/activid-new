@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :projects
 
   (1..4).each{ |i| get "projects/:id/step#{i}", to: "projects#step#{i}", as: "project_step#{i}" }
+  put "projects/:id/claim", to: "projects#claim", as: "claim_project"
 
   get "/account", to: "users#edit", as: "edit_account"
   put "/account", to: "users#update"
