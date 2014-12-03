@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   before_filter :load_project, only: [:show, :update, :step1, :step2, :step3, :step4, :claim]
   before_filter :ensure_project_is_editable, only: [:update, :step1, :step2, :step3, :step4]
-  before_filter :authenticate_user!, except: [:new, :step1, :step2, :step3, :step4, :update]
+  before_filter :authenticate_user!, except: [:new, :create, :step1, :step2, :step3, :step4, :update]
 
   def new
     @project = Project.new
@@ -34,10 +34,10 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update(project_params)
-      @project.update(user: current_user) if @project.user.nil? && current_user.present?
+      @project.update(user: current_user) if @project.user.nil? && current_user.present? && current_user.user?
       attach_file_uploads(@project)       if current_step == 2
       attach_payment_method(@project)     if params[:payment_method_token].present?
-      @project.submit!                    if current_user && current_step == 4 && @project.payment_method.present?
+      @project.submit!                    if current_step == 4 && @project.payment_method.present? && @project.user.present?
 
       redirect_to next_step_path(@project)
     else
@@ -76,10 +76,18 @@ class ProjectsController < ApplicationController
   def load_project
     @project = Project.where(uuid: params[:id]).first
 
-    if current_user.user?
-      raise ActiveRecord::RecordNotFound unless @project.user == current_user
-    elsif current_user.editor?
-      raise ActiveRecord::RecordNotFound unless @project.submitted? || @project.editor == current_user
+    # todo: move this into user or project model
+    if current_user
+      if current_user.user?
+        # current users can only view their own projects and projects that don't belong to anyone
+        raise ActiveRecord::RecordNotFound unless @project.user.nil? || @project.user == current_user
+      elsif current_user.editor?
+        # editors can only view their assigned projects and submitted projects
+        raise ActiveRecord::RecordNotFound unless @project.submitted? || @project.editor == current_user
+      end
+    else
+      # non-users can only view projects that don't belong to anyone
+      raise ActiveRecord::RecordNotFound unless @project.user.nil?
     end
   end
 

@@ -99,16 +99,6 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_equal users(:joey), project.reload.user
   end
 
-  test "PUT update does not associate current_user with project if project already has one" do
-    project = projects(:has_files)
-    project.update(user: users(:joey))
-    sign_in users(:wilson)
-
-    put :update, id: project.uuid, step: 4
-
-    assert_equal users(:joey), project.reload.user
-  end
-
   test "PUT update attaches a payment method if a token is provided" do
     project = projects(:has_files)
     token = "asdf1234"
@@ -121,6 +111,7 @@ class ProjectsControllerTest < ActionController::TestCase
   end
 
   test "checkout caches price on project and updates status" do
+    sign_in(users(:joey))
     project = projects(:has_files)
     token = "asdf1234"
 
@@ -135,6 +126,7 @@ class ProjectsControllerTest < ActionController::TestCase
   end
 
   test "checkout sets submitted_at" do
+    sign_in(users(:joey))
     project = projects(:has_files)
     token = "asdf1234"
 
