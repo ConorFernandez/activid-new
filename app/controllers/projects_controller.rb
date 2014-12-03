@@ -64,7 +64,7 @@ class ProjectsController < ApplicationController
   end
 
   def ensure_project_is_editable
-    raise ActiveRecord::RecordNotFound unless @project.status == :draft
+    raise ActiveRecord::RecordNotFound unless @project.draft?
   end
 
   def next_step_path(project)

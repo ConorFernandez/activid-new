@@ -1,4 +1,6 @@
 class Project < ActiveRecord::Base
+  include Project::Status
+
   CATEGORIES = {
     vacation:    {name: "Vacation",    cost: 95},
     kickstarter: {name: "Kickstarter", cost: 195},
@@ -30,6 +32,15 @@ class Project < ActiveRecord::Base
   validates :uuid, :presence => true,
                    :uniqueness => true
 
+  def editor
+    # TEMPORARY
+    nil
+  end
+
+  def needs_approval?
+    # TEMPORARY
+    false
+  end
 
   def to_param
     uuid
@@ -60,15 +71,7 @@ class Project < ActiveRecord::Base
   end
 
   def needs_cut?
-    [:submitted, :in_progress].include?(status)
-  end
-
-  def status
-    if price.nil?
-      :draft
-    else
-      :submitted
-    end
+    submitted? || in_progress?
   end
 
   def calculated_price

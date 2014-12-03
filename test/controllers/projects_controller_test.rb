@@ -130,7 +130,7 @@ class ProjectsControllerTest < ActionController::TestCase
 
     project.reload
 
-    assert_equal :submitted, project.status
+    assert project.submitted?
     assert_not_equal nil, project.price
   end
 
