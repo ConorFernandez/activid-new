@@ -4,9 +4,9 @@ class FileUpload < ActiveRecord::Base
   before_validation :generate_uuid, :on => :create,
                                     :if => Proc.new { |p| p.uuid.blank? }
 
-  validates :url, uniqueness: true
-  validates :uuid, :presence => true,
-                   :uniqueness => true
+  validates :url,  presence: true
+  validates :uuid, presence: true,
+                   uniqueness: true
 
   def to_param
     uuid

@@ -81,7 +81,7 @@ class Project < ActiveRecord::Base
     costs.sum * 100
   end
 
-  def submit
+  def submit!
     update(price: calculated_price, submitted_at: Time.now)
   end
 
