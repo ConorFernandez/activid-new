@@ -19,8 +19,4 @@ module ApplicationHelper
   def page_classes
     (@page_classes || []).uniq.join(" ")
   end
-
-  def current_role
-    current_user.try(:role)
-  end
 end

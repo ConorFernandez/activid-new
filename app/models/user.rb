@@ -1,9 +1,5 @@
 class User < ActiveRecord::Base
-  class ROLE
-    USER = "user"
-    EDITOR = "editor"
-    ADMIN = "admin"
-  end
+  include User::Role
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
 
