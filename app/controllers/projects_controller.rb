@@ -8,7 +8,13 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    @projects = current_user.projects.order("created_at DESC")
+    if current_user.user?
+      @projects = current_user.projects.order("created_at DESC")
+    elsif current_user.editor?
+      @projects = Project.where(editor_id: nil).select{|p| p.submitted?}
+    else
+      @projects = []
+    end
   end
 
   def create

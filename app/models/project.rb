@@ -22,6 +22,7 @@ class Project < ActiveRecord::Base
   }
 
   belongs_to :user
+  belongs_to :editor, class_name: "User", foreign_key: "editor_id"
   belongs_to :payment_method
 
   has_many :file_uploads, as: :attachable
