@@ -3,6 +3,6 @@
     h6= "Cut due in: #{cut_due_in(project)}"
     = link_to "Accept this project", claim_project_path(project), class: "button", method: "put"
 
-- if project.editor == current_user
+- elsif project.editor == current_user && project.needs_cut?
   .alert-wrapper
     h6= "Cut due in: #{cut_due_in(project)}"

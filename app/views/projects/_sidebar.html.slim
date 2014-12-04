@@ -19,17 +19,23 @@
     | Customer: 
     span= display_name_for_user(project.user)
 
+/-----------  Submission Time  -----------/
+- unless project.draft?
+  .project-meta
+    | Project submitted: 
+    span= project.submitted_at.strftime("%-m/%-d/%Y - %-I:%M %p")
+
 /-----------  Cut Status  -----------/
 .project-meta
   - if project.completed?
     | Video approved on: 
     span 10/27/14
-  - elsif false # if project has a submitted cut
-    | Cut submitted: 
-    span 10/27/14 - 3:46pm
-  - else
+  - elsif project.needs_cut?
     | Cut due in: 
     span= cut_due_in(project)
+  - else
+    | First cut submitted: 
+    span= project.cuts.order("created_at ASC").first.created_at.strftime("%-m/%-d/%Y - %-I:%M %p")
 
 /-----------  Payment Amount  -----------/
 - if current_user.user?

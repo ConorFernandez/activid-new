@@ -63,13 +63,13 @@ class Project < ActiveRecord::Base
   def cut_due_at
     turnaround_time = TURNAROUNDS[turnaround.try(:to_sym)].try(:[], :time)
 
-    return false unless turnaround_time && submitted_at && needs_cut?
+    return false unless turnaround_time && submitted_at
 
     submitted_at + turnaround_time
   end
 
   def needs_cut?
-    available? || in_progress?
+    (available? || in_progress?) && cuts.empty?
   end
 
   def calculated_price
