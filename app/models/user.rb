@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :projects
   has_many :assigned_projects, class_name: "Project", foreign_key: "editor_id"
   has_many :posted_comments, class_name: "Comment", foreign_key: "poster_id"
+  has_many :uploaded_cuts, class_name: "Cut", foreign_key: "uploader_id"
 
   validates_confirmation_of :password
 

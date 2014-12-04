@@ -27,6 +27,7 @@ class Project < ActiveRecord::Base
 
   has_many :file_uploads, as: :attachable
   has_many :comments
+  has_many :cuts
 
   before_validation :generate_uuid, :on => :create,
                                     :if => Proc.new { |p| p.uuid.blank? }
