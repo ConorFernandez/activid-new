@@ -4,13 +4,22 @@
       = f.text_area :body
       = f.submit "Post a Message", class: "button"
 
-- project.comments.order("created_at DESC").each do |comment|
+- (project.comments + project.cuts).sort_by(&:created_at).reverse.each do |item|
   .discussion-block
     .discussion-content
-      - if comment.poster == current_user
-        strong You said:
-      - else
-        strong= "#{display_name_for_user(comment.poster)} said:"
+      - if item.is_a?(Comment)
+        - if item.poster == current_user
+          strong You said:
+        - else
+          strong= "#{display_name_for_user(item.poster)} said:"
 
-      .discussion-timestamp= "#{time_ago_in_words(comment.created_at)} ago"
-      = simple_format(comment.body)
+        .discussion-timestamp= "#{time_ago_in_words(item.created_at)} ago"
+        = simple_format(item.body)
+
+      - elsif item.is_a?(Cut)
+        - if item.uploader == current_user
+          strong You uploaded a cut:
+        - else
+          strong= "#{display_name_for_user(item.uploaded)} uploaded a cut:"
+
+        .discussion-timestamp= "#{time_ago_in_words(item.created_at)} ago"
