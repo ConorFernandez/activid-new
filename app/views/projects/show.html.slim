@@ -9,5 +9,19 @@ section
         h5= @project.name
         .project-status= display_status_for_project(@project)
 
-      = render "projects/alert", project: @project
+      = render "alert", project: @project
+
+      section
+
+        .step-wrapper
+          a.step-block.selected data-tab='discussion' Project Discussion
+          a.step-block data-tab='files' Uploaded Files
+
+        .step-container.selected data-tab-content='discussion'
+
+        .step-container data-tab-content='files'
+
+      /-----------  Sidebar  -----------/
+      aside
+        = render "sidebar", project: @project
 

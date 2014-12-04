@@ -1,0 +1,71 @@
+/-----------  Total Earnings  -----------/
+- if current_user.admin?
+  .project-meta
+    | Payment: 
+    - if project.draft?
+      span n/a
+    - else
+      span= "#{project.price} ($60 editor / $80 Activid)"
+
+/-----------  Editor Earnings  -----------/
+- if current_user.editor?
+  .project-meta
+    | Editor Earnings: 
+    span $60
+
+/-----------  Customer  -----------/
+- unless current_user.user?
+  .project-meta
+    | Customer: 
+    span= display_name_for_user(project.user)
+
+/-----------  Cut Status  -----------/
+.project-meta
+  - if project.completed?
+    | Video approved on: 
+    span 10/27/14
+  - elsif false # if project has a submitted cut
+    | Cut submitted: 
+    span 10/27/14 - 3:46pm
+  - else
+    | Cut due in: 
+    span= cut_due_in(project)
+
+/-----------  Payment Amount  -----------/
+- if current_user.user?
+  .project-meta
+    - if project.completed?
+      | Final payment amount: 
+    - else
+      | Payment due upon approval: 
+    span= project.draft? ? "n/a" : project.price
+
+/-----------  Assigned Editor  -----------/
+- unless current_user.editor?
+  .project-meta
+    | Assigned editor: 
+    span= display_name_for_user(project.editor)
+
+br
+
+/-----------  Video Type -----------/
+.project-meta
+  | Video type: 
+  span= project.category_name
+
+/-----------  Video Type -----------/
+.project-meta
+  | Desired length: 
+  span= project.desired_length_name
+
+/-----------  Video Type -----------/
+.project-meta
+  | Upload footage: 
+  span= "#{rand(20...45)} min"
+
+br
+
+/-----------  Video Type -----------/
+.project-meta
+  | Special Instructions: 
+  span.special-instructions= project.instructions
