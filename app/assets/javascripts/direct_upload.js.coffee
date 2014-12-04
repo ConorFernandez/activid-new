@@ -4,7 +4,7 @@ dU =
     fileUpload = $("<input>", type: "file")
     container = $("<div>", class: "upload-block-placeholder")
 
-    $.get "/projects/presigned_post", (data, status) ->
+    $.get "/file_uploads/presigned_post", (data, status) ->
       container.append(fileUpload).insertBefore(form.find(".upload-wrapper footer"))
       dU.attachFileUpload(fileUpload, data)
 

@@ -1,1 +1,7 @@
-p upload cut
+= form_for Cut.new, url: project_cuts_path(project), html: {class: "direct-upload"} do |f|
+  .upload-wrapper
+    footer
+      button.add-file Choose file
+
+  .button-wrapper
+    = f.submit "Post Cut"

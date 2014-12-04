@@ -56,16 +56,6 @@ class ProjectsController < ApplicationController
     redirect_to project_path(@project)
   end
 
-  def presigned_post
-    presigned_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read)
-
-    render json: {
-      post_url: presigned_post.url.to_s,
-      form_data: presigned_post.fields,
-      remote_host: presigned_post.url.host
-    }
-  end
-
   private
 
   def project_params
