@@ -41,7 +41,7 @@
     span= project.draft? ? "n/a" : project.price
 
 /-----------  Assigned Editor  -----------/
-- unless current_user.editor?
+- unless current_user.editor? || project.editor.nil?
   .project-meta
     | Assigned editor: 
     span= display_name_for_user(project.editor)

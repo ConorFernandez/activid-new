@@ -79,15 +79,8 @@ class ProjectsController < ApplicationController
   def load_project
     @project = Project.where(uuid: params[:id]).first
 
-    # todo: move this into user or project model
     if current_user
-      if current_user.user?
-        # current users can only view their own projects and projects that don't belong to anyone
-        raise ActiveRecord::RecordNotFound unless @project.user.nil? || @project.user == current_user
-      elsif current_user.editor?
-        # editors can only view their assigned projects and submitted projects
-        raise ActiveRecord::RecordNotFound unless @project.submitted? || @project.editor == current_user
-      end
+      raise ActiveRecord::RecordNotFound unless current_user.can_view_project?(@project)
     else
       # non-users can only view projects that don't belong to anyone
       raise ActiveRecord::RecordNotFound unless @project.user.nil?

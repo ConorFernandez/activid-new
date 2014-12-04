@@ -18,6 +18,7 @@ section
           a.step-block data-tab='files' Uploaded Files
 
         .step-container.selected data-tab-content='discussion'
+          = render "discussion", project: @project
 
         .step-container data-tab-content='files'
 

@@ -26,6 +26,7 @@ class Project < ActiveRecord::Base
   belongs_to :payment_method
 
   has_many :file_uploads, as: :attachable
+  has_many :comments
 
   before_validation :generate_uuid, :on => :create,
                                     :if => Proc.new { |p| p.uuid.blank? }
