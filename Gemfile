@@ -1,5 +1,6 @@
 source "https://rubygems.org"
 
+gem "avatar"
 gem "aws-sdk"
 gem "bourbon"
 gem "coffee-rails", "~> 4.0.0"
