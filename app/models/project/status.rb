@@ -1,7 +1,7 @@
 module Project::Status
   class STATUS
     DRAFT = :draft
-    SUBMITTED = :submitted
+    AVAILABLE = :available
     IN_PROGRESS = :in_progress
     COMPLETED = :completed
   end
@@ -12,12 +12,12 @@ module Project::Status
     elsif editor.present?
       STATUS::IN_PROGRESS
     else
-      STATUS::SUBMITTED
+      STATUS::AVAILABLE
     end
   end
 
   def draft?; status == STATUS::DRAFT; end
-  def submitted?; status == STATUS::SUBMITTED; end
+  def available?; status == STATUS::AVAILABLE; end
   def in_progress?; status == STATUS::IN_PROGRESS; end
   def completed?; status == STATUS::COMPLETED; end
 end

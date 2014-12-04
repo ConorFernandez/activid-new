@@ -69,7 +69,7 @@ class Project < ActiveRecord::Base
   end
 
   def needs_cut?
-    submitted? || in_progress?
+    available? || in_progress?
   end
 
   def calculated_price

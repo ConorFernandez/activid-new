@@ -121,7 +121,7 @@ class ProjectsControllerTest < ActionController::TestCase
 
     project.reload
 
-    assert project.submitted?
+    assert project.available?
     assert_not_equal nil, project.price
   end
 

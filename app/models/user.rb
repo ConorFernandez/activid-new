@@ -15,8 +15,8 @@ class User < ActiveRecord::Base
       # current users can only view their own projects and projects that don't belong to anyone
       project.user.nil? || project.user == self
     elsif editor?
-      # editors can only view their assigned projects and submitted projects
-      project.submitted? || project.editor == self
+      # editors can only view their assigned projects and available projects
+      project.available? || project.editor == self
     elsif admin?
       # admins can view everything
       true

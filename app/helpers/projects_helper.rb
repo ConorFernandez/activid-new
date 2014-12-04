@@ -1,7 +1,7 @@
 module ProjectsHelper
   def display_status_for_project(project)
-    if current_user && current_user.editor? && project.submitted?
-      "Available"
+    if current_user && current_user.user? && project.available?
+      "Waiting for Editor"
     else
       project.status.to_s.titleize
     end

@@ -11,7 +11,7 @@ class ProjectsController < ApplicationController
     if current_user.user?
       @projects = current_user.projects.order("created_at DESC")
     elsif current_user.editor?
-      @available = Project.where(editor_id: nil).select{|p| p.submitted?}
+      @available = Project.where(editor_id: nil).select{|p| p.available?}
       @completed, @current = current_user.assigned_projects.partition(&:completed?)
 
       render :editor_index
