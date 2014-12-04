@@ -6,79 +6,25 @@
 
   .project-overview
 
-    .project-meta-wrapper
-
-      /-----------  Cut Status  -----------/
-      - if project.cut_due_at
-        .project-meta
-          | Cut due in:
-          span= cut_due_in(project)
-
-      /-----------  Total Earnings  -----------/
-      - if current_user.admin?
-        .project-meta
-          | Payment: 
-          - if project.price
-            span= "#{number_to_currency(project.price / 100)} ($60 editor / $80 Activid)"
-          - else
-            span n/a
-
-      /-----------  Editor Earnings  -----------/
-      - if current_user.editor?
-        .project-meta
-          | Editor Earnings:
-          span $60
-
-      /-----------  Customer  -----------/
-      - unless current_user.user?
-        .project-meta
-          | Customer:
-          span= display_name_for_user(project.user)
-
-      /-----------  Payment Amount  -----------/
-      - if current_user.user?
-        .project-meta
-          - if project.completed?
-            | Final payment amount:
-          - else
-            | Payment due upon approval:
-          span= project.price ? number_to_currency(project.price / 100) : 'n/a'
-
-      /-----------  Assigned Editor  -----------/
-      - if !current_user.editor? && project.editor.present?
-        .project-meta
-          | Assigned editor:
-          span
-            = image_tag 'editor-avatar.jpg'
-            = display_name_for_user(project.editor)
-
-    /-----------  Descriptive Meta  -----------/
-    - unless current_user.user?
+    - if current_user.user?
       .project-meta-wrapper
+        = render "projects/project/cut_status", project: project
+        = render "projects/project/payment_amount", project: project
+        = render "projects/project/assigned_editor", project: project
 
-        /-----------  Video Type -----------/
-        .project-meta
-          | Video type:
-          span= project.category_name
+    - elsif current_user.editor?
+      .project-meta-wrapper
+        = render "projects/project/cut_status", project: project
+        = render "projects/project/editor_earnings", project: project
+        = render "projects/project/customer", project: project
+      = render "projects/project/descriptive_meta", project: project
 
-        /-----------  Video Type -----------/
-        .project-meta
-          | Desired length:
-          span= project.desired_length_name
+    - elsif current_user.admin?
+      .project-meta-wrapper
+        = render "projects/project/cut_status", project: project
+        = render "projects/project/total_earnings", project: project
+        = render "projects/project/customer", project: project
+        = render "projects/project/assigned_editor", project: project
+      = render "projects/project/descriptive_meta", project: project
 
-        /-----------  Video Type -----------/
-        .project-meta
-          | Uploaded footage:
-          span= "<length here>"
-
-    /-----------  Link & Approval CTA  -----------/
-    .project-actions
-      - if current_user.user?
-        - if project.needs_approval?
-          em Needs Your Approval!
-        - elsif project.draft?
-          = link_to 'Continue Editing', project_step1_path(project), :class => 'button'
-        - else
-          = link_to 'See More', project_path(project), :class => 'button'
-      - else
-        = link_to 'See More', project_path(project), :class => 'button'
+    = render "projects/project/cta_link", project: project

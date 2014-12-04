@@ -10,17 +10,13 @@ class ProjectsController < ApplicationController
   def index
     if current_user.user?
       @projects = current_user.projects.order("created_at DESC")
-
-      render "projects/user_index"
     elsif current_user.editor?
       @available = Project.where(editor_id: nil).select{|p| p.submitted?}
       @completed, @current = current_user.assigned_projects.partition(&:completed?)
 
-      render "projects/editor_index"
+      render :editor_index
     else
       @projects = []
-
-      render "projects/user_index"
     end
   end
 

@@ -7,7 +7,7 @@
             <h4>Sign In</h4>
             <div class="errors"></div>
 
-            <%= text_field_tag "user[email]", nil, placeholder: "Email Address" %>
+            <%= text_field_tag "user[email]", nil, placeholder: "Email Address", autofocus: true %>
             <%= password_field_tag "user[password]", nil, placeholder: "Password" %>
 
             <button class="submit">Sign In</button>

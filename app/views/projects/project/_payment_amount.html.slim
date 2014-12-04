@@ -1,0 +1,6 @@
+.project-meta
+  - if project.completed?
+    | Final payment amount:
+  - else
+    | Payment due upon approval:
+  span= project.price ? number_to_currency(project.price / 100) : 'n/a'

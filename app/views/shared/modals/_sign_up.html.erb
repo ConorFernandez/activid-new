@@ -9,7 +9,7 @@
 
             <div class="errors"></div>
 
-            <%= text_field_tag "user[email]", nil, placeholder: "Email Address" %>
+            <%= text_field_tag "user[email]", nil, placeholder: "Email Address", autofocus: true %>
             <%= text_field_tag "user[full_name]", nil, placeholder: "Full Name" %>
             <%= password_field_tag "user[password]", nil, placeholder: "Password" %>
             <%= password_field_tag "user[password_confirmation]", nil, placeholder: "Password Confirmation" %>

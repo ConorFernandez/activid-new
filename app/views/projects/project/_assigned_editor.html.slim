@@ -1,0 +1,6 @@
+- if project.editor.present?
+  .project-meta
+    | Assigned editor:
+    span
+      = image_tag 'editor-avatar.jpg'
+      = display_name_for_user(project.editor)

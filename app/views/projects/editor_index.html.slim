@@ -14,13 +14,10 @@ section
   .bounds-wrapper
 
     .projects-wrapper.selected data-tab-content='available'
-      - @available.each do |project|
-        = render "projects/project", {project: project}
+      = render partial: "project", collection: @available
 
     .projects-wrapper data-tab-content='in-progress'
-      - @current.each do |project|
-        = render "projects/project", {project: project}
+      = render partial: "project", collection: @current
 
     .projects-wrapper data-tab-content='completed'
-      - @completed.each do |project|
-        = render "projects/project", {project: project}
+      = render partial: "project", collection: @completed
