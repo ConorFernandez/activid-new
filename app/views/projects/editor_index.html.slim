@@ -1,0 +1,26 @@
+section.tab-wrapper
+  .wide-wrapper
+    .tab-block.selected data-tab='available'
+      | Available Projects
+      small= @available.count
+    .tab-block data-tab='in-progress'
+      | In Progress Projects
+      small= @current.count
+    .tab-block data-tab='completed'
+      | Completed Projects
+      small= @completed.count
+
+section
+  .bounds-wrapper
+
+    .projects-wrapper.selected data-tab-content='available'
+      - @available.each do |project|
+        = render "projects/project", {project: project}
+
+    .projects-wrapper data-tab-content='in-progress'
+      - @current.each do |project|
+        = render "projects/project", {project: project}
+
+    .projects-wrapper data-tab-content='completed'
+      - @completed.each do |project|
+        = render "projects/project", {project: project}

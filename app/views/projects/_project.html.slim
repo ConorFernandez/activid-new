@@ -33,7 +33,7 @@
       - unless current_user.user?
         .project-meta
           | Customer:
-          span= project.user.email
+          span= display_name_for_user(project.user)
 
       /-----------  Payment Amount  -----------/
       - if current_user.user?
@@ -50,7 +50,7 @@
           | Assigned editor:
           span
             = image_tag 'editor-avatar.jpg'
-            = "Editor Name"
+            = display_name_for_user(project.editor)
 
     /-----------  Descriptive Meta  -----------/
     - unless current_user.user?
