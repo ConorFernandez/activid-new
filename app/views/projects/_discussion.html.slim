@@ -20,6 +20,6 @@
         - if item.uploader == current_user
           strong You uploaded a cut:
         - else
-          strong= "#{display_name_for_user(item.uploaded)} uploaded a cut:"
+          strong= "#{display_name_for_user(item.uploader)} uploaded a cut:"
 
         .discussion-timestamp= "#{time_ago_in_words(item.created_at)} ago"
