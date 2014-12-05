@@ -12,15 +12,33 @@ class FileUpload < ActiveRecord::Base
     uuid
   end
 
-  def queue_zencoder_job
-    job = Zencoder::Job.create({
-      input: "s3:#{url}",
-      outputs: {
-        type: "transfer-only"
-      }
-    })
+  def queue_zencoder_job(attachable_type)
+    job =
+      case attachable_type
+      when "project"
+        Zencoder::Job.create({
+          input: "s3:#{url}",
+          outputs: {
+            type: "transfer-only"
+          }
+        })
+      when "cut"
+        Zencoder::Job.create({
+          input: "s3:#{url}",
+          output: {
+            watermarks: {
+              url: "http://activid-stagingg.s3.amazonaws.com/watermark.png",
+              height: "50%",
+              x: "centered",
+              y: "centered"
+            }
+          }
+        })
+      else
+        nil
+      end
 
-    update(zencoder_job_id: job.body["id"])
+    update(zencoder_job_id: job.body["id"]) if job
   end
 
   def zencoder_job

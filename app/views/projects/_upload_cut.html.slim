@@ -1,4 +1,4 @@
-= form_for Cut.new, url: project_cuts_path(project), html: {class: "direct-upload"} do |f|
+= form_for Cut.new, url: project_cuts_path(project), html: {class: "direct-upload", "data-attachable-type" => "cut"} do |f|
   .upload-wrapper
     footer
       button.add-file Choose file
