@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_filter :load_project, only: [:show, :update, :step1, :step2, :step3, :step4, :claim]
   before_filter :ensure_project_is_editable, only: [:update, :step1, :step2, :step3, :step4]
+  before_filter :ensure_not_editor, only: [:new, :create, :step1, :step2, :step3, :step4]
   before_filter :authenticate_user!, except: [:new, :create, :step1, :step2, :step3, :step4, :update]
 
   def new
@@ -106,5 +107,9 @@ class ProjectsController < ApplicationController
   def attach_payment_method(project)
     payment_method = PaymentMethod.create!(token: params[:payment_method_token])
     project.update(payment_method: payment_method)
+  end
+
+  def ensure_not_editor
+    raise ActiveRecord::RecordNotFound if current_user && !current_user.user?
   end
 end
