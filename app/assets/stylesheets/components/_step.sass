@@ -1,3 +1,23 @@
+/*-----------  Step Mixin  -----------*/
+
+@mixin step-link()
+  color: $gray
+  padding: 0 0 0.5em
+  position: relative
+  @include flex(0 1 auto)
+  @include transition()
+
+  &:after
+    left: 0
+    right: 0
+    opacity: 0
+    height: 4px
+    content: ''
+    bottom: -0.2em
+    position: absolute
+    background-color: $blue
+    @include transition()
+
 /*-----------  Step Breadcrumbs  -----------*/
 
 .step-wrapper
@@ -6,27 +26,12 @@
   @include align-items(stretch)
   @include display(flex)
   
-  .step-block
-    color: $gray
-    padding: 0 0 0.5em
-    position: relative
-    @include flex(0 1 auto)
-    @include transition()
-
-    &:after
-      left: 0
-      right: 0
-      opacity: 0
-      height: 4px
-      content: ''
-      bottom: -0.2em
-      position: absolute
-      background-color: $blue
-      @include transition()
+  .step-block a
+    @include step-link()
 
   /*-----------  Link Actions  -----------*/
 
-  a.step-block:hover
+  .step-block a[href]:hover
     cursor: pointer
 
     &:after
@@ -36,6 +41,7 @@
   /*-----------  Selected State  -----------*/
 
   .step-block.selected
+    @include step-link()
     color: $grayDark
 
     &:after,
