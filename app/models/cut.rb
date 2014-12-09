@@ -5,11 +5,11 @@ class Cut < ActiveRecord::Base
   has_one :file_upload, as: :attachable
 
   def processed?
-    file_upload.zencoder_status == "finished" && file_upload.preview_url.present?
+    file_upload.zencoder_finished? && file_upload.preview_url.present?
   end
 
   def failed?
-    file_upload.zencoder_status == "failed"
+    file_upload.zencoder_failed?
   end
 
   def preview_url
