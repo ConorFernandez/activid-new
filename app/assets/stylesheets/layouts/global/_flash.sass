@@ -1,0 +1,28 @@
+/*-----------  Flash Notices  -----------*/
+
+.global-notices
+  width: 100%
+  overflow: hidden
+  position: absolute
+  box-shadow: $shadow
+  padding: 0.5em $gutter
+
+  .wide-wrapper
+    color: inherit
+
+    .icon-cancel
+      float: right
+      @include transition()
+
+      &:hover
+        color: $white
+        cursor: pointer
+
+  &.notice,
+  &.success
+    color: $blueLight
+    background-color: $blue
+
+  &.error
+    color: $white
+    background-color: $red

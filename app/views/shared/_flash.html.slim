@@ -1,8 +1,17 @@
 - if flash[:success]
-  .notification.success= flash[:success]
+  .global-notices.success
+    .wide-wrapper
+      i.icon-cancel
+      = flash[:success]
 
 - if flash[:notice]
-  .notification.notice= flash[:notice]
+  .global-notices.notice
+    .wide-wrapper
+      i.icon-cancel
+      = flash[:notice]
 
 - if flash[:error]
-  .notification.error= flash[:error]
+  .global-notices.error
+    .wide-wrapper
+      i.icon-cancel
+      = flash[:error]

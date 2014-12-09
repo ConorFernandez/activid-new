@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20141209213630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "comments", force: true do |t|
     t.integer  "project_id"
