@@ -28,13 +28,27 @@ body.projects_create_checkout
     width: 18%
     @include inline-block()
 
-  .total-block
-    margin: -0.75em 0
-    text-align: right
+  footer
+    @include clearfix()
 
-    #{$all-headers}
-      margin: 0 0 0 0.25em
-      @include inline-block(baseline)
+    .total-block
+      float: left
+      margin: -0.75em 0
+      padding-top: 0.6em
+      margin-left: -0.25em
+
+      #{$all-headers}
+        margin: 0 0 0 0.25em
+        @include inline-block(baseline)
+
+    .button-wrapper
+      float: right
+      margin-top: 0
+      text-align: right
+
+      input
+        margin-left: 0.67em
+        float: right !important
 
   /*-----------  Bottom Buttons  -----------*/
 
