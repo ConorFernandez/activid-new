@@ -17,3 +17,6 @@
 
 # Heroku env vars
 .env
+
+# sublime files
+*.sublime*
