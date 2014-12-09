@@ -39,7 +39,7 @@ class FileUpload < ActiveRecord::Base
         nil
       end
 
-    update(zencoder_job_id: job.body["id"]) if job
+    update(zencoder_job_id: job.body["id"], zencoder_status: "processing") if job
   end
 
   def zencoder_job
