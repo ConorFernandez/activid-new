@@ -2,7 +2,7 @@ class @SignUpModal extends Modal
 
   constructor: (@options = {}) ->
     @template = Handlebars.compile($("#sign-up-modal-template").html())
-    @$modal = $(@template())
+    @$modal = $(@template(inescapable: @options.inescapable))
 
     @_bindLinks()
     @_bindSubmit()

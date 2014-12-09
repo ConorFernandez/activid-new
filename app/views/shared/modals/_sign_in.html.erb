@@ -1,7 +1,9 @@
 <script id="sign-in-modal-template" type="text/x-handlebars-template">
   <div class="modal-wrapper sign-in-modal">
     <div class="modal-block">
-      <a class="close-modal"><i class="icon-cancel"></i></a>
+      {{#unless inescapable}}
+        <a class="close-modal"><i class="icon-cancel"></i></a>
+      {{/unless}}
 
       <%= form_tag user_session_path(format: :json), {"data-post-sign-in-path" => post_sign_in_modal_path} do |f| %>
 

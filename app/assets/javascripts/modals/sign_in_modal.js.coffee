@@ -2,7 +2,7 @@ class @SignInModal extends Modal
 
   constructor: (@options = {}) ->
     @template = Handlebars.compile($("#sign-in-modal-template").html())
-    @$modal = $(@template())
+    @$modal = $(@template(inescapable: @options.inescapable))
 
     @_bindLinks()
     @_bindSubmit()

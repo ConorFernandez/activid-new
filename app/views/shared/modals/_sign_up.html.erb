@@ -1,7 +1,9 @@
 <script id="sign-up-modal-template" type="text/x-handlebars-template">
   <div class="modal-wrapper sign-up-modal">
     <div class="modal-block">
-      <a class="close-modal"><i class="icon-cancel"></i></a>
+      {{#unless inescapable}}
+        <a class="close-modal"><i class="icon-cancel"></i></a>
+      {{/unless}}
 
       <%= form_tag user_registration_path(format: :json), {"data-post-sign-up-path" => post_sign_in_modal_path} do |f| %>
         <h4>Create an account</h4>
@@ -20,7 +22,6 @@
           <a class="sign-in" href="#">Already have an account?</a>
         </div>
       <% end %>
-      
     </div>
   </div>
 </script>
