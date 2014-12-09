@@ -1,7 +1,7 @@
 class CutsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :ensure_user_is_editor
   before_filter :load_project
+  before_filter :ensure_user_is_editor
 
   def create
     @cut = Cut.create!(uploader: current_user, project: @project)
@@ -17,7 +17,7 @@ class CutsController < ApplicationController
   end
 
   def ensure_user_is_editor
-    raise ActiveRecord::RecordNotFound unless current_user.editor?
+    raise ActiveRecord::RecordNotFound unless current_user.editor? && current_user == @project.editor
   end
 
   def load_project

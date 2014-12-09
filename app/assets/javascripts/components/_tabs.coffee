@@ -16,4 +16,4 @@ $ ->
     oldContent.removeClass('selected')
     newContent.addClass('selected')
 
-
+  $("[data-tab].selected").click()
