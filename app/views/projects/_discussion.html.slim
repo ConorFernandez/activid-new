@@ -1,8 +1,9 @@
 .discussion-block
-  .discussion-reply
-    = form_for Comment.new, url: project_comments_path(project) do |f|
-      = f.text_area :body
-      = f.submit "Post a Message", class: "button"
+  - if current_user.user? || current_user == project.editor
+    .discussion-reply
+      = form_for Comment.new, url: project_comments_path(project) do |f|
+        = f.text_area :body
+        = f.submit "Post a Message", class: "button"
 
 - (project.comments + project.cuts).sort_by(&:created_at).reverse.each do |item|
   .discussion-block

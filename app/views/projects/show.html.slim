@@ -14,15 +14,10 @@ section
       section
 
         .step-wrapper
+          a.step-block.selected data-tab='discussion' Project Discussion
+          a.step-block data-tab='files' Files
           - if current_user == @project.editor
-            a.step-block.selected data-tab='discussion' Project Discussion
-            a.step-block data-tab='files' Files
             a.step-block data-tab='upload-cut' Upload Cut
-          - elsif current_user.editor?
-            a.step-block.selected data-tab='files' Files
-          - else
-            a.step-block.selected data-tab='discussion' Project Discussion
-            a.step-block data-tab='files' Files
 
         .step-container data-tab-content='discussion'
           = render "discussion", project: @project
