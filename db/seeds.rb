@@ -33,11 +33,11 @@ end
 
 projects.each do |p|
   p.file_uploads.create!(
-    url: "http://activid.s3.aws.com/file1.mov"
+    url: "http://activid-dev.s3.amazonaws.com/seeds/wrecking_ball.mp4"
   )
 
   p.file_uploads.create!(
-    url: "http://activid.s3.aws.com/file2.mov"
+    url: "http://activid-dev.s3.amazonaws.com/seeds/dog_the_shot.mp4"
   )
 end
 
