@@ -60,7 +60,7 @@ class ProjectsController < ApplicationController
 
   def project_params
     if params[:project].present?
-      params.require(:project).permit(:name, :category, :desired_length, :instructions, :allow_to_be_featured, :watermark, :turnaround)
+      params.require(:project).permit(:name, :category, :desired_length, :instructions, :allow_to_be_featured, :append_logo, :turnaround)
     else
       {}
     end

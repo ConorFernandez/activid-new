@@ -76,7 +76,7 @@ class Project < ActiveRecord::Base
     costs = [
       category_cost,
       desired_length_cost,
-      (watermark ? 0 : 5)
+      (append_logo ? 0 : 5)
     ]
 
     costs.sum * 100

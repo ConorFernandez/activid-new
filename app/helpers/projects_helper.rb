@@ -31,9 +31,9 @@ module ProjectsHelper
     end
   end
 
-  def options_for_watermark
+  def options_for_append_logo
     [
-      ["Activid Watermark", true],
+      ["Activid Logo", true],
       ["Remove Activid Logo (+$5)", false]
     ]
   end

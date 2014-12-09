@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141204205916) do
+ActiveRecord::Schema.define(version: 20141209164508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 20141204205916) do
     t.string   "turnaround"
     t.text     "instructions"
     t.boolean  "allow_to_be_featured", default: true
-    t.boolean  "watermark",            default: true
+    t.boolean  "append_logo",          default: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "submitted_at"
