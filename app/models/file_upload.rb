@@ -26,6 +26,7 @@ class FileUpload < ActiveRecord::Base
         Zencoder::Job.create({
           input: "s3:#{url}",
           output: {
+            width: 480,
             watermarks: {
               url: "http://activid-stagingg.s3.amazonaws.com/watermark.png",
               height: "50%",
@@ -46,7 +47,7 @@ class FileUpload < ActiveRecord::Base
   end
 
   def file_name
-    url.split("/").last
+    (url || "").split("/").last
   end
 
   def determine_duration(from_job = nil)
@@ -59,6 +60,22 @@ class FileUpload < ActiveRecord::Base
       update(duration: duration_in_seconds)
       return duration_in_seconds
     end
+  end
+
+  def file_type
+    match = file_name.match(/\.(.+)$/)
+    extension = (match && match[1]) ? match[1].downcase : nil
+
+    case extension
+    when /mov|mp4|mpg|flv|wmv|3gp|asf|rm|swf|avi/
+      :video
+    else
+      nil
+    end
+  end
+
+  def video?
+    file_type == :video
   end
 
   private
