@@ -55,7 +55,7 @@ dU =
           url: "/file_uploads"
           data: {file_upload: {url: url}, attachable_type: form.data("attachable-type")}
           success: (data) ->
-            uploadContainer.append $("<input>", type: "hidden", name: "file_upload_uuids[]", value: data.uuid)
+            uploadContainer.addClass('complete').append $("<input>", type: "hidden", name: "file_upload_uuids[]", value: data.uuid)
             submitButton.prop("disabled", false)
 
       fail: (e, data) ->

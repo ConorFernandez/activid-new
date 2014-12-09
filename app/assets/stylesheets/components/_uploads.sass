@@ -49,6 +49,14 @@
           color: $blue
           text-decoration: underline
 
+    &.complete
+
+      .upload-progress span
+        border: 1px solid darken($blueLight, 4%)
+        background-color: $blueLight
+        background-image: none
+        @include animation(none)
+
     @include media($middleBreak)
 
       #{$all-headers},
