@@ -141,6 +141,12 @@
       "src": "fontawesome"
     },
     {
+      "uid": "bf45c39702763f1803b550c36a0ceb12",
+      "css": "cancel",
+      "code": 59406,
+      "src": "entypo"
+    },
+    {
       "uid": "in76hg99crrkpcbz2rjnmgbiw74s72y0",
       "css": "ok",
       "code": 59396,

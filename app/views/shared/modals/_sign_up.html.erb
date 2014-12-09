@@ -1,27 +1,26 @@
 <script id="sign-up-modal-template" type="text/x-handlebars-template">
   <div class="modal-wrapper sign-up-modal">
     <div class="modal-block">
-      <section>
-        <div class="compact-wrapper">
-          <%= form_tag user_registration_path(format: :json), {"data-post-sign-up-path" => post_sign_in_modal_path} do |f| %>
-            <h4>Create an account</h4>
-            <p>Creating an account allows you to save your work and complete your order</p>
+      <a class="close-modal"><i class="icon-cancel"></i></a>
 
-            <div class="errors"></div>
+      <%= form_tag user_registration_path(format: :json), {"data-post-sign-up-path" => post_sign_in_modal_path} do |f| %>
+        <h4>Create an account</h4>
+        <p>Creating an account allows you to save your work and complete your order</p>
 
-            <%= text_field_tag "user[email]", nil, placeholder: "Email Address", autofocus: true %>
-            <%= text_field_tag "user[full_name]", nil, placeholder: "Full Name" %>
-            <%= password_field_tag "user[password]", nil, placeholder: "Password" %>
-            <%= password_field_tag "user[password_confirmation]", nil, placeholder: "Password Confirmation" %>
+        <div class="errors"></div>
 
-            <button class="submit">Sign Up</button>
+        <%= text_field_tag "user[email]", nil, placeholder: "Email Address", autofocus: true %>
+        <%= text_field_tag "user[full_name]", nil, placeholder: "Full Name" %>
+        <%= password_field_tag "user[password]", nil, placeholder: "Password" %>
+        <%= password_field_tag "user[password_confirmation]", nil, placeholder: "Password Confirmation" %>
 
-            <div class="devise-links">
-              <a class="sign-in" href="#">Already have an account?</a>
-            </div>
-          <% end %>
+        <button class="submit">Sign Up</button>
+
+        <div class="devise-links">
+          <a class="sign-in" href="#">Already have an account?</a>
         </div>
-      </section>
+      <% end %>
+      
     </div>
   </div>
 </script>

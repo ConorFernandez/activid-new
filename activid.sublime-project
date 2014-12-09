@@ -1,0 +1,69 @@
+{
+  "folders":
+  [
+    {
+      "name": "JS",
+      "path": "app/assets/javascripts"
+    },
+    {
+      "name": "CSS",
+      "path": "app/assets/stylesheets"
+    },
+    {
+      "name": "Views",
+      "path": "app/views"
+    },
+    {
+      "name": "Helpers",
+      "path": "app/helpers"
+    },
+    {
+      "name": "Controllers",
+      "path": "app/controllers"
+    },
+    {
+      "name": "Models",
+      "path": "app/models"
+    },
+    {
+      "name": "App",
+      "path": "app",
+      "folder_exclude_patterns":
+      [
+        "views",
+        "models",
+        "helpers",
+        "controllers",
+        "assets/javascripts",
+        "assets/stylesheets"
+      ]
+    },
+    {
+      "name": "Test",
+      "path": "test"
+    },
+    {
+      "name": "Spec",
+      "path": "spec"
+    },
+    {
+      "name": "Public",
+      "path": "public"
+    },
+    {
+      "name": "Vendor",
+      "path": "vendor"
+    },
+    {
+      "name": "Source",
+      "path": "/",
+      "folder_exclude_patterns":
+      [
+        "app",
+        "vendor",
+        "test",
+        "spec"
+      ]
+    }
+  ]
+}

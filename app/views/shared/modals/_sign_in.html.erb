@@ -1,23 +1,23 @@
 <script id="sign-in-modal-template" type="text/x-handlebars-template">
   <div class="modal-wrapper sign-in-modal">
     <div class="modal-block">
-      <section>
-        <div class="compact-wrapper">
-          <%= form_tag user_session_path(format: :json), {"data-post-sign-in-path" => post_sign_in_modal_path} do |f| %>
-            <h4>Sign In</h4>
-            <div class="errors"></div>
+      <a class="close-modal"><i class="icon-cancel"></i></a>
 
-            <%= text_field_tag "user[email]", nil, placeholder: "Email Address", autofocus: true %>
-            <%= password_field_tag "user[password]", nil, placeholder: "Password" %>
+      <%= form_tag user_session_path(format: :json), {"data-post-sign-in-path" => post_sign_in_modal_path} do |f| %>
 
-            <button class="submit">Sign In</button>
+        <h4>Sign In</h4>
 
-            <div class="devise-links">
-              <a class="sign-up" href="#">Create an account</a>
-            </div>
-          <% end %>
+        <div class="errors"></div>
+
+        <%= text_field_tag "user[email]", nil, placeholder: "Email Address", autofocus: true %>
+        <%= password_field_tag "user[password]", nil, placeholder: "Password" %>
+
+        <button class="submit">Sign In</button>
+        <div class="devise-links">
+          <a class="sign-up" href="#">Create an account</a>
         </div>
-      </section>
+      <% end %>
+
     </div>
   </div>
 </script>
