@@ -1,0 +1,18 @@
+.discussion-block
+  .discussion-content
+    - if cut.uploader == current_user
+      strong You uploaded a cut:
+    - else
+      strong= "#{display_name_for_user(cut.uploader)} uploaded a cut:"
+
+    .discussion-timestamp= "#{time_ago_in_words(cut.created_at)} ago"
+
+    - if cut.processed?
+      video width="100%" controls="true"
+        source src=cut.preview_url type="video/mp4"
+        Your browser does not support the video tag.
+    - elsif cut.failed?
+      p There was a problem encoding your upload. Please try again.
+      p= "Error: #{cut.zencoder_error}"
+    - else
+      p Your cut is being encoded. Once it has completed, it will be visible to the customer.

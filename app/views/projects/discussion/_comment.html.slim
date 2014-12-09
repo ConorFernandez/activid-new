@@ -1,0 +1,10 @@
+.discussion-block
+  .discussion-content
+    - if comment.poster == current_user
+      strong You said:
+    - else
+      strong= "#{display_name_for_user(comment.poster)} said:"
+
+    .discussion-timestamp= "#{time_ago_in_words(comment.created_at)} ago"
+
+    = simple_format(comment.body)

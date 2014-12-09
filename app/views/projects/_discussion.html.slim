@@ -6,21 +6,7 @@
         = f.submit "Post a Message", class: "button"
 
 - (project.comments + project.cuts).sort_by(&:created_at).reverse.each do |item|
-  .discussion-block
-    .discussion-content
-      - if item.is_a?(Comment)
-        - if item.poster == current_user
-          strong You said:
-        - else
-          strong= "#{display_name_for_user(item.poster)} said:"
-
-        .discussion-timestamp= "#{time_ago_in_words(item.created_at)} ago"
-        = simple_format(item.body)
-
-      - elsif item.is_a?(Cut)
-        - if item.uploader == current_user
-          strong You uploaded a cut:
-        - else
-          strong= "#{display_name_for_user(item.uploader)} uploaded a cut:"
-
-        .discussion-timestamp= "#{time_ago_in_words(item.created_at)} ago"
+  - if item.is_a?(Comment)
+    = render "projects/discussion/comment", comment: item
+  - elsif item.is_a?(Cut) && current_user.can_view_cut?(item)
+    = render "projects/discussion/cut", cut: item

@@ -69,7 +69,7 @@ class Project < ActiveRecord::Base
   end
 
   def needs_cut?
-    (available? || in_progress?) && cuts.empty?
+    (available? || in_progress?) && processed_cuts.empty?
   end
 
   def calculated_price
@@ -84,6 +84,14 @@ class Project < ActiveRecord::Base
 
   def submit!
     update(price: calculated_price, submitted_at: Time.now)
+  end
+
+  def processed_cuts
+    cuts.order("created_at ASC").select(&:processed?)
+  end
+
+  def first_cut
+    processed_cuts.first
   end
 
   private
