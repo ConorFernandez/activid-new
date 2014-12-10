@@ -1,14 +1,19 @@
+$.fn.addFileUpload = ->
+  dU.addFileUpload(this)
+
+$.fn.makeDirectUpload = (presignedPost) ->
+  dU.makeDirectUpload(this, presignedPost)
+
 dU =
-  addFileUpload: ->
-    form = $("form.direct-upload")
+  addFileUpload: (form) ->
     fileUpload = $("<input>", type: "file")
     container = $("<div>", class: "upload-block-placeholder")
 
     $.get "/file_uploads/presigned_post", (data, status) ->
       container.append(fileUpload).insertBefore(form.find(".upload-wrapper footer"))
-      dU.attachFileUpload(fileUpload, data)
+      dU.makeDirectUpload(fileUpload, data)
 
-  attachFileUpload: (fileInput, presignedPost) ->
+  makeDirectUpload: (fileInput, presignedPost) ->
     form = $(fileInput.parents("form:first"))
     uploadContainer = $(fileInput.parents(".upload-block-placeholder:first"))
 
@@ -33,7 +38,7 @@ dU =
 
       start: (e) ->
         # add element to be used by the next file upload
-        dU.addFileUpload()
+        dU.addFileUpload(form)
 
         parts = e.target.value.split("\\")
         fileName = parts[parts.length - 1]
@@ -62,9 +67,8 @@ dU =
         uploadContainer.remove()
 
 $ ->
-  if $("form.direct-upload").length > 0
-    dU.addFileUpload()
+  $("form.direct-upload").addFileUpload()
 
-    $("button.add-file").click (event) ->
-      event.preventDefault()
-      $("input[type=file]:last").click()
+  $("form.direct-upload button.add-file").click (event) ->
+    event.preventDefault()
+    $("input[type=file]:last").click()
