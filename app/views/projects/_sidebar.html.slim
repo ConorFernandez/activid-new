@@ -17,7 +17,7 @@
 - unless current_user.user?
   .project-meta
     | Customer: 
-    span= display_name_for_user(project.user)
+    span= long_display_name_for_user(project.user)
 
 /-----------  Submission Time  -----------/
 - unless project.draft?
@@ -44,13 +44,13 @@
       | Final payment amount: 
     - else
       | Payment due upon approval: 
-    span= project.draft? ? "n/a" : project.price
+    span= project.draft? ? "n/a" : number_to_currency(project.price / 100)
 
 /-----------  Assigned Editor  -----------/
 - unless current_user.editor? || project.editor.nil?
   .project-meta
     | Assigned editor: 
-    span= display_name_for_user(project.editor)
+    span= long_display_name_for_user(project.editor)
 
 br
 

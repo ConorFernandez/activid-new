@@ -6,3 +6,7 @@
 - elsif project.editor == current_user && project.needs_cut?
   .alert-wrapper
     h6= "Cut due in: #{cut_due_in(project)}"
+
+- elsif project.user == current_user && project.in_progress? && project.needs_cut?
+  .alert-wrapper.waiting
+    = "#{display_name_for_user(project.editor)} is working on your first cut. You'll be notified via email when it's ready!"
