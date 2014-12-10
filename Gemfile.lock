@@ -45,6 +45,9 @@ GEM
       sass (~> 3.2)
       thor
     builder (3.2.2)
+    clockwork (1.1.0)
+      activesupport
+      tzinfo
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -62,6 +65,7 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     erubis (2.7.0)
+    excon (0.42.1)
     execjs (2.2.2)
     haml (4.0.5)
       tilt
@@ -70,6 +74,12 @@ GEM
       activesupport (>= 4.0.1)
       haml (>= 3.1, < 5.0)
       railties (>= 4.0.1)
+    heroics (0.0.12)
+      erubis (~> 2.7.0)
+      excon
+      moneta
+      multi_json (>= 1.9.2)
+      netrc
     hike (1.2.3)
     i18n (0.6.11)
     jquery-rails (3.1.2)
@@ -88,6 +98,7 @@ GEM
     minitest (5.4.2)
     mocha (1.1.0)
       metaclass (~> 0.0.1)
+    moneta (0.8.0)
     multi_json (1.10.1)
     neat (1.5.1)
       bourbon (>= 3.1)
@@ -98,6 +109,8 @@ GEM
     normalize-rails (3.0.1)
     orm_adapter (0.5.0)
     pg (0.17.1)
+    platform-api (0.2.0)
+      heroics (~> 0.0.10)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -190,6 +203,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bourbon
+  clockwork
   coffee-rails (~> 4.0.0)
   devise
   haml-rails
@@ -198,6 +212,7 @@ DEPENDENCIES
   neat
   normalize-rails
   pg
+  platform-api
   pry
   rails (= 4.1.7)
   rails_12factor
