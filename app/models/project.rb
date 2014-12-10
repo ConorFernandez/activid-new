@@ -94,6 +94,10 @@ class Project < ActiveRecord::Base
     processed_cuts.first
   end
 
+  def purchasable?
+    draft? && file_uploads.any? && file_uploads.all?{ |u| u.zencoder_finished? }
+  end
+
   private
 
   def generate_uuid

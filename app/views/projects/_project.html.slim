@@ -11,6 +11,7 @@
         = render "projects/project/cut_status", project: project
         = render "projects/project/payment_amount", project: project
         = render "projects/project/assigned_editor", project: project
+        = render "projects/project/draft_instructions", project: project
 
     - elsif current_user.editor?
       .project-meta-wrapper
