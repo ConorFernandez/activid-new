@@ -1,3 +1,9 @@
+$.fn.directUpload = ->
+  this.addFileUpload()
+  this.find("button.add-file").click (event) ->
+    event.preventDefault()
+    $("input[type=file]:last").click()
+
 $.fn.addFileUpload = ->
   dU.addFileUpload(this)
 
@@ -49,6 +55,7 @@ dU =
         submitButton.prop("disabled", true)
         progressBar.css("width", "0%")
         fileInput.after(actionsContainer)
+        form.trigger("upload-start")
 
       done: (e, data) =>
         # extract key and generate URL from response
@@ -68,11 +75,10 @@ dU =
         uploadContainer.remove()
 
 $ ->
-  $("form.direct-upload").addFileUpload()
+  $("form.direct-upload").directUpload()
 
-  $("form.direct-upload button.add-file").click (event) ->
-    event.preventDefault()
-    $("input[type=file]:last").click()
+  $("form#new_cut.direct-upload").on "upload-start", ->
+    $(this).find("button.add-file").prop("disabled", true)
 
   $("form#new_cut.direct-upload").on "upload-complete", ->
     this.submit()
