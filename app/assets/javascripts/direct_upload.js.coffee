@@ -62,6 +62,7 @@ dU =
           success: (data) ->
             uploadContainer.addClass('complete').append $("<input>", type: "hidden", name: "file_upload_uuids[]", value: data.uuid)
             submitButton.prop("disabled", false)
+            form.trigger("upload-complete")
 
       fail: (e, data) ->
         uploadContainer.remove()
@@ -72,3 +73,6 @@ $ ->
   $("form.direct-upload button.add-file").click (event) ->
     event.preventDefault()
     $("input[type=file]:last").click()
+
+  $("form#new_cut.direct-upload").on "upload-complete", ->
+    this.submit()

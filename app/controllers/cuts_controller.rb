@@ -4,16 +4,18 @@ class CutsController < ApplicationController
   before_filter :ensure_user_is_editor
 
   def create
-    @cut = Cut.create!(uploader: current_user, project: @project)
-    attach_file_uploads(@cut)
+    @cut = Cut.new(uploader: current_user, project: @project)
+    attach_file_upload(@cut)
+    @cut.save!
+
     redirect_to project_path(@project)
   end
 
   private
 
-  def attach_file_uploads(cut)
+  def attach_file_upload(cut)
     ids = (params[:file_upload_uuids] || [])
-    cut.update(file_uploads: FileUpload.where(uuid: ids.first))
+    cut.file_upload = FileUpload.where(uuid: ids.first).first
   end
 
   def ensure_user_is_editor
