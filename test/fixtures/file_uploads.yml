@@ -12,3 +12,7 @@ three:
 four:
   uuid: uuid-four
   url: "url/four.mp4"
+five:
+  uuid: uuid-five
+  url: "url/five.mp4"
+  attachable: has_files_no_owner (Project)

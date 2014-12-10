@@ -48,6 +48,7 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test "PUT update removes files not included in payload" do
     project = projects(:has_files)
+    sign_in project.user
     assert_equal 2, project.file_uploads.count
 
     put :update, id: project.uuid, step: 2, file_upload_uuids: []
@@ -57,6 +58,7 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test "PUT update removes all files if param is missing" do
     project = projects(:has_files)
+    sign_in project.user
     assert_equal 2, project.file_uploads.count
 
     put :update, id: project.uuid, step: 2
@@ -66,6 +68,7 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test "PUT update re-uses existing files" do
     project = projects(:has_files)
+    sign_in project.user
     files = project.file_uploads + [file_uploads(:three)]
 
     assert_equal 2, project.file_uploads.count
@@ -78,6 +81,7 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test "PUT update re-uses existing while also deleting some uploads" do
     project = projects(:has_files)
+    sign_in project.user
     files = [file_uploads(:one), file_uploads(:three)]
 
     assert_equal 2, project.file_uploads.count
@@ -89,7 +93,7 @@ class ProjectsControllerTest < ActionController::TestCase
   end
 
   test "PUT update associates current_user with project if project has none" do
-    project = projects(:has_files)
+    project = projects(:has_files_no_owner)
     sign_in users(:joey)
 
     assert_equal nil, project.user
@@ -101,6 +105,7 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test "PUT update attaches a payment method if a token is provided" do
     project = projects(:has_files)
+    sign_in project.user
     token = "asdf1234"
 
     assert_equal nil, project.payment_method

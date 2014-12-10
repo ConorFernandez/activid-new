@@ -2,5 +2,9 @@ no_files:
   uuid: uuid-no-files
   name: My cool project
 has_files:
+  user: joey
   uuid: uuid-has-files
+  name: My cool project
+has_files_no_owner:
+  uuid: uuid-has-files-no-owner
   name: My cool project

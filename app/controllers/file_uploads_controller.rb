@@ -1,5 +1,6 @@
 class FileUploadsController < ApplicationController
   layout false
+  before_filter :load_file_upload, only: :destroy
 
   def create
     @file_upload = FileUpload.new(file_upload_params)
@@ -12,6 +13,11 @@ class FileUploadsController < ApplicationController
     else
       render json: @file_upload.errors, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @file_upload.destroy if can_destroy?(@file_upload)
+    render json: {}
   end
 
   def presigned_post
@@ -28,5 +34,14 @@ class FileUploadsController < ApplicationController
 
   def file_upload_params
     params.require(:file_upload).permit(:url)
+  end
+
+  def load_file_upload
+    @file_upload = FileUpload.where(uuid: params[:id]).first
+  end
+
+  def can_destroy?(file_upload)
+    file_upload.attachable.is_a?(Project) &&
+      (file_upload.attachable.user.nil? || file_upload.attachable.user == current_user)
   end
 end

@@ -1,11 +1,15 @@
 $.fn.directUpload = ->
   this.addFileUpload()
+  this.bindUploadActions()
   this.find("button.add-file").click (event) ->
     event.preventDefault()
     $("input[type=file]:last").click()
 
 $.fn.addFileUpload = ->
   dU.addFileUpload(this)
+
+$.fn.bindUploadActions = ->
+  dU.bindUploadActions(this)
 
 $.fn.makeDirectUpload = (presignedPost) ->
   dU.makeDirectUpload(this, presignedPost)
@@ -69,10 +73,32 @@ dU =
           success: (data) ->
             uploadContainer.addClass('complete').append $("<input>", type: "hidden", name: "file_upload_uuids[]", value: data.uuid)
             submitButton.prop("disabled", false)
+            dU.insertUploadActions(actionsContainer, data.uuid, "done")
             form.trigger("upload-complete")
 
       fail: (e, data) ->
         uploadContainer.remove()
+
+  insertUploadActions: (element, uuid, status) ->
+    element.find("a").remove()
+
+    switch status
+      when "done"
+        element.append $("<a>", class: "delete-upload", html: "delete", "data-upload-uuid": uuid)
+
+    dU.bindUploadActions(element)
+
+  bindUploadActions: (element) ->
+    element.find("a.delete-upload").click (event) ->
+      link = $(event.target)
+      uuid = link.data("upload-uuid")
+
+      link.parents(".upload-block:first").remove()
+
+      $.ajax
+        type: "POST"
+        url: "/file_uploads/#{uuid}"
+        data: {"_method": "delete"}
 
 $ ->
   $("form.direct-upload").directUpload()
