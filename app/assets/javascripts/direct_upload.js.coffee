@@ -27,7 +27,6 @@ dU =
     form = $(fileInput.parents("form:first"))
     uploadContainer = $(fileInput.parents(".upload-block-placeholder:first"))
 
-    submitButton = form.find("input[type=\"submit\"]")
     progressBar = $("<span>")
     barContainer = $("<div>", class: "upload-progress").append(progressBar)
     actionsContainer = $("<div>", class: "upload-actions").append(barContainer)
@@ -56,7 +55,6 @@ dU =
 
         uploadContainer.addClass("upload-block")
 
-        submitButton.prop("disabled", true)
         progressBar.css("width", "0%")
         fileInput.after(actionsContainer)
         form.trigger("upload-start")
@@ -72,7 +70,6 @@ dU =
           data: {file_upload: {url: url}, attachable_type: form.data("attachable-type")}
           success: (data) ->
             uploadContainer.addClass('complete').append $("<input>", type: "hidden", name: "file_upload_uuids[]", value: data.uuid)
-            submitButton.prop("disabled", false)
             dU.insertUploadActions(actionsContainer, data.uuid, "done")
             form.trigger("upload-complete")
 
@@ -108,3 +105,11 @@ $ ->
 
   $("form#new_cut.direct-upload").on "upload-complete", ->
     this.submit()
+
+  $("form.project-step-2").on "upload-start", ->
+    submitButton = $(this).find("input[type=\"submit\"]")
+    submitButton.prop("disabled", true)
+
+  $("form.project-step-2").on "upload-complete", ->
+    submitButton = $(this).find("input[type=\"submit\"]")
+    submitButton.prop("disabled", false)

@@ -4,7 +4,7 @@ section
   .compact-wrapper
     = render "step_navigation", project: @project, step: 2
 
-    = form_for @project, html: {class: "direct-upload", "data-attachable-type" => "project"} do |f|
+    = form_for @project, html: {class: "direct-upload project-step-2", "data-attachable-type" => "project"} do |f|
       = hidden_field_tag :step, 2
 
       h5 Upload files from your computer
