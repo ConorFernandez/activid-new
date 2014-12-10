@@ -1,3 +1,5 @@
+- add_page_class :project_single
+
 - if current_user.editor?
   - add_page_class :editor_projects
 
@@ -14,16 +16,18 @@ section
       section
 
         .step-wrapper
-          a.step-block.selected data-tab='discussion' Project Discussion
-          a.step-block data-tab='files' Files
+          a.step-block.selected data-tab="discussion" Project Discussion
+          a.step-block data-tab="files" Files
           - if current_user == @project.editor
-            a.step-block data-tab='upload-cut' Upload Cut
+            a.step-block data-tab="upload-cut" Upload Cut
 
-        .step-container data-tab-content='discussion'
+        .step-container data-tab-content="discussion"
           = render "discussion", project: @project
 
-        .step-container data-tab-content='files'
-        .step-container data-tab-content='upload-cut'
+        .step-container data-tab-content="files"
+          = render "files", project: @project
+
+        .step-container data-tab-content="upload-cut"
           = render "upload_cut", project: @project
 
       /-----------  Sidebar  -----------/
