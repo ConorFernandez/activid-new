@@ -20,7 +20,10 @@ class @SignInModal extends Modal
         url: $form.attr("action")
         data: $form.serialize()
         success: (data) =>
-          window.location = $form.data("post-sign-in-path")
+          if data.role == "user"
+            window.location = $form.data("post-sign-in-path")
+          else
+            window.location = "/projects"
         error: (e) =>
           @_enableSubmit()
           @$modal.find(".errors").html("Invalid email address or password. Please try again.")
