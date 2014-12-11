@@ -13,4 +13,4 @@
   /-----------  Video Type -----------/
   .project-meta
     | Uploaded footage:
-    span= "<length here>"
+    span= project.all_uploads_encoded? ? duration(project.duration_of_uploads) : "(calculating)"

@@ -20,7 +20,9 @@ section
           td= "Desired Length: #{@project.desired_length_name}"
           td= @project.desired_length_cost == 0 ? "-" : number_to_currency(@project.desired_length_cost)
         tr
-          td Uploaded Footage:
+          td
+            | Uploaded Footage 
+            = "(#{@project.all_uploads_encoded? ? duration(@project.duration_of_uploads) : "calculating"}):"
           td= "-"
         tr
           td

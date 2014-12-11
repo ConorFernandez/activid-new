@@ -67,7 +67,7 @@ br
 /-----------  Video Type -----------/
 .project-meta
   | Uploaded footage: 
-  span= "#{rand(20...45)} min"
+  span= project.all_uploads_encoded? ? duration(project.duration_of_uploads) : "(calculating)"
 
 br
 

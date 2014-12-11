@@ -95,7 +95,15 @@ class Project < ActiveRecord::Base
   end
 
   def purchasable?
-    draft? && file_uploads.any? && file_uploads.all?{ |u| u.zencoder_finished? }
+    draft? && file_uploads.any? && all_uploads_encoded?
+  end
+
+  def duration_of_uploads
+    all_uploads_encoded? ? file_uploads.sum(:duration) : nil
+  end
+
+  def all_uploads_encoded?
+    file_uploads.all?(&:zencoder_finished?)
   end
 
   private

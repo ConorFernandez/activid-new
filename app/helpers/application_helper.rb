@@ -19,4 +19,13 @@ module ApplicationHelper
   def page_classes
     (@page_classes || []).uniq.join(" ")
   end
+
+  def duration(seconds)
+    return "0:00" if seconds.nil?
+
+    display_minutes = seconds / 60
+    display_seconds = seconds % 60
+
+    "#{display_minutes}:#{display_seconds.to_s.rjust(2, "0")}"
+  end
 end
