@@ -106,6 +106,10 @@ class Project < ActiveRecord::Base
     file_uploads.all?(&:zencoder_finished?)
   end
 
+  def editor_earnings
+    ((price.presence || 0) * 0.7).to_i
+  end
+
   private
 
   def generate_uuid

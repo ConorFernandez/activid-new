@@ -2,16 +2,16 @@
 - if current_user.admin?
   .project-meta
     | Payment: 
-    - if project.draft?
+    - if project.draft? || project.price.nil?
       span n/a
     - else
-      span= "#{project.price} ($60 editor / $80 Activid)"
+      span= "#{project.price} (#{number_to_currency(project.editor_earnings / 100)} editor / #{number_to_currency((project.price - project.editor_earnings) / 100)} Activid))"
 
 /-----------  Editor Earnings  -----------/
 - if current_user.editor?
   .project-meta
-    | Editor Earnings: 
-    span $60
+    | Editor earnings: 
+    span= number_to_currency(project.editor_earnings / 100)
 
 /-----------  Customer  -----------/
 - unless current_user.user?
