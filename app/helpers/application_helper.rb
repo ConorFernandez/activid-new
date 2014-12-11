@@ -23,9 +23,14 @@ module ApplicationHelper
   def duration(seconds)
     return "0:00" if seconds.nil?
 
-    display_minutes = seconds / 60
+    display_hours =   seconds / 3600
+    display_minutes = seconds % 3600 / 60
     display_seconds = seconds % 60
 
-    "#{display_minutes}:#{display_seconds.to_s.rjust(2, "0")}"
+    if display_hours > 0
+      "#{display_hours}:#{display_minutes.to_s.rjust(2, "0")}:#{display_seconds.to_s.rjust(2, "0")}"
+    else
+      "#{display_minutes}:#{display_seconds.to_s.rjust(2, "0")}"
+    end
   end
 end
