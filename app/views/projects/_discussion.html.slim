@@ -1,5 +1,5 @@
 .discussion-block
-  - if current_user.user? || current_user == project.editor
+  - if current_user.user? || current_user == project.editor || current_user.admin?
     .discussion-reply
       = form_for Comment.new, url: project_comments_path(project) do |f|
         = f.text_area :body

@@ -16,8 +16,13 @@ class ProjectsController < ApplicationController
       @completed, @current = current_user.assigned_projects.partition(&:completed?)
 
       render :editor_index
-    else
-      @projects = []
+    elsif current_user.admin?
+      @all = Project.all.select{ |p| !p.draft? }
+      @available = @all.select(&:available?)
+      @in_progress = @all.select(&:in_progress?)
+      @completed = @all.select(&:completed?)
+
+      render :admin_index
     end
   end
 

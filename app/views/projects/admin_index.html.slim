@@ -1,0 +1,32 @@
+section.tab-wrapper
+  .wide-wrapper
+    .tab-block.selected data-tab="all"
+      | All
+      small= @all.count
+
+    .tab-block data-tab="available"
+      | Available
+      small= @available.count
+
+    .tab-block data-tab="in-progress"
+      | In Progress
+      small= @in_progress.count
+
+    .tab-block data-tab="completed"
+      | Completed
+      small= @completed.count
+
+section
+  .bounds-wrapper
+
+    .projects-wrapper.selected data-tab-content="all"
+      = render partial: "project", collection: @all
+
+    .projects-wrapper data-tab-content="available"
+      = render partial: "project", collection: @available
+
+    .projects-wrapper data-tab-content="in-progress"
+      = render partial: "project", collection: @in_progress
+
+    .projects-wrapper data-tab-content="completed"
+      = render partial: "project", collection: @completed

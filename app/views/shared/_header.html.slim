@@ -25,8 +25,8 @@
         = link_to "Log Out", destroy_user_session_path, method: :delete
 
       - elsif current_user.admin?
-        = link_to "Editors", "/admin/index.html"
-        = link_to "Projects", "/admin/projects.html"
+        = link_to "Editors", "#"
+        = link_to "Projects", projects_path
         = link_to "Log Out", "/index.html"
 
     - else
