@@ -1,0 +1,10 @@
+- add_page_class :admin_index
+
+section
+  .bounds-wrapper
+    .editors-wrapper
+      - @editors.each do |editor|
+        .editor-block
+          header
+            = image_tag gravatar_url_for(editor)
+            = link_to long_display_name_for_user(editor), editor_path(editor)

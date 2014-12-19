@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
 
   validates_confirmation_of :password
 
+  scope :editor, -> { where(role: ROLE::EDITOR) }
+
   def can_view_project?(project)
     if user?
       # current users can only view their own projects and projects that don't belong to anyone
