@@ -1,0 +1,10 @@
+.discussion-block
+  .discussion-reply
+    = form_for Comment.new(commentable: editor) do |f|
+      = f.hidden_field :commentable_id
+      = f.hidden_field :commentable_type
+      = f.text_area :body
+      = f.submit "Post a Message", class: "button"
+
+- editor.comments.sort_by(&:created_at).reverse.each do |comment|
+  = render "comments/comment", comment: comment

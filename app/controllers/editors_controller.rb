@@ -1,7 +1,7 @@
 class EditorsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :ensure_user_is_admin
   before_filter :load_editor, only: :show
+  before_filter :ensure_user_can_view_editor
 
   def index
     @editors = User.editor.all
@@ -18,10 +18,8 @@ class EditorsController < ApplicationController
 
   private
 
-  def ensure_user_is_admin
-    unless current_user && current_user.admin?
-      return redirect_to(root_path)
-    end
+  def ensure_user_can_view_editor
+    raise ActiveRecord::RecordNotFound unless current_user && (current_user.admin? || current_user == @editor)
   end
 
   def load_editor

@@ -1,4 +1,17 @@
 joey:
   email: joey@polymathic.me
+
 wilson:
   email: wilson@polymathic.me
+
+editor1:
+  email: editor1@polymathic.me
+  role: editor
+
+editor2:
+  email: editor2@polymathic.me
+  role: editor
+
+admin:
+  email: admin@polymathic.me
+  role: admin

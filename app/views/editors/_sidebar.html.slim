@@ -23,5 +23,6 @@ br
 
 /-----------  Actions  -----------/
 
-a.button.alt Pause Account
-a.button.danger Delete Account
+- if current_user.admin?
+  a.button.alt Pause Account
+  a.button.danger Delete Account

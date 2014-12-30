@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :editors
+  resources :comments
 
   devise_for :users, controllers: {
     registrations: "users/registrations",
@@ -10,7 +11,6 @@ Rails.application.routes.draw do
   resources :file_uploads
 
   resources :projects do
-    resources :comments
     resources :cuts
   end
 

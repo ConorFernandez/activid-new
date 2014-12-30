@@ -26,7 +26,7 @@ class Project < ActiveRecord::Base
   belongs_to :payment_method
 
   has_many :file_uploads, as: :attachable
-  has_many :comments
+  has_many :comments, as: :commentable
   has_many :cuts
 
   before_validation :generate_uuid, :on => :create,
