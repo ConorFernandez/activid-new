@@ -1,0 +1,27 @@
+/-----------  Editor Email  -----------/
+.editor-meta
+  span= editor.email
+
+br
+
+/-----------  Editor Since  -----------/
+.editor-meta
+  | Editor Since:
+  span= editor.created_at.strftime("%m/%d/%Y")
+
+/-----------  Total Earnings  -----------/
+.editor-meta
+  | Total Earnings:
+  span -
+
+/-----------  Total Projects  -----------/
+.editor-meta
+  | Total Projects:
+  span= editor.assigned_projects.count
+
+br
+
+/-----------  Actions  -----------/
+
+a.button.alt Pause Account
+a.button.danger Delete Account

@@ -12,6 +12,12 @@ module UsersHelper
   end
 
   def gravatar_url_for(user)
-    avatar_url_for(user)
+    url = avatar_url_for(user)
+
+    if url.match(/\?/) # already has a query param
+      url += "&d=mm"
+    else
+      url += "?d=mm"
+    end
   end
 end

@@ -7,6 +7,15 @@ class EditorsController < ApplicationController
     @editors = User.editor.all
   end
 
+  def show
+    projects = @editor.assigned_projects
+
+    @projects = {
+      completed: projects.select(&:completed?),
+      in_progress: projects.select(&:in_progress?)
+    }
+  end
+
   private
 
   def ensure_user_is_admin

@@ -1,4 +1,20 @@
+- add_page_class :editor_single
+
 section
   .bounds-wrapper
     .editor-block
       = render "header", editor: @editor
+
+      section
+        .step-wrapper
+          a.step-block.selected data-tab="history" Project History
+          a.step-block data-tab="message"
+            = "Message #{display_name_for_user(@editor)}"
+
+        .step-container.selected data-tab-content='history'
+          = render "history", projects: @projects
+
+        .step-container data-tab-content='message'
+
+      aside
+        = render "sidebar", editor: @editor

@@ -1,0 +1,9 @@
+.history-list
+  h6
+    = title
+    small= "(#{projects.count})"
+  ul
+    - projects.each do |project|
+     li
+        = link_to project.name, project_path(project)
+        small= "(10/12/14)"
