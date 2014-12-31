@@ -10,6 +10,8 @@ class UsersController < ApplicationController
 
     if @user.update(user_params)
       sign_in(@user, bypass: true)
+      update_stripe_recipient if @user.editor? && params[:bank_account_token].present?
+
       flash[:success] = "Your account has been updated."
       redirect_to projects_path
     else
@@ -30,5 +32,19 @@ class UsersController < ApplicationController
       params[:user][:password_confirmation] ||= ""
       params.require(:user).permit(user_keys + password_keys)
     end
+  end
+
+  def update_stripe_recipient
+    recipient = Stripe::Recipient.create(
+      :name => @user.full_name,
+      :type => "individual",
+      :email => @user.email,
+      :bank_account => params[:bank_account_token]
+    )
+
+    @user.update(
+      stripe_recipient_id: recipient.id,
+      bank_account_last_four: recipient.active_account.last4
+    )
   end
 end

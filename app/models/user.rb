@@ -36,4 +36,8 @@ class User < ActiveRecord::Base
       cut.project.editor == self
     end
   end
+
+  def has_bank_account?
+    stripe_recipient_id.present? && bank_account_last_four.present?
+  end
 end
