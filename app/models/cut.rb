@@ -4,6 +4,8 @@ class Cut < ActiveRecord::Base
 
   has_one :file_upload, as: :attachable
 
+  validate :has_upload
+
   def processed?
     file_upload.zencoder_finished? && file_upload.preview_url.present?
   end
@@ -18,5 +20,11 @@ class Cut < ActiveRecord::Base
 
   def zencoder_error
     file_upload.try(:zencoder_error)
+  end
+
+  private
+
+  def has_upload
+    errors.add(:base, "Must have an attached file") unless file_upload.present?
   end
 end
