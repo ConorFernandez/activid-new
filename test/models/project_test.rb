@@ -1,12 +1,13 @@
 require 'test_helper'
 
 class ProjectTest < ActiveSupport::TestCase
-  test "calculated_price takes into account category, desired duration and append_logo" do
+  test "calculated_price takes into account category, desired duration, uploaded_footage, and append_logo" do
     project = Project.new
     project.stubs(:category_cost).returns(3)
-    project.stubs(:desired_length_cost).returns(7)
-    project.append_logo = false
+    project.stubs(:desired_length_cost).returns(5)
+    project.stubs(:remove_logo_cost).returns(7)
+    project.stubs(:uploaded_footage_cost).returns(9)
 
-    assert_equal (3 + 7 + 5) * 100, project.calculated_price
+    assert_equal (3 + 5 + 7 + 9), project.calculated_price
   end
 end

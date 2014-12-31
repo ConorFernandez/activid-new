@@ -2,10 +2,14 @@ one:
   uuid: uuid-one
   url: "url/one.mp4"
   attachable: has_files (Project)
+  zencoder_status: finished
+  duration: 1
 two:
   uuid: uuid-two
   url: "url/two.mp4"
   attachable: has_files (Project)
+  zencoder_status: finished
+  duration: 1
 three:
   uuid: uuid-three
   url: "url/three.mp4"

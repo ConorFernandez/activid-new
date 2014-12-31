@@ -13,20 +13,20 @@ module ProjectsHelper
 
   def options_for_category_select
     Project::CATEGORIES.map do |k, v|
-      ["#{v[:name]} - starting at $#{v[:cost]}", k]
+      ["#{v[:name]} - starting at $#{v[:cost] / 100}", k]
     end
   end
 
   def options_for_desired_length_select
     Project::LENGTHS.map do |k, v|
-      name = v[:cost] == 0 ? v[:name] : "#{v[:name]} - add $#{v[:cost]}"
+      name = v[:cost] == 0 ? v[:name] : "#{v[:name]} - add $#{v[:cost] / 100}"
       [name, k]
     end
   end
 
   def options_for_turnaround
     Project::TURNAROUNDS.map do |k, v|
-      name = v[:cost] == 0 ? v[:name] : "#{v[:name]} (+$#{v[:cost]})"
+      name = v[:cost] == 0 ? v[:name] : "#{v[:name]} (+$#{v[:cost] / 100})"
       [name, k]
     end
   end
@@ -34,7 +34,7 @@ module ProjectsHelper
   def options_for_append_logo
     [
       ["Activid Logo", true],
-      ["Remove Activid Logo (+$5)", false]
+      ["Remove Activid Logo (+$#{Project::REMOVE_LOGO_COST / 100})", false]
     ]
   end
 

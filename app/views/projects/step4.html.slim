@@ -15,15 +15,15 @@ section
       table
         tr
           td= "Video Type: #{@project.category_name}"
-          td= number_to_currency @project.category_cost
+          td= number_to_currency(@project.category_cost / 100)
         tr
           td= "Desired Length: #{@project.desired_length_name}"
-          td= @project.desired_length_cost == 0 ? "-" : number_to_currency(@project.desired_length_cost)
+          td= @project.desired_length_cost == 0 ? "-" : number_to_currency(@project.desired_length_cost / 100)
         tr
           td
             | Uploaded Footage 
             = "(#{@project.all_uploads_encoded? ? duration(@project.duration_of_uploads) : "calculating"}):"
-          td= "-"
+          td= @project.all_uploads_encoded? ? number_to_currency(@project.uploaded_footage_cost / 100) : "-"
         tr
           td
             .select-wrapper= f.select :turnaround, options_for_turnaround
@@ -33,25 +33,28 @@ section
             .select-wrapper= f.select :append_logo, options_for_append_logo
           td= "-"
 
+      hr
       - if @project.purchasable?
-        hr
+        .payment-errors
 
-          .payment-errors
+        .cc-card
+          input type="text" placeholder="Credit Card Number" data-stripe="number"
 
-          .cc-card
-            input type="text" placeholder="Credit Card Number" data-stripe="number"
+        .cc-exp
+          input type="text" placeholder="mm/yyyy" id="stripe-exp"
+          input type="hidden" id="stripe-exp-year" data-stripe="exp-year"
+          input type="hidden" id="stripe-exp-month" data-stripe="exp-month"
 
-          .cc-exp
-            input type="text" placeholder="mm/yyyy" id="stripe-exp"
-            input type="hidden" id="stripe-exp-year" data-stripe="exp-year"
-            input type="hidden" id="stripe-exp-month" data-stripe="exp-month"
+        .cc-ccv
+          input type="text" placeholder="CVC" data-stripe="cvc"
 
-          .cc-ccv
-            input type="text" placeholder="CVC" data-stripe="cvc"
+        .cc-logo= image_tag("stripe.png")
 
-          .cc-logo= image_tag("stripe.png")
-
-          p Don't worry, your credit card won't be charged until you're 100% satisfied with your video.
+        p Don't worry, your credit card won't be charged until you're 100% satisfied with your video.
+      - elsif @project.file_uploads.any?
+        p We're still processing the footage you uploaded. Once we've finished, you'll be able to submit your project to an editor. Please select "post later" below and check back soon.
+      - else
+        p Before submitting your project, you must upload some footage. If you're not ready to upload yet, just select "post later" below and you can resume editing your project at any time.
 
       footer
         .total-block
@@ -59,5 +62,5 @@ section
           h3 $100
 
         .button-wrapper
-          = f.submit 'Post Project', :class => 'alt'
+          = f.submit 'Post Project', class: "alt", disabled: !@project.purchasable?
           = link_to 'Post later', projects_path

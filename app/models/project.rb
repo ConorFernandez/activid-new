@@ -2,24 +2,35 @@ class Project < ActiveRecord::Base
   include Project::Status
 
   CATEGORIES = {
-    vacation:    {name: "Vacation",    cost: 95},
-    kickstarter: {name: "Kickstarter", cost: 195},
-    sports:      {name: "Sports",      cost: 95},
-    weddings:    {name: "Weddings",    cost: 329}
+    vacation:    {name: "Travel / Vacation",       cost: 14500},
+    family:      {name: "Family",                  cost: 14500},
+    sports:      {name: "Sports",                  cost: 14500},
+    drone:       {name: "Drone",                   cost: 14500},
+    interview:   {name: "Interview",               cost: 29500},
+    kickstarter: {name: "Kickstarter / Indiegogo", cost: 39500},
+    wedding:     {name: "Wedding",                 cost: 39500},
+    commercial:  {name: "Commercial",              cost: 49500},
+    business:    {name: "Business",                cost: 49500}
   }
 
   LENGTHS = {
-    two_three:  {name: "2-3 minutes",   cost: 0},
-    three_five: {name: "3-5 minutes",   cost: 0},
-    five_ten:   {name: "5-10 minutes",  cost: 39},
-    ten_twenty: {name: "10-20 minutes", cost: 79}
+    one_three:    {name: "1-3 minutes",   cost: 0},
+    three_five:   {name: "3-5 minutes",   cost: 0},
+    five_ten:     {name: "5-10 minutes",  cost: 3900},
+    ten_twenty:   {name: "10-20 minutes", cost: 8900},
+    twenty_sixty: {name: "20-60 minutes", cost: 13900},
+    sixty_plus:   {name: "60+ minutes",   cost: 19900}
   }
 
   TURNAROUNDS = {
-    seven_day: {name: "7-Day Turnaround", cost: 0,  time: 7.days},
-    five_day:  {name: "5-Day Turnaround", cost: 20, time: 5.days},
-    three_day: {name: "3-Day Turnaround", cost: 30, time: 3.days}
+    seven_day: {name: "7-Day Turnaround", cost: 0,    time: 7.days},
+    five_day:  {name: "5-Day Turnaround", cost: 2900, time: 5.days},
+    three_day: {name: "3-Day Turnaround", cost: 5900, time: 3.days},
+    two_day:   {name: "2-Day Turnaround", cost: 7900, time: 3.days},
+    one_day:   {name: "1-Day Turnaround", cost: 9900, time: 3.days}
   }
+
+  REMOVE_LOGO_COST = 2900
 
   belongs_to :user
   belongs_to :editor, class_name: "User"
@@ -60,6 +71,31 @@ class Project < ActiveRecord::Base
     LENGTHS[desired_length.try(:to_sym)].try(:[], :cost) || 0
   end
 
+  def turnaround_time_cost
+    TURNAROUNDS[turnaround.try(:to_sym)].try(:[], :cost) || 0
+  end
+
+  def uploaded_footage_cost
+    return 0 unless all_uploads_encoded?
+
+    case duration_of_uploads
+    when 0..(30*60)
+      0
+    when (30*60+1)..(60*60)
+      3900
+    when (60*60+1)..(120*60)
+      8900
+    when (120*60+1)..(180*60)
+      13900
+    else
+      19900
+    end
+  end
+
+  def remove_logo_cost
+    append_logo ? 0 : REMOVE_LOGO_COST
+  end
+
   def cut_due_at
     turnaround_time = TURNAROUNDS[turnaround.try(:to_sym)].try(:[], :time)
 
@@ -72,14 +108,13 @@ class Project < ActiveRecord::Base
     (available? || in_progress?) && processed_cuts.empty?
   end
 
-  def calculated_price
-    costs = [
+  def calculated_price # in pennies
+    [
       category_cost,
       desired_length_cost,
-      (append_logo ? 0 : 5)
-    ]
-
-    costs.sum * 100
+      remove_logo_cost,
+      uploaded_footage_cost
+    ].sum
   end
 
   def submit!
@@ -102,7 +137,7 @@ class Project < ActiveRecord::Base
     draft? && file_uploads.any? && all_uploads_encoded?
   end
 
-  def duration_of_uploads
+  def duration_of_uploads # in seconds
     all_uploads_encoded? ? file_uploads.sum(:duration) : nil
   end
 
