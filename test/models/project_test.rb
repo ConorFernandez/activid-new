@@ -7,7 +7,8 @@ class ProjectTest < ActiveSupport::TestCase
     project.stubs(:desired_length_cost).returns(5)
     project.stubs(:remove_logo_cost).returns(7)
     project.stubs(:uploaded_footage_cost).returns(9)
+    project.stubs(:turnaround_time_cost).returns(11)
 
-    assert_equal (3 + 5 + 7 + 9), project.calculated_price
+    assert_equal (3 + 5 + 7 + 9 + 11), project.calculated_price
   end
 end

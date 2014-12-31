@@ -27,14 +27,14 @@ module ProjectsHelper
   def options_for_turnaround
     Project::TURNAROUNDS.map do |k, v|
       name = v[:cost] == 0 ? v[:name] : "#{v[:name]} (+$#{v[:cost] / 100})"
-      [name, k]
+      [name, k, {"data-price" => v[:cost]}]
     end
   end
 
   def options_for_append_logo
     [
-      ["Activid Logo", true],
-      ["Remove Activid Logo (+$#{Project::REMOVE_LOGO_COST / 100})", false]
+      ["Activid Logo", true, {"data-price" => 0}],
+      ["Remove Activid Logo (+$#{Project::REMOVE_LOGO_COST / 100})", false, {"data-price" => Project::REMOVE_LOGO_COST}]
     ]
   end
 

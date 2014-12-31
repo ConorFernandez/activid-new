@@ -113,6 +113,16 @@ class Project < ActiveRecord::Base
       category_cost,
       desired_length_cost,
       remove_logo_cost,
+      uploaded_footage_cost,
+      turnaround_time_cost
+    ].sum
+  end
+
+  # for use on checkout page; price minus options that can be selected at checkout
+  def base_price
+    [
+      category_cost,
+      desired_length_cost,
       uploaded_footage_cost
     ].sum
   end

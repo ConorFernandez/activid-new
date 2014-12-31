@@ -8,7 +8,25 @@ stripeResponseHandler = (status, response) ->
     $form.append $("<input>", type: "hidden", name: "payment_method_token", value: response.id)
     $form.get(0).submit()
 
+updateTotalPrice = ($totalPrice) ->
+  total = $totalPrice.data("base-price")
+
+  $("select.price-select").each (i, select) ->
+    price = $(select).find("option:selected").data("price")
+    priceContainer = $(select).closest("td").siblings()[0]
+    $(priceContainer).html("$#{price / 100}")
+    total += price
+
+  $totalPrice.html("$#{total / 100}")
+
 $ ->
+  totalPrice = $("#total-price")
+
+  if totalPrice.length > 0
+    updateTotalPrice(totalPrice)
+    $("select.price-select").change ->
+      updateTotalPrice(totalPrice)
+
   $("form.checkout").submit (event) ->
     $form = $(this)
     $form.find("button").prop("disabled", true)

@@ -15,22 +15,22 @@ section
       table
         tr
           td= "Video Type: #{@project.category_name}"
-          td= number_to_currency(@project.category_cost / 100)
+          td= "$#{@project.category_cost / 100}"
         tr
           td= "Desired Length: #{@project.desired_length_name}"
-          td= @project.desired_length_cost == 0 ? "-" : number_to_currency(@project.desired_length_cost / 100)
+          td= "$#{@project.desired_length_cost / 100}"
         tr
           td
             | Uploaded Footage 
             = "(#{@project.all_uploads_encoded? ? duration(@project.duration_of_uploads) : "calculating"}):"
-          td= @project.all_uploads_encoded? ? number_to_currency(@project.uploaded_footage_cost / 100) : "-"
+          td= @project.all_uploads_encoded? ? "$#{@project.uploaded_footage_cost / 100}" : "-"
         tr
           td
-            .select-wrapper= f.select :turnaround, options_for_turnaround
+            .select-wrapper= f.select :turnaround, options_for_turnaround, {}, class: "price-select"
           td= "-"
         tr
           td
-            .select-wrapper= f.select :append_logo, options_for_append_logo
+            .select-wrapper= f.select :append_logo, options_for_append_logo, {}, class: "price-select"
           td= "-"
 
       hr
@@ -59,7 +59,7 @@ section
       footer
         .total-block
           h5 Total:
-          h3 $100
+          h3#total-price data-base-price=(@project.base_price)
 
         .button-wrapper
           = f.submit 'Post Project', class: "alt", disabled: !@project.purchasable?
