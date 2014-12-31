@@ -46,7 +46,7 @@ class ProjectsController < ApplicationController
       @project.update(user: current_user) if @project.user.nil? && current_user.present? && current_user.user?
       attach_file_uploads(@project)       if current_step == 2
       attach_payment_method(@project)     if params[:payment_method_token].present?
-      @project.submit!                    if current_step == 4 && @project.payment_method.present? && @project.user.present?
+      @project.submit!                    if current_step == 4 && @project.submittable?
 
       redirect_to next_step_path(@project)
     else

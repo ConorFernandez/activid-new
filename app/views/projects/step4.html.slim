@@ -33,24 +33,25 @@ section
             .select-wrapper= f.select :append_logo, options_for_append_logo
           td= "-"
 
-      hr
+      - if @project.purchasable?
+        hr
 
-        .payment-errors
+          .payment-errors
 
-        .cc-card
-          input type="text" placeholder="Credit Card Number" data-stripe="number"
+          .cc-card
+            input type="text" placeholder="Credit Card Number" data-stripe="number"
 
-        .cc-exp
-          input type="text" placeholder="mm/yyyy" id="stripe-exp"
-          input type="hidden" id="stripe-exp-year" data-stripe="exp-year"
-          input type="hidden" id="stripe-exp-month" data-stripe="exp-month"
+          .cc-exp
+            input type="text" placeholder="mm/yyyy" id="stripe-exp"
+            input type="hidden" id="stripe-exp-year" data-stripe="exp-year"
+            input type="hidden" id="stripe-exp-month" data-stripe="exp-month"
 
-        .cc-ccv
-          input type="text" placeholder="CVC" data-stripe="cvc"
+          .cc-ccv
+            input type="text" placeholder="CVC" data-stripe="cvc"
 
-        .cc-logo= image_tag("stripe.png")
+          .cc-logo= image_tag("stripe.png")
 
-        p Don't worry, your credit card won't be charged until you're 100% satisfied with your video.
+          p Don't worry, your credit card won't be charged until you're 100% satisfied with your video.
 
       footer
         .total-block

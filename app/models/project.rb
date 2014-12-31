@@ -86,6 +86,10 @@ class Project < ActiveRecord::Base
     update(price: calculated_price, submitted_at: Time.now)
   end
 
+  def submittable?
+    purchasable? && user.present? && payment_method.present?
+  end
+
   def processed_cuts
     cuts.order("created_at ASC").select(&:processed?)
   end
