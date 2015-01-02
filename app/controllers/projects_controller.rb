@@ -3,6 +3,7 @@ class ProjectsController < ApplicationController
   before_filter :ensure_project_is_editable, only: [:update, :step1, :step2, :step3, :step4]
   before_filter :ensure_not_editor, only: [:new, :create, :step1, :step2, :step3, :step4]
   before_filter :authenticate_user!, except: [:new, :create, :step1, :step2, :step3, :step4, :update]
+  before_filter :store_project_in_session
 
   def new
     @project = Project.new
@@ -117,5 +118,9 @@ class ProjectsController < ApplicationController
 
   def ensure_not_editor
     raise ActiveRecord::RecordNotFound if current_user && !current_user.user?
+  end
+
+  def store_project_in_session
+    session[:project_uuid] = @project.uuid if @project && @project.uuid.present?
   end
 end
