@@ -1,5 +1,6 @@
 source "https://rubygems.org"
 
+gem "aws-ses", require: "aws/ses"
 gem "avatar"
 gem "aws-sdk"
 gem "bourbon"

@@ -1,0 +1,16 @@
+- add_page_class :password_reset
+
+section
+  .compact-wrapper
+    = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+      h4 Change your password
+      = f.hidden_field :reset_password_token
+
+      = f.password_field :password, autofocus: true, autocomplete: "off", placeholder: "Password"
+      = f.password_field :password_confirmation, autocomplete: "off", placeholder: "Password Confirmation"
+
+      = f.submit "Change my password"
+
+      .devise-links
+        = link_to "Log in", new_user_session_path
+        = link_to "Sign up", new_user_registration_path
