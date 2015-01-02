@@ -92,6 +92,16 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_equal files.map(&:id).sort, project.reload.file_uploads.map(&:id).sort
   end
 
+  test "PUT update attaches activid music options to a project" do
+    project = projects(:has_files)
+    sign_in project.user
+    urls = ["http://foo.com/one.mp3", "http://foo.com/two.mp3"]
+
+    put :update, id: project.uuid, step: 3, activid_music_urls: urls
+
+    assert_equal project.reload.activid_music_urls.sort, urls.sort
+  end
+
   test "PUT update associates current_user with project if project has none" do
     project = projects(:has_files_no_owner)
     sign_in users(:joey)

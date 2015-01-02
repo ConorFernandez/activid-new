@@ -16,7 +16,7 @@ section
       .music-wrapper
         - activid_songs.each do |song|
           .music-block data-category-index="#{song["category_index"]}"
-            input type="checkbox" id="music-#{song["id"]}" value="#{song["url"]}"
+            input type="checkbox" id="music-#{song["id"]}" value="#{song["url"]}" name="activid_music_urls[]" checked=(@project.activid_music_urls.include?(song["url"]) ? true : false)
             label for="music-#{song["id"]}"
               i.icon-play
               = song["name"]

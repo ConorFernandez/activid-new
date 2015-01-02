@@ -43,6 +43,8 @@ class Project < ActiveRecord::Base
   before_validation :generate_uuid, :on => :create,
                                     :if => Proc.new { |p| p.uuid.blank? }
 
+  serialize :activid_music_urls, Array
+
   validates :uuid, :presence => true,
                    :uniqueness => true
 
