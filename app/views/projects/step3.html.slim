@@ -10,6 +10,17 @@ section
 
       = hidden_field_tag :step, 3
 
+      .select-wrapper
+        = select_tag :music_category, options_for_music_category_select
+
+      .music-wrapper
+        - activid_songs.each do |song|
+          .music-block data-category-index="#{song["category_index"]}"
+            input type="checkbox" id="music-#{song["id"]}" value="#{song["url"]}"
+            label for="music-#{song["id"]}"
+              i.icon-play
+              = song["name"]
+
       .button-wrapper
         = link_to "< Back", project_step2_path(@project), :class => "button alt"
         = f.submit "Check Out >", class: "alt"

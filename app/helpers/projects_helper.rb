@@ -54,4 +54,16 @@ module ProjectsHelper
 
     "<div class=\"step-block#{' selected' if active}\">#{content}</div>".html_safe
   end
+
+  def options_for_music_category_select
+    ActividMusic.each_with_index.map{ |c, i| "<option data-category-index=\"#{i}\">#{c["name"]}</option>" }.join.html_safe
+  end
+
+  def activid_songs
+    [].tap do |songs|
+      ActividMusic.each_with_index do |category, ci|
+        category["songs"].each_with_index { |s, i| songs << s.merge({"category_index" => ci, "id" => "#{ci}-#{i}"}) }
+      end
+    end
+  end
 end
