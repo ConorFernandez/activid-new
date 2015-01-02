@@ -29,9 +29,10 @@ class FileUpload < ActiveRecord::Base
             width: 480,
             watermarks: {
               url: "http://activid-stagingg.s3.amazonaws.com/watermark.png",
-              height: "50%",
-              x: "centered",
-              y: "centered"
+              width: 100,
+              x: 10,
+              y: "-10",
+              opacity: 0.75
             }
           }
         })
