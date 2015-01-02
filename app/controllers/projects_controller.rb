@@ -11,6 +11,7 @@ class ProjectsController < ApplicationController
   def index
     if current_user.user?
       @projects = current_user.projects.order("created_at DESC")
+      return redirect_to(new_project_path) if @projects.empty?
     elsif current_user.editor?
       @available = Project.where(editor_id: nil).select{|p| p.available?}
       @completed, @current = current_user.assigned_projects.partition(&:completed?)
