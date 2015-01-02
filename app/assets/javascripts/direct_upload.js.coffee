@@ -98,7 +98,8 @@ dU =
         data: {"_method": "delete"}
 
 $ ->
-  $("form.direct-upload").directUpload()
+  if $("form.direct-upload").length > 0
+    $("form.direct-upload").directUpload()
 
   $("form#new_cut.direct-upload").on "upload-start", ->
     $(this).find("button.add-file").prop("disabled", true)
