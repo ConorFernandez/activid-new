@@ -66,6 +66,32 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_equal 0, project.file_uploads.count
   end
 
+  test "PUT update step 2 does not affect music files" do
+    project = projects(:has_music_and_videos)
+    sign_in project.user
+    assert_equal 1, project.music_uploads.count
+    assert_equal 1, project.video_uploads.count
+
+    put :update, id: project.uuid, step: 2, file_upload_uuids: ([file_uploads(:four)] + project.video_uploads).map(&:uuid)
+    project.reload
+
+    assert_equal 1, project.music_uploads.count
+    assert_equal 2, project.video_uploads.count
+  end
+
+  test "PUT update step 3 does not affect video files" do
+    project = projects(:has_music_and_videos)
+    sign_in project.user
+    assert_equal 1, project.music_uploads.count
+    assert_equal 1, project.video_uploads.count
+
+    put :update, id: project.uuid, step: 3, file_upload_uuids: ([file_uploads(:song2)] + project.music_uploads).map(&:uuid)
+    project.reload
+
+    assert_equal 2, project.music_uploads.count
+    assert_equal 1, project.video_uploads.count
+  end
+
   test "PUT update re-uses existing files" do
     project = projects(:has_files)
     sign_in project.user

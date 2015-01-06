@@ -5,7 +5,7 @@
     - elsif project.draft?
       - if project.purchasable?
         = link_to "Submit", project_step4_path(project), :class => "button"
-      - elsif project.file_uploads.any?
+      - elsif project.video_uploads.any?
         = link_to "Continue Editing", project_step1_path(project), :class => "button"
       - else
         = link_to "Upload Video", project_step2_path(project), :class => "button"

@@ -7,7 +7,7 @@
 
   margin: 0 auto 2em
   @include panel(1px, $gutterSm)
-  
+
   .upload-block
     margin-bottom: $gutterSm
     @include clearfix()
@@ -20,6 +20,7 @@
       width: 50%
       float: left
       text-align: left
+      line-height: normal
       @include ellipsis()
 
     .upload-actions
@@ -66,3 +67,6 @@
         max-width: none
         text-align: center
         margin-bottom: 0.5em
+  .upload-errors
+    color: $red
+    padding: 0 1em 2em

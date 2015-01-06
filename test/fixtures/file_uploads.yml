@@ -24,3 +24,14 @@ six:
   uuid: uuid-six
   url: "url/six.mp4"
   attachable: assigned (Project)
+video:
+  uuid: uuid-video
+  url: "url/video.mp4"
+  attachable: has_music_and_videos (Project)
+song:
+  uuid: uuid-song
+  url: "url/song.mp3"
+  attachable: has_music_and_videos (Project)
+song2:
+  uuid: uuid-song2
+  url: "url/song2.mp3"

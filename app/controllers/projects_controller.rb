@@ -46,8 +46,8 @@ class ProjectsController < ApplicationController
   def update
     if @project.update(project_params)
       @project.update(user: current_user) if @project.user.nil? && current_user.present? && current_user.user?
-      attach_file_uploads(@project)       if current_step == 2
-      attach_music(@project)              if current_step == 3
+      attach_file_uploads(@project)       if current_step == 2 || current_step == 3
+      attach_activid_music(@project)      if current_step == 3
       attach_payment_method(@project)     if params[:payment_method_token].present?
       @project.submit!                    if current_step == 4 && @project.submittable?
 
@@ -109,7 +109,18 @@ class ProjectsController < ApplicationController
 
   def attach_file_uploads(project)
     ids = params[:file_upload_uuids] || []
-    project.update(file_uploads: ids.map{|id| FileUpload.where(uuid: id).first})
+    new_uploads = ids.map{|id| FileUpload.where(uuid: id).first}
+
+    uploads_to_keep =
+      if current_step == 2
+        project.music_uploads
+      elsif current_step == 3
+        project.video_uploads
+      else
+        []
+      end
+
+    project.update(file_uploads: new_uploads + uploads_to_keep)
   end
 
   def attach_payment_method(project)
@@ -125,7 +136,7 @@ class ProjectsController < ApplicationController
     session[:project_uuid] = @project.uuid if @project && @project.uuid.present?
   end
 
-  def attach_music(project)
+  def attach_activid_music(project)
     urls = params[:activid_music_urls] || []
     project.update(activid_music_urls: urls.uniq)
   end

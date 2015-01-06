@@ -7,6 +7,11 @@ has_files:
   uuid: uuid-has-files
   name: My cool project
 
+has_music_and_videos:
+  user: joey
+  uuid: uuid-has-music-and-videos
+  name: My cool project
+
 assigned:
   user: joey
   editor: editor1

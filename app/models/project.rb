@@ -146,19 +146,27 @@ class Project < ActiveRecord::Base
   end
 
   def purchasable?
-    draft? && file_uploads.any? && all_uploads_encoded?
+    draft? && video_uploads.any? && all_uploads_encoded?
   end
 
   def duration_of_uploads # in seconds
-    all_uploads_encoded? ? file_uploads.sum(:duration) : nil
+    all_uploads_encoded? ? video_uploads.sum(:duration) : nil
   end
 
   def all_uploads_encoded?
-    file_uploads.all?(&:zencoder_finished?)
+    video_uploads.all?(&:zencoder_finished?)
   end
 
   def editor_earnings
     ((price.presence || 0) * 0.7).to_i
+  end
+
+  def video_uploads
+    file_uploads.select(&:video?)
+  end
+
+  def music_uploads
+    file_uploads.select(&:music?)
   end
 
   private

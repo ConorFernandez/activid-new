@@ -1,12 +1,14 @@
 $.fn.directUpload = ->
-  this.addFileUpload()
+  formats = this.data("formats").split(",")
+
+  this.addFileUpload(formats)
   this.bindUploadActions()
   this.find("button.add-file").click (event) ->
     event.preventDefault()
     $("input[type=file]:last").click()
 
-$.fn.addFileUpload = ->
-  dU.addFileUpload(this)
+$.fn.addFileUpload = (formats) ->
+  dU.addFileUpload(this, formats)
 
 $.fn.bindUploadActions = ->
   dU.bindUploadActions(this)
@@ -15,15 +17,15 @@ $.fn.makeDirectUpload = (presignedPost) ->
   dU.makeDirectUpload(this, presignedPost)
 
 dU =
-  addFileUpload: (form) ->
+  addFileUpload: (form, formats) ->
     fileUpload = $("<input>", type: "file")
     container = $("<div>", class: "upload-block-placeholder")
 
     $.get "/file_uploads/presigned_post", (data, status) ->
       container.append(fileUpload).insertBefore(form.find(".upload-wrapper footer"))
-      dU.makeDirectUpload(fileUpload, data)
+      dU.makeDirectUpload(fileUpload, data, formats)
 
-  makeDirectUpload: (fileInput, presignedPost) ->
+  makeDirectUpload: (fileInput, presignedPost, formats) ->
     form = $(fileInput.parents("form:first"))
     uploadContainer = $(fileInput.parents(".upload-block-placeholder:first"))
 
@@ -45,12 +47,29 @@ dU =
         progress = parseInt(data.loaded / data.total * 100, 10)
         progressBar.css("width", progress + "%")
 
+      submit: (e) ->
+        form.find(".upload-wrapper .upload-errors").remove()
+
+        parts = e.target.value.split(/\/|\\/)
+        fileName = parts[parts.length - 1]
+
+        parts = fileName.split(".")
+        extension = parts[parts.length - 1].toLowerCase()
+
+        if formats.length > 0 && formats.indexOf(extension) < 0
+          errorsContainer = $("<div>", class: "upload-errors", html: "Must be one of the following formats: #{formats.join(", ")}.")
+          form.find(".upload-wrapper").prepend(errorsContainer)
+
+          # cancel upload if file is invalid format
+          return false
+
       start: (e) ->
         # add element to be used by the next file upload
-        dU.addFileUpload(form)
+        dU.addFileUpload(form, formats)
 
-        parts = e.target.value.split("\\")
+        parts = e.target.value.split(/\/|\\/)
         fileName = parts[parts.length - 1]
+
         uploadContainer.prepend($("<h6>", html: fileName))
 
         uploadContainer.addClass("upload-block")
@@ -112,5 +131,13 @@ $ ->
     submitButton.prop("disabled", true)
 
   $("form.project-step-2").on "upload-complete", ->
+    submitButton = $(this).find("input[type=\"submit\"]")
+    submitButton.prop("disabled", false)
+
+  $("form.project-step-3").on "upload-start", ->
+    submitButton = $(this).find("input[type=\"submit\"]")
+    submitButton.prop("disabled", true)
+
+  $("form.project-step-3").on "upload-complete", ->
     submitButton = $(this).find("input[type=\"submit\"]")
     submitButton.prop("disabled", false)

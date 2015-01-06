@@ -54,10 +54,10 @@ section
         .cc-logo= image_tag("stripe.png")
 
         p Don't worry, your credit card won't be charged until you're 100% satisfied with your video.
-      - elsif @project.file_uploads.any?
-        .unpurchasable-warning We're still processing the footage you uploaded. Once we've finished, you'll be able to submit your project to an editor. Please select "post later" below and check back soon.
-      - else
+      - elsif @project.video_uploads.empty?
         .unpurchasable-warning Before submitting your project, you must upload some footage. If you're not ready to upload yet, just select "post later" below and you can resume editing your project at any time.
+      - else
+        .unpurchasable-warning We're still processing the footage you uploaded. Once we've finished, you'll be able to submit your project to an editor. Please select "post later" below and check back soon.
 
       footer
         .total-block

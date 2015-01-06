@@ -2,9 +2,9 @@
   .project-meta
     - if project.purchasable?
       | Your project is ready to submit.
-    - elsif project.file_uploads.any?
+    - elsif project.video_uploads.empty?
+      | Before you can submit your project, you must upload some videos to edit.
+    - else
       | We're almost done processing your uploaded media.
       br
       | Once we've finished, your project will be ready to submit.
-    - else
-      | Before you can submit your project, you must upload some videos to edit.

@@ -4,7 +4,7 @@ section
   .compact-wrapper
     = render "step_navigation", project: @project, step: 3
 
-    = form_for @project do |f|
+    = form_for @project, html: {class: "direct-upload project-step-3", "data-attachable-type" => "project", "data-formats" => FileUpload::FORMATS[:music].join(",")} do |f|
       h5 Choose from our music
       p Including music is optional, but we make it easy by providing some.
 
@@ -20,6 +20,13 @@ section
             label for="music-#{song["id"]}"
               i.icon-play
               = song["name"]
+
+      h5 ...or upload your own
+      p
+        i.icon-attention
+        | Make sure you have the rights to use the music you upload!
+
+      = render "projects/upload_wrapper", file_uploads: @project.music_uploads
 
       .button-wrapper
         = link_to "< Back", project_step2_path(@project), :class => "button alt"

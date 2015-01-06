@@ -6,7 +6,6 @@ class FileUploadsController < ApplicationController
     @file_upload = FileUpload.new(file_upload_params)
 
     if @file_upload.save
-      # todo: move this to a background worker
       @file_upload.queue_zencoder_job(params[:attachable_type]) if @file_upload.video?
 
       render json: @file_upload

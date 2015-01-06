@@ -1,4 +1,8 @@
 class FileUpload < ActiveRecord::Base
+  FORMATS = {
+    video: %w(mov mp4 mpg flv wmv 3gp asf rm swf avi),
+    music: %w(mp3)
+  }
   belongs_to :attachable, polymorphic: true
 
   before_validation :generate_uuid, :on => :create,
@@ -55,9 +59,10 @@ class FileUpload < ActiveRecord::Base
     match = file_name.match(/\.(.+)$/)
     extension = (match && match[1]) ? match[1].downcase : nil
 
-    case extension
-    when /mov|mp4|mpg|flv|wmv|3gp|asf|rm|swf|avi/
+    if FORMATS[:video].include?(extension)
       :video
+    elsif FORMATS[:music].include?(extension)
+      :music
     else
       nil
     end
@@ -65,6 +70,10 @@ class FileUpload < ActiveRecord::Base
 
   def video?
     file_type == :video
+  end
+
+  def music?
+    file_type == :music
   end
 
   def zencoder_finished?
