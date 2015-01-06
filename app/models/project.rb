@@ -150,7 +150,7 @@ class Project < ActiveRecord::Base
   end
 
   def duration_of_uploads # in seconds
-    all_uploads_encoded? ? video_uploads.sum(:duration) : nil
+    all_uploads_encoded? ? video_uploads.map(&:duration).sum : nil
   end
 
   def all_uploads_encoded?
