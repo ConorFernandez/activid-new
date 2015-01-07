@@ -53,7 +53,7 @@ dU =
 
       submit: (e) ->
         form.find(".upload-wrapper .upload-errors").remove()
-        form.find(".upload-wrapper .upload-empty").remove()
+        form.find(".upload-wrapper .upload-empty").hide()
 
         parts = e.target.value.split(/\/|\\/)
         fileName = parts[parts.length - 1]
@@ -112,11 +112,17 @@ dU =
     dU.bindUploadActions(element, jqXHR)
 
   bindUploadActions: (element, jqXHR) ->
+    uploadWrapper = element.parents(".upload-wrapper:first")
+    window.wrapper = uploadWrapper
+
     element.find("a.delete-upload").click (event) ->
       link = $(event.target)
       uuid = link.data("upload-uuid")
 
       link.parents(".upload-block:first").remove()
+
+      if uploadWrapper.find(".upload-block").length == 0
+        uploadWrapper.find(".upload-empty").show()
 
       $.ajax
         type: "POST"
@@ -126,6 +132,9 @@ dU =
     if jqXHR
       element.find("a.cancel-upload").click (event) ->
         jqXHR.abort()
+
+        if uploadWrapper.find(".upload-block").length == 0
+          uploadWrapper.find(".upload-empty").show()
 
 $ ->
   if $("form.direct-upload").length > 0
