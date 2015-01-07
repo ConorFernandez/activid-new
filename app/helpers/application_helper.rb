@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def page_title(title)
+    @page_title = title
+  end
+
   def post_sign_in_modal_path
     if params[:controller] == "projects"
       request.path
