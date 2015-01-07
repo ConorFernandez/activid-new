@@ -43,6 +43,10 @@ dU =
       dataType: "XML" # S3 returns XML if success_action_status is set to 201
       replaceFileInput: false
 
+      add: (e, data) ->
+        jqXHR = data.submit()
+        dU.insertUploadActions(actionsContainer, "uploading", false, jqXHR)
+
       progressall: (e, data) ->
         progress = parseInt(data.loaded / data.total * 100, 10)
         progressBar.css("width", progress + "%")
@@ -90,22 +94,24 @@ dU =
           data: {file_upload: {url: url}, attachable_type: form.data("attachable-type")}
           success: (data) ->
             uploadContainer.addClass('complete').append $("<input>", type: "hidden", name: "file_upload_uuids[]", value: data.uuid)
-            dU.insertUploadActions(actionsContainer, data.uuid, "done")
+            dU.insertUploadActions(actionsContainer, "done", data.uuid, false)
             form.trigger("upload-complete")
 
       fail: (e, data) ->
         uploadContainer.remove()
 
-  insertUploadActions: (element, uuid, status) ->
+  insertUploadActions: (element, status, uuid, jqXHR) ->
     element.find("a").remove()
 
     switch status
       when "done"
-        element.append $("<a>", class: "delete-upload", html: "delete", "data-upload-uuid": uuid)
+        element.append $("<a>", class: "delete-upload", html: "delete", "data-upload-uuid": uuid) if uuid
+      when "uploading"
+        element.append $("<a>", class: "cancel-upload", html: "cancel")
 
-    dU.bindUploadActions(element)
+    dU.bindUploadActions(element, jqXHR)
 
-  bindUploadActions: (element) ->
+  bindUploadActions: (element, jqXHR) ->
     element.find("a.delete-upload").click (event) ->
       link = $(event.target)
       uuid = link.data("upload-uuid")
@@ -116,6 +122,10 @@ dU =
         type: "POST"
         url: "/file_uploads/#{uuid}"
         data: {"_method": "delete"}
+
+    if jqXHR
+      element.find("a.cancel-upload").click (event) ->
+        jqXHR.abort()
 
 $ ->
   if $("form.direct-upload").length > 0
