@@ -49,6 +49,7 @@ dU =
 
       submit: (e) ->
         form.find(".upload-wrapper .upload-errors").remove()
+        form.find(".upload-wrapper .upload-empty").remove()
 
         parts = e.target.value.split(/\/|\\/)
         fileName = parts[parts.length - 1]

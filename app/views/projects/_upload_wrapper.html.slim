@@ -1,15 +1,19 @@
 .upload-wrapper
-  - file_uploads.each do |file_upload|
-    .upload-block.complete
-      = hidden_field_tag "file_upload_uuids[]", file_upload.uuid
+  - if file_uploads.empty?
+    .upload-empty
+      | Select a file to upload using the button below
+  - else
+    - file_uploads.each do |file_upload|
+      .upload-block.complete
+        = hidden_field_tag "file_upload_uuids[]", file_upload.uuid
 
-      h6= file_upload.file_name
+        h6= file_upload.file_name
 
-      .upload-actions
-        .upload-progress
-          span style="width: 100%"
+        .upload-actions
+          .upload-progress
+            span style="width: 100%"
 
-        a.delete-upload data-upload-uuid=file_upload.uuid delete
+          a.delete-upload data-upload-uuid=file_upload.uuid delete
 
   footer
     button.add-file Choose file
