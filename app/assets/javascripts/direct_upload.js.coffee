@@ -91,7 +91,7 @@ dU =
         $.ajax
           type: "POST"
           url: "/file_uploads"
-          data: {file_upload: {url: url}, attachable_type: form.data("attachable-type")}
+          data: {file_upload: {url: url}, attachable_type: form.data("attachable-type"), project_uuid: form.data("project-uuid")}
           success: (data) ->
             uploadContainer.addClass('complete').append $("<input>", type: "hidden", name: "file_upload_uuids[]", value: data.uuid)
             dU.insertUploadActions(actionsContainer, "done", data.uuid, false)
@@ -112,11 +112,9 @@ dU =
     dU.bindUploadActions(element, jqXHR)
 
   bindUploadActions: (element, jqXHR) ->
-    uploadWrapper = element.parents(".upload-wrapper:first")
-    window.wrapper = uploadWrapper
-
     element.find("a.delete-upload").click (event) ->
       link = $(event.target)
+      uploadWrapper = link.parents(".upload-wrapper:first")
       uuid = link.data("upload-uuid")
 
       link.parents(".upload-block:first").remove()
@@ -131,6 +129,9 @@ dU =
 
     if jqXHR
       element.find("a.cancel-upload").click (event) ->
+        link = $(event.target)
+        uploadWrapper = link.parents(".upload-wrapper:first")
+
         jqXHR.abort()
 
         if uploadWrapper.find(".upload-block").length == 0

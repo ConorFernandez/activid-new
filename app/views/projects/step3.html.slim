@@ -4,7 +4,7 @@ section
   .compact-wrapper
     = render "step_navigation", project: @project, step: 3
 
-    = form_for @project, html: {class: "direct-upload project-step-3", "data-attachable-type" => "project", "data-formats" => FileUpload::FORMATS[:music].join(",")} do |f|
+    = form_for @project, html: {class: "direct-upload project-step-3", "data-attachable-type" => "project", "data-formats" => FileUpload::FORMATS[:music].join(","), "data-project-uuid" => @project.uuid} do |f|
       h5 Choose from our music
       p Including music is optional, but we make it easy by providing some.
 

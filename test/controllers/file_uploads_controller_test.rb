@@ -29,4 +29,14 @@ class FileUploadsControllerTest < ActionController::TestCase
 
     assert_not_equal nil, FileUpload.find_by_id(upload.id)
   end
+
+  test "if a project_uuid is present, attach the upload to the project immediately" do
+    project = projects(:has_files)
+    sign_in project.user
+    url = "http://mysweetvideo.com/cinemagic.mp4"
+
+    post :create, file_upload: {url: url}, project_uuid: project.uuid
+
+    assert project.reload.file_uploads.map(&:url).include?(url)
+  end
 end

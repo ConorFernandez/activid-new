@@ -7,6 +7,7 @@ class FileUploadsController < ApplicationController
 
     if @file_upload.save
       @file_upload.queue_zencoder_job(params[:attachable_type]) if @file_upload.video?
+      attach_file_upload(@file_upload) if params[:project_uuid].present?
 
       render json: @file_upload
     else
@@ -42,5 +43,13 @@ class FileUploadsController < ApplicationController
   def can_destroy?(file_upload)
     file_upload.attachable.is_a?(Project) &&
       (file_upload.attachable.user.nil? || file_upload.attachable.user == current_user)
+  end
+
+  def attach_file_upload(file_upload)
+    project = Project.where(uuid: params[:project_uuid]).first
+
+    if project && (project.user == current_user || project.user.nil?)
+      file_upload.update(attachable: project)
+    end
   end
 end
