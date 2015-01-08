@@ -131,7 +131,9 @@ dU =
       element.find("a.cancel-upload").click (event) ->
         link = $(event.target)
         uploadWrapper = link.parents(".upload-wrapper:first")
+        form = link.parents("form:first")
 
+        form.trigger("upload-cancel")
         jqXHR.abort()
 
         if uploadWrapper.find(".upload-block").length == 0
@@ -147,6 +149,9 @@ $ ->
   $("form#new_cut.direct-upload").on "upload-complete", ->
     this.submit()
 
+  $("form#new_cut.direct-upload").on "upload-cancel", ->
+    $(this).find("button.add-file").prop("disabled", false)
+
   $("form.project-step-2").on "upload-start", ->
     submitButton = $(this).find("input[type=\"submit\"]")
     submitButton.prop("disabled", true)
@@ -155,10 +160,18 @@ $ ->
     submitButton = $(this).find("input[type=\"submit\"]")
     submitButton.prop("disabled", false)
 
+  $("form.project-step-2").on "upload-cancel", ->
+    submitButton = $(this).find("input[type=\"submit\"]")
+    submitButton.prop("disabled", false)
+
   $("form.project-step-3").on "upload-start", ->
     submitButton = $(this).find("input[type=\"submit\"]")
     submitButton.prop("disabled", true)
 
   $("form.project-step-3").on "upload-complete", ->
+    submitButton = $(this).find("input[type=\"submit\"]")
+    submitButton.prop("disabled", false)
+
+  $("form.project-step-3").on "upload-cancel", ->
     submitButton = $(this).find("input[type=\"submit\"]")
     submitButton.prop("disabled", false)
