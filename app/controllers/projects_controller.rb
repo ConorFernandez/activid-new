@@ -48,7 +48,7 @@ class ProjectsController < ApplicationController
       @project.update(user: current_user) if @project.user.nil? && current_user.present? && current_user.user?
       attach_file_uploads(@project)       if current_step == 2 || current_step == 3
       attach_activid_music(@project)      if current_step == 3
-      set_payment_method(@project)        if params[:stripe_token].present? && @project.user.present?
+      set_payment_method(@project)        if @project.user.present? && (params[:stripe_token].present? || params[:stripe_card_id].present?)
       @project.submit!                    if current_step == 4 && @project.submittable?
 
       redirect_to next_step_path(@project)
@@ -124,12 +124,28 @@ class ProjectsController < ApplicationController
   end
 
   def set_payment_method(project)
-    customer = Stripe::Customer.create(
-      :card => params[:stripe_token],
-      :description => project.user.email
-    )
+    if project.user.stripe_customer_id.blank?
+      # new card, new customer
+      customer = Stripe::Customer.create(
+        :card => params[:stripe_token],
+        :description => project.user.email
+      )
 
-    project.user.update(stripe_customer_id: customer.id)
+      project.user.update(stripe_customer_id: customer.id)
+
+      card = customer.cards.first
+    elsif params[:stripe_token]
+      # new card, existing customer
+      card = project.user.stripe_customer.cards.create(card: params[:stripe_token])
+    elsif params[:stripe_card_id]
+      # existing card, existing customer
+      card = project.user.stripe_customer.cards.retrieve(card: params[:stripe_card_id])
+    end
+
+    project.update(stripe_card_id: card.id)
+  rescue Stripe::InvalidRequestError => e
+    Rails.logger.error(e.inspect)
+    return false
   end
 
   def ensure_not_editor

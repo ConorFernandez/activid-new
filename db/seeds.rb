@@ -40,5 +40,3 @@ projects.each do |p|
     url: "//activid-dev.s3.amazonaws.com/seeds/dog_the_shot.mp4"
   )
 end
-
-projects.first.submit!

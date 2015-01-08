@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class ProjectsControllerTest < ActionController::TestCase
+  def setup
+    @mock_stripe_customer = OpenStruct.new(id: "customer_id_asdf", cards: [OpenStruct.new(id: "card_id_asdf")])
+  end
+
   test "POST create redirects to step 2" do
     data = {
       name: "My Project",
@@ -142,25 +146,55 @@ class ProjectsControllerTest < ActionController::TestCase
   test "PUT update creates and stores a stripe customer token if none exists" do
     project = projects(:has_files)
     sign_in project.user
-    stripe_customer_id = "id_asdf"
+    stripe_customer_id = "customer_id_asdf"
+    stripe_card_id = "card_id_asdf"
 
-    Stripe::Customer.expects(:create).returns(OpenStruct.new(id: stripe_customer_id))
+    Stripe::Customer.expects(:create).returns(OpenStruct.new(id: stripe_customer_id, cards: [OpenStruct.new(id: stripe_card_id)]))
 
     put :update, id: project.uuid, step: 4, stripe_token: "asdf"
 
-    assert_equal stripe_customer_id, project.user.reload.stripe_customer_id
+    project.reload
+
+    assert_equal stripe_customer_id, project.user.stripe_customer_id
+    assert_equal stripe_card_id, project.stripe_card_id
   end
 
   test "PUT update adds a card to a user if stripe customer already exists" do
-    skip
+    project = projects(:has_files)
+    user = project.user
+    sign_in user
+
+    mock_cards = OpenStruct.new
+    mock_customer = OpenStruct.new(cards: mock_cards)
+    user.update(stripe_customer_id: "asdf")
+    Stripe::Customer.expects(:retrieve).returns(mock_customer)
+    mock_cards.expects(:create).returns(OpenStruct.new(id: "new_card_id"))
+
+    put :update, id: project.uuid, step: 4, stripe_token: "asdf"
+
+    assert_equal "new_card_id", project.reload.stripe_card_id
+    assert_equal "asdf", project.user.stripe_customer_id
   end
 
-  test "PUT update fails if stripe customer cannot be created for some reason" do
-    skip
+  test "PUT update uses an existing card if one is provided" do
+    project = projects(:has_files)
+    user = project.user
+    sign_in user
+
+    mock_cards = OpenStruct.new
+    mock_customer = OpenStruct.new(cards: mock_cards)
+    user.update(stripe_customer_id: "asdf")
+    Stripe::Customer.expects(:retrieve).returns(mock_customer)
+    mock_cards.expects(:retrieve).returns(OpenStruct.new(id: "existing_card_id"))
+
+    put :update, id: project.uuid, step: 4, stripe_card_id: "existing_card_id"
+
+    assert_equal "existing_card_id", project.reload.stripe_card_id
+    assert_equal "asdf", project.user.stripe_customer_id
   end
 
   test "checkout caches price on project and updates status" do
-    Stripe::Customer.expects(:create).returns(OpenStruct.new(id: "id_asdf"))
+    Stripe::Customer.expects(:create).returns(@mock_stripe_customer)
 
     sign_in users(:joey)
     project = projects(:has_files)
@@ -176,7 +210,7 @@ class ProjectsControllerTest < ActionController::TestCase
   end
 
   test "checkout sets submitted_at" do
-    Stripe::Customer.expects(:create).returns(OpenStruct.new(id: "id_asdf"))
+    Stripe::Customer.expects(:create).returns(@mock_stripe_customer)
 
     sign_in users(:joey)
     project = projects(:has_files)

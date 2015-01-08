@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150108153532) do
+ActiveRecord::Schema.define(version: 20150108181520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 20150108153532) do
     t.datetime "submitted_at"
     t.integer  "editor_id"
     t.text     "activid_music_urls"
+    t.string   "stripe_card_id"
   end
 
   add_index "projects", ["editor_id"], name: "index_projects_on_editor_id", using: :btree

@@ -40,4 +40,8 @@ class User < ActiveRecord::Base
   def has_bank_account?
     stripe_recipient_id.present? && bank_account_last_four.present?
   end
+
+  def stripe_customer
+    stripe_customer_id.present? ? Stripe::Customer.retrieve(stripe_customer_id) : nil
+  end
 end
