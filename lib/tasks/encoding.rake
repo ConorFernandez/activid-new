@@ -1,4 +1,7 @@
 namespace :encoding do
+  desc "Check all uploads"
+  task check_all: [:check_cuts, :check_user_uploads]
+
   desc "Check cuts to see if they have completed encoding"
   task check_cuts: :environment do
     FileUpload.where(attachable_type: "Cut", zencoder_status: "processing").each do |upload|
