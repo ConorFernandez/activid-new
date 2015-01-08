@@ -14,5 +14,5 @@
   ul
     - project.activid_music_urls.each do |url|
       li= link_to url.split("/").last, url
-    - project.music_uploads.each do |url|
+    - project.music_uploads.each do |upload|
       li= link_to upload.file_name, upload.url
