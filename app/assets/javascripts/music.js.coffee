@@ -10,3 +10,18 @@ $ ->
 
     initialIndex = $("select#music_category option:selected").data("category-index")
     filterMusicBlocks(initialIndex)
+
+  $(".play-pause").click (e) ->
+    $icon = $(e.target)
+    $audio = $icon.find("audio")
+
+    if $icon.hasClass("icon-play")
+      $audio.trigger("play")
+      $icon.removeClass("icon-play")
+      $icon.addClass("icon-pause")
+    else
+      $audio.trigger("pause")
+      $icon.addClass("icon-play")
+      $icon.removeClass("icon-pause")
+
+    e.preventDefault()
