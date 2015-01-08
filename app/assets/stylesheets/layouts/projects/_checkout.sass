@@ -6,6 +6,11 @@ body.projects_create_checkout
     text-align: left
     @include panel() 
 
+    .stored-cards
+      input:not([type='hidden']) + label
+        color: $grayDark
+        margin: 0 0 1.2em
+
   table
     width: 100%
 
@@ -28,6 +33,7 @@ body.projects_create_checkout
     margin: -2em
     padding: 2em
     font-weight: bold
+
 
   /*-----------  Credit Card Layout  -----------*/
 

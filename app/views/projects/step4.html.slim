@@ -39,6 +39,15 @@ section
 
       hr
       - if @project.purchasable?
+        - if @project.user.stripe_customer
+          .stored-cards
+            - @project.user.stripe_customer.cards.each do |card|
+              = radio_button_tag :stripe_card_id, card.id
+              = label_tag "stripe_card_id_#{card.id}", "#{card.brand}: *-#{card.last4}, Expires #{card.exp_month}/#{card.exp_year}"
+
+            = radio_button_tag :stripe_card_id, "", true
+            = label_tag "stripe_card_id_", "New card"
+
         .payment-errors
 
         .cc-card

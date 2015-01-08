@@ -29,13 +29,25 @@ $ ->
 
   $("form.checkout").submit (event) ->
     $form = $(this)
-    $form.find("button").prop("disabled", true)
 
-    # split expiration date into year and month
-    exp = $form.find("input#stripe-exp").val().split("/")
-    $form.find("input#stripe-exp-month").val(exp[0])
-    $form.find("input#stripe-exp-year").val(exp[1])
+    unless $form.find(".cc-card input").prop("disabled")
+      $form.find("button").prop("disabled", true)
 
-    Stripe.card.createToken($form, stripeResponseHandler)
+      # split expiration date into year and month
+      exp = $form.find("input#stripe-exp").val().split("/")
+      $form.find("input#stripe-exp-month").val(exp[0])
+      $form.find("input#stripe-exp-year").val(exp[1])
 
-    return false
+      Stripe.card.createToken($form, stripeResponseHandler)
+
+      return false
+
+  $("form.checkout input[name=stripe_card_id]:radio").change (e) ->
+    $input = $(e.target)
+    $form = $input.parents("form:first")
+
+    if $(e.target).val().length == 0
+      # user select "new card"
+      $form.find(".cc-card input, .cc-exp input, .cc-ccv input").prop("disabled", false)
+    else
+      $form.find(".cc-card input, .cc-exp input, .cc-ccv input").prop("disabled", true)

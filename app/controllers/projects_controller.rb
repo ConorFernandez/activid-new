@@ -139,7 +139,7 @@ class ProjectsController < ApplicationController
       card = project.user.stripe_customer.cards.create(card: params[:stripe_token])
     elsif params[:stripe_card_id]
       # existing card, existing customer
-      card = project.user.stripe_customer.cards.retrieve(card: params[:stripe_card_id])
+      card = project.user.stripe_customer.cards.retrieve(params[:stripe_card_id])
     end
 
     project.update(stripe_card_id: card.id)
