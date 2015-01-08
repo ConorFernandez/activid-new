@@ -31,6 +31,8 @@ class FileUpload < ActiveRecord::Base
           input: "s3:#{url}",
           output: {
             width: 480,
+            url: "http://#{ENV["S3_BUCKET"]}.s3.amazonaws.com/previews/#{UUID.new.generate}.#{url.split(".").last}",
+            public: true,
             watermarks: {
               url: "http://activid-stagingg.s3.amazonaws.com/watermark.png",
               width: 100,
