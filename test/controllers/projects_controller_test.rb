@@ -139,26 +139,35 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_equal users(:joey), project.reload.user
   end
 
-  test "PUT update attaches a payment method if a token is provided" do
+  test "PUT update creates and stores a stripe customer token if none exists" do
     project = projects(:has_files)
     sign_in project.user
-    token = "asdf1234"
+    stripe_customer_id = "id_asdf"
 
-    assert_equal nil, project.payment_method
+    Stripe::Customer.expects(:create).returns(OpenStruct.new(id: stripe_customer_id))
 
-    put :update, id: project.uuid, step: 4, payment_method_token: token
+    put :update, id: project.uuid, step: 4, stripe_token: "asdf"
 
-    assert_equal token, project.reload.payment_method.token
+    assert_equal stripe_customer_id, project.user.reload.stripe_customer_id
+  end
+
+  test "PUT update adds a card to a user if stripe customer already exists" do
+    skip
+  end
+
+  test "PUT update fails if stripe customer cannot be created for some reason" do
+    skip
   end
 
   test "checkout caches price on project and updates status" do
-    sign_in(users(:joey))
+    Stripe::Customer.expects(:create).returns(OpenStruct.new(id: "id_asdf"))
+
+    sign_in users(:joey)
     project = projects(:has_files)
-    token = "asdf1234"
 
     assert_equal nil, project.price
 
-    put :update, id: project.uuid, step: 4, payment_method_token: token
+    put :update, id: project.uuid, step: 4, stripe_token: "asdf"
 
     project.reload
 
@@ -167,13 +176,14 @@ class ProjectsControllerTest < ActionController::TestCase
   end
 
   test "checkout sets submitted_at" do
-    sign_in(users(:joey))
+    Stripe::Customer.expects(:create).returns(OpenStruct.new(id: "id_asdf"))
+
+    sign_in users(:joey)
     project = projects(:has_files)
-    token = "asdf1234"
 
     assert_equal nil, project.submitted_at
 
-    put :update, id: project.uuid, step: 4, payment_method_token: token
+    put :update, id: project.uuid, step: 4, stripe_token: "asdf"
 
     project.reload
 

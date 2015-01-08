@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150102175854) do
+ActiveRecord::Schema.define(version: 20150108153532) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
 
   create_table "comments", force: true do |t|
     t.integer  "poster_id"
@@ -52,15 +51,8 @@ ActiveRecord::Schema.define(version: 20150102175854) do
   add_index "file_uploads", ["attachable_id", "attachable_type"], name: "index_file_uploads_on_attachable_id_and_attachable_type", using: :btree
   add_index "file_uploads", ["uuid"], name: "index_file_uploads_on_uuid", using: :btree
 
-  create_table "payment_methods", force: true do |t|
-    t.string   "token"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "projects", force: true do |t|
     t.integer  "user_id"
-    t.integer  "payment_method_id"
     t.integer  "price"
     t.string   "uuid"
     t.string   "name"
@@ -97,6 +89,7 @@ ActiveRecord::Schema.define(version: 20150102175854) do
     t.string   "role",                   default: "user"
     t.string   "stripe_recipient_id"
     t.string   "bank_account_last_four"
+    t.string   "stripe_customer_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

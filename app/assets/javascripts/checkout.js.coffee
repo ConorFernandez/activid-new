@@ -5,7 +5,7 @@ stripeResponseHandler = (status, response) ->
     $form.find(".payment-errors").text response.error.message
     $form.find("button").prop "disabled", false
   else
-    $form.append $("<input>", type: "hidden", name: "payment_method_token", value: response.id)
+    $form.append $("<input>", type: "hidden", name: "stripe_token", value: response.id)
     $form.get(0).submit()
 
 updateTotalPrice = ($totalPrice) ->

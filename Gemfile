@@ -9,7 +9,6 @@ gem "coffee-rails", "~> 4.0.0"
 gem "devise"
 gem "haml-rails"
 gem "jquery-rails"
-gem "mocha"
 gem "neat"
 gem "normalize-rails"
 gem "pg"
@@ -31,6 +30,12 @@ end
 
 group :production do
   gem "rails_12factor"
+end
+
+group :test do
+  gem "mocha"
+  gem "minitest-vcr"
+  gem "webmock"
 end
 
 ruby "2.1.4"

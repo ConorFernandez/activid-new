@@ -48,7 +48,7 @@ class ProjectsController < ApplicationController
       @project.update(user: current_user) if @project.user.nil? && current_user.present? && current_user.user?
       attach_file_uploads(@project)       if current_step == 2 || current_step == 3
       attach_activid_music(@project)      if current_step == 3
-      attach_payment_method(@project)     if params[:payment_method_token].present?
+      set_payment_method(@project)        if params[:stripe_token].present? && @project.user.present?
       @project.submit!                    if current_step == 4 && @project.submittable?
 
       redirect_to next_step_path(@project)
@@ -123,9 +123,13 @@ class ProjectsController < ApplicationController
     project.update(file_uploads: new_uploads + uploads_to_keep)
   end
 
-  def attach_payment_method(project)
-    payment_method = PaymentMethod.create!(token: params[:payment_method_token])
-    project.update(payment_method: payment_method)
+  def set_payment_method(project)
+    customer = Stripe::Customer.create(
+      :card => params[:stripe_token],
+      :description => project.user.email
+    )
+
+    project.user.update(stripe_customer_id: customer.id)
   end
 
   def ensure_not_editor

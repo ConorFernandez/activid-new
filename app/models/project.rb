@@ -34,7 +34,6 @@ class Project < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :editor, class_name: "User"
-  belongs_to :payment_method
 
   has_many :file_uploads, as: :attachable
   has_many :comments, as: :commentable
@@ -134,7 +133,7 @@ class Project < ActiveRecord::Base
   end
 
   def submittable?
-    purchasable? && user.present? && payment_method.present?
+    purchasable? && user.present? && user.stripe_customer_id.present?
   end
 
   def processed_cuts
