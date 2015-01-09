@@ -1,3 +1,9 @@
+- (project.comments + project.cuts).sort_by(&:created_at).each do |item|
+  - if item.is_a?(Comment)
+    = render "comments/comment", comment: item
+  - elsif item.is_a?(Cut) && current_user.can_view_cut?(item)
+    = render "projects/discussion/cut", cut: item
+
 .discussion-block
   - if current_user.user? || current_user == project.editor || current_user.admin?
     .discussion-reply
@@ -6,9 +12,3 @@
         = f.hidden_field :commentable_type
         = f.text_area :body
         = f.submit "Post a Message", class: "button"
-
-- (project.comments + project.cuts).sort_by(&:created_at).reverse.each do |item|
-  - if item.is_a?(Comment)
-    = render "comments/comment", comment: item
-  - elsif item.is_a?(Cut) && current_user.can_view_cut?(item)
-    = render "projects/discussion/cut", cut: item
