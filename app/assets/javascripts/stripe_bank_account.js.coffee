@@ -12,14 +12,15 @@ $ ->
   $("form.stripe-bank-account").submit (event) ->
     $form = $(this)
 
-    routingNumber = $form.find(".routing-number").val()
-    accountNumber = $form.find(".account-number").val()
+    routingNumber = $form.find("#routing-number").val()
+    accountNumber = $form.find("#account-number").val()
+    countryCode = $form.find("#country").val()
 
     if !!routingNumber || !!accountNumber
       $form.find("button").prop("disabled", true)
 
       Stripe.bankAccount.createToken({
-        country: "US",
+        country: countryCode,
         routingNumber: routingNumber,
         accountNumber: accountNumber
       }, stripeBankAccountResponseHandler)

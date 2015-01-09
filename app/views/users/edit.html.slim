@@ -19,7 +19,8 @@ section
           - else
             = "You don't currently have a stored account."
 
-        input type="text" placeholder="Routing Number" class="routing-number"
-        input type="text" placeholder="Account Number" class="account-number"
+        input type="text" placeholder="Routing Number" id="routing-number"
+        input type="text" placeholder="Account Number" id="account-number"
+        = select_tag "country", options_for_country_select
 
       = f.submit "Save"

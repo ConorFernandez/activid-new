@@ -37,4 +37,13 @@ module ApplicationHelper
       "#{display_minutes}:#{display_seconds.to_s.rjust(2, "0")}"
     end
   end
+
+  def options_for_country_select
+    # US first, then all other countries sorted by name
+    countries = ISO3166::Country.all.sort_by{|c| c[1] == "US" ? "AAA" : c[0]}
+
+    countries.map do |country|
+      "<option value=\"#{country[1]}\">#{country[0]}</option>"
+    end.join.html_safe
+  end
 end

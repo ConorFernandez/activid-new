@@ -62,8 +62,11 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
+    countries (0.9.3)
+      currencies (~> 0.4.2)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
+    currencies (0.4.2)
     debug_inspector (0.0.2)
     devise (3.4.1)
       bcrypt (~> 3.0)
@@ -226,6 +229,7 @@ DEPENDENCIES
   bourbon
   clockwork
   coffee-rails (~> 4.0.0)
+  countries
   devise
   haml-rails
   jquery-rails
