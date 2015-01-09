@@ -1,4 +1,6 @@
 class Cut < ActiveRecord::Base
+  include Cut::Status
+
   belongs_to :project
   belongs_to :uploader, class_name: "User"
 
