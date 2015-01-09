@@ -12,6 +12,10 @@ a name="cut_#{cut.id}"
       video width="100%" controls="true"
         source src=cut.preview_url type="video/mp4"
         Your browser does not support the video tag.
+      - if cut.needs_approval? && current_user.user?
+        .approve-reject-links
+          a class="button approve" Approve
+          a Request another cut (+$25)
     - elsif cut.failed?
       p There was a problem encoding your upload. Please try again.
       p= "Error: #{cut.zencoder_error}"

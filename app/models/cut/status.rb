@@ -1,7 +1,7 @@
 module Cut::Status
   class STATUS
     PROCESSING = :processing
-    PENDING = :pending
+    NEEDS_APPROVAL = :needs_approval
     ACCEPTED = :accepted
     REJECTED = :rejected
   end
@@ -14,12 +14,12 @@ module Cut::Status
     elsif rejected_at.present?
       STATUS::REJECTED
     else
-      STATUS::PENDING
+      STATUS::NEEDS_APPROVAL
     end
   end
 
   def processing?; status == STATUS::PROCESSING; end
-  def pending?; status == STATUS::PENDING; end
+  def needs_approval?; status == STATUS::NEEDS_APPROVAL; end
   def accepted?; status == STATUS::ACCEPTED; end
   def rejected?; status == STATUS::REJECTED; end
 end

@@ -48,7 +48,7 @@ class Project < ActiveRecord::Base
                    :uniqueness => true
 
   def needs_approval?
-    latest_cut.try(:pending?)
+    latest_cut.try(:needs_approval?)
   end
 
   def to_param
