@@ -9,17 +9,11 @@ section
         .step-wrapper
           - if current_user.admin?
             a.step-block.selected data-tab="history" Project History
-            a.step-block data-tab="message"
-              = "Message #{display_name_for_user(@editor)}"
           - else
             a.step-block data-tab="history" Project History
-            a.step-block.selected data-tab="message" Messages
 
         .step-container.selected data-tab-content="history"
           = render "history", projects: @projects
-
-        .step-container data-tab-content="message"
-          = render "message", editor: @editor
 
       aside
         = render "sidebar", editor: @editor
