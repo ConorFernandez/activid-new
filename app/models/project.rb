@@ -48,8 +48,7 @@ class Project < ActiveRecord::Base
                    :uniqueness => true
 
   def needs_approval?
-    # TEMPORARY
-    false
+    latest_cut.try(:pending?)
   end
 
   def to_param
@@ -142,6 +141,10 @@ class Project < ActiveRecord::Base
 
   def first_cut
     processed_cuts.first
+  end
+
+  def latest_cut
+    processed_cuts.last
   end
 
   def purchasable?

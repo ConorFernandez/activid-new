@@ -2,7 +2,7 @@
   - if current_user.user?
     - if project.needs_approval?
       em Needs Your Approval!
-    - elsif project.draft?
+    - if project.draft?
       - if project.purchasable?
         = link_to "Submit", project_step4_path(project), :class => "button"
       - elsif project.video_uploads.any?
