@@ -15,6 +15,9 @@ Rails.application.routes.draw do
     resources :cuts
   end
 
+  put "cuts/:id/approve", to: "cuts#approve", as: "approve_cut"
+  get "final_cuts/:id", to: "cuts#show", as: "final_cut"
+
   (1..4).each{ |i| get "projects/:id/step#{i}", to: "projects#step#{i}", as: "project_step#{i}" }
   put "projects/:id/claim", to: "projects#claim", as: "claim_project"
 

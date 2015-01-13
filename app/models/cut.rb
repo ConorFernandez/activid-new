@@ -24,6 +24,10 @@ class Cut < ActiveRecord::Base
     file_upload.try(:zencoder_error)
   end
 
+  def approve!
+    update(approved_at: Time.now)
+  end
+
   private
 
   def has_upload

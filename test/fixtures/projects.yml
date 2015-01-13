@@ -21,3 +21,8 @@ assigned:
 has_files_no_owner:
   uuid: uuid-has-files-no-owner
   name: My cool project
+
+has_cuts:
+  user: joey
+  uuid: uuid-has-cuts
+  name: My cool project

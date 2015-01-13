@@ -1,7 +1,12 @@
 class CutsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :load_project
-  before_filter :ensure_user_is_editor
+  before_filter :load_project, only: :create
+  before_filter :ensure_user_is_editor, only: :create
+
+  before_filter :load_cut, only: [:approve, :show]
+  before_filter :ensure_cut_needs_approval, only: :approve
+  before_filter :ensure_cut_is_public, only: :show
+
 
   def create
     @cut = Cut.new(uploader: current_user, project: @project)
@@ -9,6 +14,11 @@ class CutsController < ApplicationController
     @cut.save!
 
     redirect_to project_path(@project)
+  end
+
+  def approve
+    @cut.approve!
+    render json: {path: project_path(@cut.project)}
   end
 
   private
@@ -22,9 +32,22 @@ class CutsController < ApplicationController
     raise ActiveRecord::RecordNotFound unless current_user.editor? && current_user == @project.editor
   end
 
+  def ensure_cut_needs_approval
+    raise ActiveRecord::RecordNotFound unless @cut.needs_approval?
+  end
+
+  def ensure_cut_is_public
+    raise ActiveRecord::RecordNotFound unless @cut.approved?
+  end
+
   def load_project
     @project = Project.where(uuid: params[:project_id]).first
     raise ActiveRecord::RecordNotFound unless @project
     raise ActiveRecord::RecordNotFound unless current_user.can_view_project?(@project)
+  end
+
+  def load_cut
+    @cut = Cut.find(params[:id])
+    raise ActiveRecord::RecordNotFound unless current_user.can_view_cut?(@cut)
   end
 end

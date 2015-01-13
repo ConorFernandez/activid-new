@@ -171,6 +171,10 @@ class Project < ActiveRecord::Base
     file_uploads.select(&:music?)
   end
 
+  def slug
+    name.downcase.gsub(/\s/, "-").gsub(/[^a-z\-]/, "")
+  end
+
   private
 
   def generate_uuid

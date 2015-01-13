@@ -24,6 +24,10 @@ six:
   uuid: uuid-six
   url: "url/six.mp4"
   attachable: assigned (Project)
+seven:
+  uuid: uuid-seven
+  url: "url/seven.mp4"
+  attachable: has_cuts (Project)
 video:
   uuid: uuid-video
   url: "url/video.mp4"
@@ -35,3 +39,17 @@ song:
 song2:
   uuid: uuid-song2
   url: "url/song2.mp3"
+cut_one:
+  uuid: uuid-cut-one
+  url: "url/cut_one.mp4"
+  preview_url: "url/cut_two.mp4"
+  attachable: one (Cut)
+  zencoder_status: finished
+  duration: 1
+cut_two:
+  uuid: uuid-cut-two
+  url: "url/cut_two.mp4"
+  preview_url: "url/cut_two.mp4"
+  attachable: two (Cut)
+  zencoder_status: finished
+  duration: 1

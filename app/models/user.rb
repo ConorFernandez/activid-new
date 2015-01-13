@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
 
   def can_view_cut?(cut)
     if user?
-      cut.processed?
+      cut.processed? && cut.project.user == self
     elsif editor?
       cut.project.editor == self
     end
