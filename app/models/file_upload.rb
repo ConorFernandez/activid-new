@@ -58,8 +58,7 @@ class FileUpload < ActiveRecord::Base
   end
 
   def file_type
-    match = file_name.match(/\.(.+)$/)
-    extension = (match && match[1]) ? match[1].downcase : nil
+    extension = file_name.split(".").last.downcase
 
     if FORMATS[:video].include?(extension)
       :video
