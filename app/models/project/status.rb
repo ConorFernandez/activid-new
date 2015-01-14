@@ -9,7 +9,7 @@ module Project::Status
   def status
     if price.nil?
       STATUS::DRAFT
-    elsif cuts.any? && latest_cut.approved?
+    elsif latest_cut.try(:approved?)
       STATUS::COMPLETED
     elsif editor.present?
       STATUS::IN_PROGRESS
