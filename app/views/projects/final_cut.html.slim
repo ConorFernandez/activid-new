@@ -1,7 +1,7 @@
 section
   .bounds-wrapper
-    h1= @cut.project.name
+    h1= @project.name
 
     video width="100%" controls="true"
-      source src=@cut.file_upload.url type="video/mp4"
+      source src=@project.latest_cut.file_upload.url type="video/mp4"
       Your browser does not support the video tag.

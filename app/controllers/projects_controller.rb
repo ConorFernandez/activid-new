@@ -1,8 +1,8 @@
 class ProjectsController < ApplicationController
-  before_filter :load_project, only: [:show, :update, :step1, :step2, :step3, :step4, :claim]
+  before_filter :load_project, only: [:show, :update, :step1, :step2, :step3, :step4, :claim, :final_cut]
   before_filter :ensure_project_is_editable, only: [:update, :step1, :step2, :step3, :step4]
   before_filter :ensure_not_editor, only: [:new, :create, :step1, :step2, :step3, :step4]
-  before_filter :authenticate_user!, except: [:new, :create, :step1, :step2, :step3, :step4, :update]
+  before_filter :authenticate_user!, except: [:new, :create, :step1, :step2, :step3, :step4, :update, :final_cut]
   before_filter :store_project_in_session
 
   def new
@@ -57,6 +57,10 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def final_cut
+    raise ActiveRecord::RecordNotFound unless @project.completed?
+  end
+
   def claim
     raise ActiveRecord::RecordNotFound unless current_user.editor? && @project.editor.nil?
 
@@ -81,8 +85,8 @@ class ProjectsController < ApplicationController
     if current_user
       raise ActiveRecord::RecordNotFound unless current_user.can_view_project?(@project)
     else
-      # non-users can only view projects that don't belong to anyone
-      raise ActiveRecord::RecordNotFound unless @project.user.nil?
+      # non-users can only view projects that don't belong to anyone or are public
+      raise ActiveRecord::RecordNotFound unless @project.user.nil? || @project.completed?
     end
   end
 

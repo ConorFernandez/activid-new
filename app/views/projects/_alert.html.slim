@@ -22,4 +22,4 @@
 - elsif project.user == current_user && project.completed?
   .alert-wrapper.waiting
 
-    = link_to "Your project is complete! You can view your final cut here.", final_cut_path("#{project.latest_cut.id}-#{project.slug}")
+    = link_to "Your project is complete! You can view your final cut here.", final_cut_path(project.uuid)

@@ -3,9 +3,8 @@ class CutsController < ApplicationController
   before_filter :load_project, only: :create
   before_filter :ensure_user_is_editor, only: :create
 
-  before_filter :load_cut, only: [:approve, :reject, :show]
+  before_filter :load_cut, only: [:approve, :reject]
   before_filter :ensure_cut_needs_approval, only: [:approve, :reject]
-  before_filter :ensure_cut_is_public, only: :show
 
 
   def create
@@ -42,10 +41,6 @@ class CutsController < ApplicationController
 
   def ensure_cut_needs_approval
     raise ActiveRecord::RecordNotFound unless @cut.needs_approval?
-  end
-
-  def ensure_cut_is_public
-    raise ActiveRecord::RecordNotFound unless @cut.approved?
   end
 
   def load_project
