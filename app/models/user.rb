@@ -46,4 +46,8 @@ class User < ActiveRecord::Base
   def stripe_customer
     stripe_customer_id.present? ? Stripe::Customer.retrieve(stripe_customer_id) : nil
   end
+
+  def total_earnings
+    assigned_projects.select(&:completed?).sum{|p| p.editor_earnings}
+  end
 end

@@ -12,7 +12,7 @@ br
 /-----------  Total Earnings  -----------/
 .editor-meta
   | Total Earnings:
-  span -
+  span= number_to_currency(editor.total_earnings / 100)
 
 /-----------  Total Projects  -----------/
 .editor-meta
@@ -23,6 +23,4 @@ br
 
 /-----------  Actions  -----------/
 
-- if current_user.admin?
-  a.button.alt Pause Account
-  a.button.danger Delete Account
+a.button.alt Pause Account

@@ -7,10 +7,7 @@ section
 
       section
         .step-wrapper
-          - if current_user.admin?
-            a.step-block.selected data-tab="history" Project History
-          - else
-            a.step-block data-tab="history" Project History
+          a.step-block.selected data-tab="history" Project History
 
         .step-container.selected data-tab-content="history"
           = render "history", projects: @projects
