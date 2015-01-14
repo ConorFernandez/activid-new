@@ -1,0 +1,15 @@
+- add_page_class :editor_create
+- page_title "New Editor"
+
+section
+  .compact-wrapper
+
+    = form_for @editor, as: :editor, url: editors_path do |f|
+      h4 Create Editor
+
+      p When you create an editor, they'll receive an email with their password and login instructions.
+
+      = f.email_field :email, autofocus: true, placeholder: "Email Address"
+      = f.text_field :full_name, placeholder: "Full Name"
+
+      = f.submit "Create"

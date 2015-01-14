@@ -16,6 +16,22 @@ class EditorsController < ApplicationController
     }
   end
 
+  def new
+    @editor = User.new(role: "editor")
+  end
+
+  def create
+    @editor = User.new(editor_params.merge(role: "editor", password: "changeme", password_confirmation: "changeme"))
+
+    if @editor.save
+      Mailer.new_editor_email(@editor).deliver
+      flash[:success] = "An editor account for #{@editor.email} was created"
+      redirect_to editors_path
+    else
+      render action: :new
+    end
+  end
+
   private
 
   def ensure_user_can_view_editor
@@ -25,5 +41,9 @@ class EditorsController < ApplicationController
   def load_editor
     @editor = User.where(id: params[:id]).first
     raise ActiveRecord::RecordNotFound unless @editor && @editor.editor?
+  end
+
+  def editor_params
+    params.require(:editor).permit(:email, :full_name)
   end
 end

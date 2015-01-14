@@ -5,3 +5,5 @@ section
     .editors-wrapper
       - @editors.each do |editor|
         .editor-block= render "header", editor: editor
+
+    = link_to "New Editor", new_editor_path, class: "button new-editor"
