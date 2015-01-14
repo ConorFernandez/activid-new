@@ -7,7 +7,7 @@ module Project::Status
   end
 
   def status
-    if price.nil?
+    if initial_price.nil?
       STATUS::DRAFT
     elsif latest_cut.try(:approved?)
       STATUS::COMPLETED

@@ -114,7 +114,8 @@ class Project < ActiveRecord::Base
       desired_length_cost,
       remove_logo_cost,
       uploaded_footage_cost,
-      turnaround_time_cost
+      turnaround_time_cost,
+      (cuts.select(&:rejected?).count * 2500)
     ].sum
   end
 
@@ -128,7 +129,7 @@ class Project < ActiveRecord::Base
   end
 
   def submit!
-    update(price: calculated_price, submitted_at: Time.now)
+    update(initial_price: calculated_price, submitted_at: Time.now)
   end
 
   def submittable?
@@ -160,7 +161,7 @@ class Project < ActiveRecord::Base
   end
 
   def editor_earnings
-    ((price.presence || 0) * 0.7).to_i
+    ((calculated_price.presence || 0) * 0.7).to_i
   end
 
   def video_uploads

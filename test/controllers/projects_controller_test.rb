@@ -199,14 +199,14 @@ class ProjectsControllerTest < ActionController::TestCase
     sign_in users(:joey)
     project = projects(:has_files)
 
-    assert_equal nil, project.price
+    assert_equal nil, project.initial_price
 
     put :update, id: project.uuid, step: 4, stripe_token: "asdf"
 
     project.reload
 
     assert project.available?
-    assert_not_equal nil, project.price
+    assert_not_equal nil, project.initial_price
   end
 
   test "checkout sets submitted_at" do
