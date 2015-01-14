@@ -19,7 +19,10 @@
   .alert-wrapper.waiting
     = link_to "A new cut is awaiting your approval.", "#cut_#{project.latest_cut.id}"
 
-- elsif project.user == current_user && project.completed?
+- elsif project.completed?
   .alert-wrapper.waiting
 
-    = link_to "Your project is complete! You can view your final cut here.", final_cut_path(project.uuid)
+    - if project.user == current_user
+      = link_to "Your project is complete! You can view your final cut here.", final_cut_path(project.uuid)
+    - else
+      = link_to "This project is complete! You can view the final cut here.", final_cut_path(project.uuid)

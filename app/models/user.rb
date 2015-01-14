@@ -34,6 +34,8 @@ class User < ActiveRecord::Base
       cut.processed? && cut.project.user == self
     elsif editor?
       cut.project.editor == self
+    elsif admin?
+      true
     end
   end
 
