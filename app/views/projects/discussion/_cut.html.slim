@@ -17,7 +17,7 @@ a name="cut_#{cut.id}"
           a class="button approve" data-preview-url=cut.preview_url data-cost=number_to_currency(cut.project.calculated_price / 100) data-cut-id=cut.id
             | Approve
           a class="reject" data-preview-url=cut.preview_url data-cut-id=cut.id
-            | Request another cut (+$25)
+            = "Request another cut (+$#{Project::ADDITIONAL_CUT_COST / 100})"
       - elsif cut.rejected?
         p
           strong Changes requested: 

@@ -31,6 +31,7 @@ class Project < ActiveRecord::Base
   }
 
   REMOVE_LOGO_COST = 2900
+  ADDITIONAL_CUT_COST = 2500
 
   belongs_to :user
   belongs_to :editor, class_name: "User"
@@ -115,7 +116,7 @@ class Project < ActiveRecord::Base
       remove_logo_cost,
       uploaded_footage_cost,
       turnaround_time_cost,
-      (cuts.select(&:rejected?).count * 2500)
+      (cuts.select(&:rejected?).count * ADDITIONAL_CUT_COST)
     ].sum
   end
 
@@ -173,7 +174,7 @@ class Project < ActiveRecord::Base
   end
 
   def slug
-    name.downcase.gsub(/\s/, "-").gsub(/[^a-z\-]/, "")
+    name.downcase.gsub(/\s/, "-").gsub(/[^a-z\-0-9]/, "")
   end
 
   private
