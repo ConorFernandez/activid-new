@@ -2,6 +2,7 @@ require "test_helper"
 
 class CutsControllerTest < ActionController::TestCase
   test "user can approve a cut" do
+    Stripe::Charge.stubs(:create).returns(true)
     project = projects(:has_cuts)
     user = project.user
     cut = project.latest_cut

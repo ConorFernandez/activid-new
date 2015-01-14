@@ -25,7 +25,7 @@ class Cut < ActiveRecord::Base
   end
 
   def approve!
-    update(approved_at: Time.now)
+    project.charge! && update(approved_at: Time.now)
   end
 
   def reject!(reason)

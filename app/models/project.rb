@@ -134,7 +134,7 @@ class Project < ActiveRecord::Base
   end
 
   def submittable?
-    purchasable? && user.present? && user.stripe_customer_id.present?
+    purchasable? && user.present? && user.stripe_customer_id.present? && stripe_card_id.present?
   end
 
   def processed_cuts
@@ -171,6 +171,16 @@ class Project < ActiveRecord::Base
 
   def music_uploads
     file_uploads.select(&:music?)
+  end
+
+  def charge!
+    Stripe::Charge.create(
+      amount: calculated_price,
+      currency: "usd",
+      customer: user.stripe_customer_id,
+      card: stripe_card_id,
+      description: "#{user.email}: #{name}"
+    )
   end
 
   private
