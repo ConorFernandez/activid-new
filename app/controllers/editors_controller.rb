@@ -1,7 +1,7 @@
 class EditorsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :ensure_admin
-  before_filter :load_editor, only: :show
+  before_filter :load_editor, only: [:show, :pause, :unpause]
 
   def index
     @editors = User.editor.all
@@ -30,6 +30,16 @@ class EditorsController < ApplicationController
     else
       render action: :new
     end
+  end
+
+  def pause
+    @editor.update(paused: true)
+    redirect_to editor_path(@editor)
+  end
+
+  def unpause
+    @editor.update(paused: false)
+    redirect_to editor_path(@editor)
   end
 
   private

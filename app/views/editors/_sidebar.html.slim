@@ -23,4 +23,7 @@ br
 
 /-----------  Actions  -----------/
 
-a.button.alt Pause Account
+- if editor.paused
+  = link_to "Unpause Account", unpause_editor_path(editor), class: "button alt", method: "put"
+- else
+  = link_to "Pause Account", pause_editor_path(editor), class: "button alt", method: "put"

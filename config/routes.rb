@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   resources :editors
+  put "editors/:id/pause", to: "editors#pause", as: "pause_editor"
+  put "editors/:id/unpause", to: "editors#unpause", as: "unpause_editor"
+
   resources :comments
 
   devise_for :users, controllers: {

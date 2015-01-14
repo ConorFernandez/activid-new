@@ -1,3 +1,5 @@
 header
   = image_tag gravatar_url_for(editor)
   = link_to long_display_name_for_user(editor), editor_path(editor)
+  - if editor.paused
+    | (paused)
