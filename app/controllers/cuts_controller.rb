@@ -3,8 +3,8 @@ class CutsController < ApplicationController
   before_filter :load_project, only: :create
   before_filter :ensure_user_is_editor, only: :create
 
-  before_filter :load_cut, only: [:approve, :show]
-  before_filter :ensure_cut_needs_approval, only: :approve
+  before_filter :load_cut, only: [:approve, :reject, :show]
+  before_filter :ensure_cut_needs_approval, only: [:approve, :reject]
   before_filter :ensure_cut_is_public, only: :show
 
 
@@ -19,6 +19,14 @@ class CutsController < ApplicationController
   def approve
     @cut.approve!
     render json: {path: project_path(@cut.project)}
+  end
+
+  def reject
+    if @cut.reject!(params[:cut].try(:[], :reject_reason))
+      render json: {path: project_path(@cut.project)}
+    else
+      head :bad_request
+    end
   end
 
   private

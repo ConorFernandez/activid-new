@@ -3,25 +3,18 @@
     <div class="modal-block">
       <a class="close-modal"><i class="icon-cancel"></i></a>
 
-      <%= form_tag projects_path do |f| %>
+      <h4>Approve Cut</h4>
 
-        <h4>Approve Cut</h4>
+      <video controls="true">
+        <source src={{previewURL}} type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
 
-        <div class="errors"></div>
+      <p>
+        Approving this cut will complete the project. You will receive immediate access to a full-quality version of your video and your card will be charged {{cost}}.
+      </p>
 
-        <video width="100%" controls="true">
-          <source src={{previewURL}} type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-
-        <p>
-          Approving this cut will complete the project. You will receive immediate access to a full-quality version of your video and your card will be charged {{cost}}.
-        </p>
-
-        <a class="confirm button">Confirm</a>
-
-      <% end %>
-
+      <a class="confirm button">Confirm</a>
     </div>
   </div>
 </script>

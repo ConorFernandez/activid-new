@@ -1,0 +1,20 @@
+<script id="reject-cut-modal-template" type="text/x-handlebars-template">
+  <div class="modal-wrapper reject-cut-modal">
+    <div class="modal-block">
+      <a class="close-modal"><i class="icon-cancel"></i></a>
+
+      <h4>Request Another Cut</h4>
+
+      <video controls="true">
+        <source src={{previewURL}} type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+
+      <textarea id="reject_reason" placeholder="Notes for your editor..."></textarea>
+
+      <p>Please provide some comments for your editor to let him know what you would like changed. Note that each revision costs an additional $25.</p>
+
+      <a class="confirm button">Confirm</a>
+    </div>
+  </div>
+</script>

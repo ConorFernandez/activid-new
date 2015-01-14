@@ -58,9 +58,14 @@ $modalSpeed: 0.33s
       margin-top: 0
       @include transition(margin-top $modalSpeed, opacity $modalSpeed)
 
-.approve-cut-modal
+.approve-cut-modal,
+.reject-cut-modal
   video
-    margin: 1em 0
+    margin: 1em auto
+    width: 65%
 
   p
     text-align: left
+
+  textarea.error
+    border: 1px solid $red

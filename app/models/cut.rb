@@ -28,6 +28,14 @@ class Cut < ActiveRecord::Base
     update(approved_at: Time.now)
   end
 
+  def reject!(reason)
+    if reason.present?
+      update(rejected_at: Time.now, reject_reason: reason)
+    else
+      false
+    end
+  end
+
   private
 
   def has_upload

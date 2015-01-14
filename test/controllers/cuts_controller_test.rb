@@ -38,4 +38,35 @@ class CutsControllerTest < ActionController::TestCase
       put :approve, id: cut.id
     end
   end
+
+  test "user can reject a cut if they provide a reason" do
+    project = projects(:has_cuts)
+    user = project.user
+    cut = project.latest_cut
+    reason = "needs more kittens"
+
+    sign_in(user)
+
+    put :reject, id: cut.id, cut: {reject_reason: reason}
+
+    cut.reload
+
+    assert cut.rejected?
+    assert_equal reason, cut.reject_reason
+  end
+
+  test "user can't reject a cut if they don't provide a reason" do
+    project = projects(:has_cuts)
+    user = project.user
+    cut = project.latest_cut
+
+    sign_in(user)
+
+    put :reject, id: cut.id
+
+    cut.reload
+
+    assert !cut.rejected?
+    assert_equal 400, response.status
+  end
 end

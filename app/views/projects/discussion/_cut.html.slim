@@ -16,7 +16,12 @@ a name="cut_#{cut.id}"
         .approve-reject-links
           a class="button approve" data-preview-url=cut.preview_url data-cost=number_to_currency(cut.project.price / 100) data-cut-id=cut.id
             | Approve
-          a Request another cut (+$25)
+          a class="reject" data-preview-url=cut.preview_url data-cut-id=cut.id
+            | Request another cut (+$25)
+      - elsif cut.rejected?
+        p
+          strong Changes requested: 
+          = cut.reject_reason
     - elsif cut.failed?
       p There was a problem encoding your upload. Please try again.
       p= "Error: #{cut.zencoder_error}"
