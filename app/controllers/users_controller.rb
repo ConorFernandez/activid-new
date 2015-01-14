@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    user_keys = [:full_name]
+    user_keys = [:full_name, :email]
     password_keys = [:password, :password_confirmation]
 
     if params[:user][:password].blank?
