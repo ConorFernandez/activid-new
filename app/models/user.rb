@@ -50,4 +50,8 @@ class User < ActiveRecord::Base
   def total_earnings
     assigned_projects.select(&:completed?).sum{|p| p.editor_earnings}
   end
+
+  def can_accept_projects?
+    editor? && !paused? && stripe_recipient_id.present?
+  end
 end

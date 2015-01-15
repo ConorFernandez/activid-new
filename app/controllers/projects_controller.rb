@@ -65,7 +65,7 @@ class ProjectsController < ApplicationController
   end
 
   def claim
-    raise ActiveRecord::RecordNotFound unless current_user.editor? && @project.editor.nil? && !current_user.paused
+    raise ActiveRecord::RecordNotFound unless @project.editor.nil? && current_user.can_accept_projects?
 
     @project.update(editor: current_user)
 

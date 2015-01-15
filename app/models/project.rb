@@ -174,13 +174,17 @@ class Project < ActiveRecord::Base
   end
 
   def charge!
-    Stripe::Charge.create(
-      amount: calculated_price,
-      currency: "usd",
-      customer: user.stripe_customer_id,
-      card: stripe_card_id,
-      description: "#{user.email}: #{name}"
-    )
+    if in_progress?
+      Stripe::Charge.create(
+        amount: calculated_price,
+        currency: "usd",
+        customer: user.stripe_customer_id,
+        card: stripe_card_id,
+        description: "#{user.email}: #{name}"
+      )
+    else
+      return false
+    end
   end
 
   private

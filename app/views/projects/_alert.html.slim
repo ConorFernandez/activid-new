@@ -1,7 +1,15 @@
-- if project.available? && project.editor.nil? && current_user.editor? && !current_user.paused
+- if project.available? && project.editor.nil? && current_user.can_accept_projects?
   .alert-wrapper
     h6= "Cut due in: #{cut_due_in(project)}"
     = link_to "Accept this project", claim_project_path(project), class: "button", method: "put"
+
+- if project.available? && project.editor.nil? && current_user.editor? && current_user.stripe_recipient_id.blank?
+  .alert-wrapper.waiting
+    = link_to "Set up your payment details to start accepting projects.", edit_account_path
+
+- if project.available? && project.editor.nil? && current_user.editor? && current_user.paused?
+  .alert-wrapper.waiting
+    | Your account is currently paused and you cannot accept new projects.
 
 - elsif project.editor == current_user && project.needs_cut?
   .alert-wrapper
