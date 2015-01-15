@@ -1,0 +1,5 @@
+p= "There was an error encountered when trying to pay #{@editor.email} for the project \"#{@project.name}\" by #{@project.user.email}"
+
+p= "Error: #{@reason}"
+
+p= "Another payment attempt will *not* be made for this project. Please resolve this issue manually through Stripe."

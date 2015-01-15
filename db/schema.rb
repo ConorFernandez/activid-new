@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150114230424) do
+ActiveRecord::Schema.define(version: 20150115173354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,14 +63,16 @@ ActiveRecord::Schema.define(version: 20150114230424) do
     t.string   "desired_length"
     t.string   "turnaround"
     t.text     "instructions"
-    t.boolean  "allow_to_be_featured", default: true
-    t.boolean  "append_logo",          default: true
+    t.boolean  "allow_to_be_featured",       default: true
+    t.boolean  "append_logo",                default: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "submitted_at"
     t.integer  "editor_id"
     t.text     "activid_music_urls"
     t.string   "stripe_card_id"
+    t.datetime "attempted_to_pay_editor_at"
+    t.datetime "charged_at"
   end
 
   add_index "projects", ["editor_id"], name: "index_projects_on_editor_id", using: :btree

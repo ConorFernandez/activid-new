@@ -174,13 +174,28 @@ class Project < ActiveRecord::Base
   end
 
   def charge!
-    if in_progress?
+    if charged_at.nil?
       Stripe::Charge.create(
         amount: calculated_price,
         currency: "usd",
         customer: user.stripe_customer_id,
         card: stripe_card_id,
-        description: "#{user.email}: #{name}"
+        description: "#{user.email}: \"#{name}\""
+      )
+
+      update(charged_at: Time.now)
+    else
+      return false
+    end
+  end
+
+  def pay_editor!
+    if attempted_to_pay_editor_at.nil?
+      Stripe::Transfer.create(
+        amount: editor_earnings,
+        currency: "usd",
+        recipient: editor.stripe_recipient_id,
+        description: "Payment to #{editor.email} for #{user.email}'s project \"#{name}\""
       )
     else
       return false

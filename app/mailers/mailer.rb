@@ -5,4 +5,13 @@ class Mailer < ActionMailer::Base
     @editor = editor
     mail(to: @editor.email, subject: "Your Activid Editor Account Has Been Created")
   end
+
+  def failed_editor_payment_email(project, reason)
+    @project = project
+    @reason = reason
+    @editor = project.editor
+    @admins = User.all.select(&:admin?)
+
+    mail(to: (@admins.map(&:email) + [@editor.email]), subject: "Editor payment for \"#{@project.name}\" failed")
+  end
 end
