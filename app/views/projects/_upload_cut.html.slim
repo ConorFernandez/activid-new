@@ -1,3 +1,6 @@
+- if project.latest_cut.try(:needs_approval?)
+  p Warning: you already have a cut for this project that's waiting for feedback from the customer. If you upload another cut before they accept or reject the one that you've already uploaded, the old cut will be deleted and the user will not be charged for the new one.
+
 = form_for Cut.new, url: project_cuts_path(project), html: {class: "direct-upload", "data-attachable-type" => "cut", "data-formats" => FileUpload::FORMATS[:video].join(",")} do |f|
   .upload-wrapper
     .upload-empty

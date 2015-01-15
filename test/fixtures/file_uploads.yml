@@ -53,3 +53,9 @@ cut_two:
   attachable: two (Cut)
   zencoder_status: finished
   duration: 1
+unused:
+  uuid: uuid-unused
+  url: "url/unused.mp4"
+  preview_url: "url/unused.mp4"
+  zencoder_status: finished
+  duration: 1

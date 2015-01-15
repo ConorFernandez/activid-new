@@ -70,4 +70,19 @@ class CutsControllerTest < ActionController::TestCase
     assert !cut.rejected?
     assert_equal 400, response.status
   end
+
+  test "creating a cut when an existing cut needs approval deletes the old cut" do
+    project = projects(:has_cuts)
+    editor = project.editor
+    old_cut = project.latest_cut
+    upload = file_uploads(:unused)
+
+    assert old_cut.needs_approval?
+
+    sign_in(editor)
+
+    post :create, project_id: project.uuid, file_upload_uuids: [upload.uuid]
+
+    assert Cut.find_by_id(old_cut.id).nil?
+  end
 end

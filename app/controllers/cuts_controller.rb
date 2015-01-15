@@ -6,11 +6,12 @@ class CutsController < ApplicationController
   before_filter :load_cut, only: [:approve, :reject]
   before_filter :ensure_cut_needs_approval, only: [:approve, :reject]
 
-
   def create
     @cut = Cut.new(uploader: current_user, project: @project)
     attach_file_upload(@cut)
     @cut.save!
+
+    check_for_cuts_to_cancel(@project)
 
     redirect_to project_path(@project)
   end
@@ -52,5 +53,12 @@ class CutsController < ApplicationController
   def load_cut
     @cut = Cut.find(params[:id])
     raise ActiveRecord::RecordNotFound unless current_user.can_view_cut?(@cut)
+  end
+
+  def check_for_cuts_to_cancel(project)
+    if project.cuts.count > 1
+      previous_cut = project.cuts[-2]
+      previous_cut.delete if previous_cut.needs_approval?
+    end
   end
 end
