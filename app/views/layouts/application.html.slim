@@ -26,6 +26,8 @@ html
     = render "shared/modals/sign_in"
     = render "shared/modals/approve_cut"
     = render "shared/modals/reject_cut"
+    - if @project && @project.persisted?
+      = render "shared/modals/fix_card"
 
     nav.global-mobile-menu
      = render "shared/mobile_menu"

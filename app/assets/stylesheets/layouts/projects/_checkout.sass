@@ -1,6 +1,7 @@
 /*-----------  Project Checkout  -----------*/
 
-body.projects_create_checkout
+body.projects_create_checkout,
+.fix-card-modal
 
   form
     text-align: left
@@ -10,6 +11,10 @@ body.projects_create_checkout
       input:not([type='hidden']) + label
         color: $grayDark
         margin: 0 0 1.2em
+
+  form.fix-card .button-wrapper
+    text-align: center
+    padding-top: 1em
 
   table
     width: 100%

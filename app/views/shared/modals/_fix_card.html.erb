@@ -1,0 +1,34 @@
+<script id="fix-card-modal-template" type="text/x-handlebars-template">
+  <div class="modal-wrapper fix-card-modal">
+    <div class="modal-block">
+      <a class="close-modal"><i class="icon-cancel"></i></a>
+
+      <h4>Fix Credit Card</h4>
+
+      <p>There was a problem charging your card. Please update your card details below and try again.</p>
+
+      <%= form_tag project_fix_card_path(@project), class: "fix-card", method: "put" do %>
+        <div class="payment-errors"></div>
+        <div class="cc-card">
+          <input data-stripe="number" placeholder="Credit Card Number" type="text" />
+        </div>
+
+        <div class="cc-exp">
+          <input id="stripe-exp" placeholder="mm/yyyy" type="text" /><input data-stripe=
+          "exp-year" id="stripe-exp-year" type="hidden" /><input data-stripe="exp-month" id=
+          "stripe-exp-month" type="hidden" />
+        </div>
+
+        <div class="cc-ccv">
+          <input data-stripe="cvc" placeholder="CVC" type="text" />
+        </div>
+
+        <div class="cc-logo"><img alt="Stripe" src="/assets/stripe.png" /></div>
+
+        <div class="button-wrapper">
+          <button class="confirm">Submit</button>
+        </div>
+      <% end -%>
+    </div>
+  </div>
+</script>

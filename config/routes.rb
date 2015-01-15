@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     resources :cuts
   end
 
+  put "projects/:id/fix_card", to: "projects#fix_card", as: "project_fix_card"
+
   put "cuts/:id/approve", to: "cuts#approve", as: "approve_cut"
   put "cuts/:id/reject", to: "cuts#reject", as: "reject_cut"
   get "final_cuts/:id", to: "projects#final_cut", as: "final_cut"

@@ -9,9 +9,14 @@ class @ApproveCutModal extends Modal
     @_bindSubmit()
 
   _bindSubmit: ->
-    @$modal.find("a.confirm").click (e) =>
+    @$modal.find("button.confirm").click (e) =>
+      $(e.target).prop("disabled", true)
+
       $.ajax
         method: "PUT"
         url: "/cuts/#{@options.cutID}/approve"
         success: (data) ->
           window.location = data.path
+        error: (data) =>
+          @close()
+          new FixCardModal(@options).open()

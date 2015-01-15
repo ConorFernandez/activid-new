@@ -1,8 +1,8 @@
 class ProjectsController < ApplicationController
-  before_filter :load_project, only: [:show, :update, :step1, :step2, :step3, :step4, :claim, :final_cut]
+  before_filter :load_project, only: [:show, :update, :step1, :step2, :step3, :step4, :claim, :final_cut, :fix_card]
   before_filter :ensure_project_is_editable, only: [:update, :step1, :step2, :step3, :step4]
-  before_filter :ensure_not_editor, only: [:new, :create, :step1, :step2, :step3, :step4]
-  before_filter :authenticate_user!, except: [:new, :create, :step1, :step2, :step3, :step4, :update, :final_cut]
+  before_filter :ensure_not_editor, only: [:new, :create, :step1, :step2, :step3, :step4, :fix_card]
+  before_filter :authenticate_user!, except: [:new, :create, :step1, :step2, :step3, :step4, :update, :final_cut, :fix_card]
   before_filter :store_project_in_session
 
   def new
@@ -69,6 +69,17 @@ class ProjectsController < ApplicationController
 
     @project.update(editor: current_user)
 
+    redirect_to project_path(@project)
+  end
+
+  def fix_card
+    if @project.user.present? && params[:stripe_token].present?
+      set_payment_method(@project)
+      @project.latest_cut.approve! if @project.latest_cut.try(:needs_approval?)
+    end
+  rescue Stripe::CardError => e
+    flash[:error] = "There was a problem with your card: #{e.message}"
+  ensure
     redirect_to project_path(@project)
   end
 

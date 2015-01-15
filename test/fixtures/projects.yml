@@ -26,3 +26,5 @@ has_cuts:
   user: joey
   uuid: uuid-has-cuts
   name: My cool project
+  editor: editor1
+  initial_price: 12300
