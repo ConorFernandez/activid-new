@@ -223,4 +223,20 @@ class ProjectsControllerTest < ActionController::TestCase
 
     assert_not_equal nil, project.submitted_at
   end
+
+  test "card error at step4 sets flash, does not submit project, and redirects back to step4" do
+    project = projects(:has_files)
+    sign_in project.user
+
+    error = Stripe::CardError.new("Your card was declined", nil, "card_declined")
+    Stripe::Customer.expects(:create).raises(error)
+
+    put :update, id: project.uuid, step: 4, stripe_token: "asdf"
+
+    project.reload
+
+    assert project.draft?
+    assert_redirected_to project_step4_path(project)
+    assert flash[:error] =~ /Your card was declined/i
+  end
 end

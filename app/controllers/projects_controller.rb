@@ -49,6 +49,9 @@ class ProjectsController < ApplicationController
       attach_file_uploads(@project)       if current_step == 2 || current_step == 3
       attach_activid_music(@project)      if current_step == 3
       set_payment_method(@project)        if @project.user.present? && (params[:stripe_token].present? || params[:stripe_card_id].present?)
+
+      return redirect_to(project_step4_path(@project)) if current_step == 4 && @card_error
+
       @project.submit!                    if current_step == 4 && @project.submittable?
 
       redirect_to next_step_path(@project)
@@ -148,7 +151,10 @@ class ProjectsController < ApplicationController
 
     project.update(stripe_card_id: card.id)
   rescue Stripe::InvalidRequestError => e
-    Rails.logger.error(e.inspect)
+    return false
+  rescue Stripe::CardError => e
+    @card_error = true
+    flash[:error] = "There was a problem with your card: #{e.message}"
     return false
   end
 
