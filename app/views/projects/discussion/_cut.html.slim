@@ -16,8 +16,12 @@ a name="cut_#{cut.id}"
         .approve-reject-links
           a class="button approve" data-preview-url=cut.preview_url data-cost=number_to_currency(cut.project.calculated_price / 100) data-cut-id=cut.id
             | Approve
-          a class="reject" data-preview-url=cut.preview_url data-cut-id=cut.id
-            = "Request another cut (+$#{Project::ADDITIONAL_CUT_COST / 100})"
+          - if cut.project.rejected_cuts.any?
+            a class="reject" data-preview-url=cut.preview_url data-cut-id=cut.id data-charge-for-revision=1
+              = "Request another cut (+$#{Project::ADDITIONAL_CUT_COST / 100})"
+          - else
+            a class="reject" data-preview-url=cut.preview_url data-cut-id=cut.id
+              = "Request another cut"
       - elsif cut.rejected?
         p
           strong Changes requested: 

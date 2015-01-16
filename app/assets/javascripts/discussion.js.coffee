@@ -15,5 +15,6 @@ $ ->
     options =
       previewURL: $link.data("preview-url")
       cutID: $link.data("cut-id")
+      chargeForRevision: $link.data("charge-for-revision")
 
     new RejectCutModal(options).open()

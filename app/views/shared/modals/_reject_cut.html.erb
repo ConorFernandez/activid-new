@@ -12,7 +12,7 @@
 
       <textarea id="reject_reason" placeholder="Notes for your editor..."></textarea>
 
-      <p>Please provide some comments for your editor to let him know what you would like changed. Note that each revision costs an additional $<%= Project::ADDITIONAL_CUT_COST / 100 %>.</p>
+      <p>Please provide some comments for your editor to let him know what you would like changed.{{#if chargeForRevision}} Note that each revision after the first costs an additional $<%= Project::ADDITIONAL_CUT_COST / 100 %>{{/if}}.</p>
 
       <a class="confirm button">Confirm</a>
     </div>
