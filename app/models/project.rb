@@ -138,7 +138,7 @@ class Project < ActiveRecord::Base
   end
 
   def display_price
-    (charged_price.present && charged_price != 0) ? charged_price : calculated_price
+    (charged_price.present? && charged_price != 0) ? charged_price : calculated_price
   end
 
   def submit!
