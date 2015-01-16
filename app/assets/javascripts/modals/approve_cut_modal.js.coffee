@@ -2,6 +2,13 @@ class @ApproveCutModal extends Modal
 
   constructor: (@options = {}) ->
     @template = Handlebars.compile($("#approve-cut-modal-template").html())
+
+    @options.showLineItems = @options.numRevisions > 1
+    @options.priceOfRevisions = (@options.numRevisions - 1) * 25
+    @options.initialPrice = @options.cost - @options.priceOfRevisions
+
+    console.log @options
+
     @$modal = $(@template(@options))
 
     super(@$modal, @options)

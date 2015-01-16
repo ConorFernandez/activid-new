@@ -6,6 +6,7 @@ $ ->
       previewURL: $link.data("preview-url")
       cutID: $link.data("cut-id")
       cost: $link.data("cost")
+      numRevisions: $link.data("num-revisions")
 
     new ApproveCutModal(options).open()
 

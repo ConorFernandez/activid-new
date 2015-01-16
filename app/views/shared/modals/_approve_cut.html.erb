@@ -11,8 +11,25 @@
       </video>
 
       <p>
-        Approving this cut will complete the project. You will receive immediate access to a full-quality version of your video and your card will be charged {{cost}}.
+        Approving this cut will complete the project. You will receive immediate access to a full-quality version of your video and your card will be charged ${{cost}}.
       </p>
+
+      {{#if showLineItems}}
+        <table class="line-items">
+          <tr>
+            <td>Initial price:</td>
+            <td>${{initialPrice}}</td>
+          </tr>
+          <tr>
+            <td>Revisions ({{numRevisions}}):</td>
+            <td>${{priceOfRevisions}}</td>
+          </tr>
+          <tr class="total">
+            <td></td>
+            <td><strong>${{cost}}</strong></td>
+          </tr>
+        </table>
+      {{/if}}
 
       <button class="confirm">Confirm</button>
     </div>
