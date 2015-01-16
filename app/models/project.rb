@@ -116,7 +116,7 @@ class Project < ActiveRecord::Base
       remove_logo_cost,
       uploaded_footage_cost,
       turnaround_time_cost,
-      (cuts.select(&:rejected?).count * ADDITIONAL_CUT_COST)
+      cost_of_additional_cuts
     ].sum
   end
 
@@ -129,6 +129,14 @@ class Project < ActiveRecord::Base
     ].sum
   end
 
+  def cost_of_additional_cuts
+    if rejected_cuts.any?
+      (rejected_cuts.count - 1) * ADDITIONAL_CUT_COST
+    else
+      0
+    end
+  end
+
   def submit!
     update(initial_price: calculated_price, submitted_at: Time.now)
   end
@@ -139,6 +147,10 @@ class Project < ActiveRecord::Base
 
   def processed_cuts
     cuts.order("created_at ASC").select(&:processed?)
+  end
+
+  def rejected_cuts
+    cuts.select(&:rejected?)
   end
 
   def first_cut
@@ -183,7 +195,7 @@ class Project < ActiveRecord::Base
         description: "#{user.email}: \"#{name}\""
       )
 
-      update(charged_at: Time.now)
+      update(charged_at: Time.now, charged_price: calculated_price)
     else
       return false
     end
