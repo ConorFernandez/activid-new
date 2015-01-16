@@ -137,6 +137,10 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def display_price
+    (charged_price.present && charged_price != 0) ? charged_price : calculated_price
+  end
+
   def submit!
     update(initial_price: calculated_price, submitted_at: Time.now)
   end
@@ -174,7 +178,11 @@ class Project < ActiveRecord::Base
   end
 
   def editor_earnings
-    ((calculated_price.presence || 0) * 0.7).to_i
+    if charged_price.present? && charged_price != 0
+      (charged_price * 0.7).to_i
+    else
+      ((calculated_price.presence || 0) * 0.7).to_i
+    end
   end
 
   def video_uploads

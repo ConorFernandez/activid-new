@@ -5,7 +5,7 @@
     - if project.draft? || project.initial_price.nil?
       span n/a
     - else
-      span= "#{project.calculated_price} (#{number_to_currency(project.editor_earnings / 100)} editor / #{number_to_currency((project.calculated_price - project.editor_earnings) / 100)} Activid))"
+      span= "#{project.display_price} (#{number_to_currency(project.editor_earnings / 100)} editor / #{number_to_currency((project.display_price - project.editor_earnings) / 100)} Activid))"
 
 /-----------  Editor Earnings  -----------/
 - if current_user.editor?
@@ -44,7 +44,7 @@
       | Final payment amount: 
     - else
       | Payment due upon approval: 
-    span= project.draft? ? "n/a" : number_to_currency(project.calculated_price / 100)
+    span= project.draft? ? "n/a" : number_to_currency(project.display_price / 100)
 
 /-----------  Assigned Editor  -----------/
 - unless current_user.editor? || project.editor.nil?
