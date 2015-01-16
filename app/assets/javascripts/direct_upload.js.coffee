@@ -157,8 +157,9 @@ $ ->
     submitButton.prop("disabled", true)
 
   $("form.project-step-2").on "upload-complete", ->
-    submitButton = $(this).find("input[type=\"submit\"]")
-    submitButton.prop("disabled", false)
+    if $(this).find("a.cancel-upload").length == 0
+      submitButton = $(this).find("input[type=\"submit\"]")
+      submitButton.prop("disabled", false)
 
   $("form.project-step-2").on "upload-cancel", ->
     submitButton = $(this).find("input[type=\"submit\"]")
@@ -169,8 +170,9 @@ $ ->
     submitButton.prop("disabled", true)
 
   $("form.project-step-3").on "upload-complete", ->
-    submitButton = $(this).find("input[type=\"submit\"]")
-    submitButton.prop("disabled", false)
+    if $(this).find("a.cancel-upload").length == 0
+      submitButton = $(this).find("input[type=\"submit\"]")
+      submitButton.prop("disabled", false)
 
   $("form.project-step-3").on "upload-cancel", ->
     submitButton = $(this).find("input[type=\"submit\"]")
