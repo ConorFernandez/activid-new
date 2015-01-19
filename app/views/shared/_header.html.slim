@@ -1,11 +1,11 @@
 .wide-wrapper
   .header-logo
     - if current_user
-      = link_to "(logo)", projects_path, :alt => "Activid", :class => "button"
+      a src=projects_path
+       = image_tag 'activid_logo.png', :class =>'header-logo'
     - else
       a src=root_path
        = image_tag 'activid_logo.png', :class =>'header-logo'
-      -#= link_to "(logo)", root_path, :alt => "Activid", :class => "button logo"
 
     a.mobile-menu-trigger href="#"
       i.icon-menu
