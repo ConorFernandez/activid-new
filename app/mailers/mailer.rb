@@ -55,4 +55,11 @@ class Mailer < ActionMailer::Base
 
     mail(to: @project.editor.email, subject: "Error: a cut you uploaded could not be encoded")
   end
+
+  def rejected_cut_email(cut)
+    @cut = cut
+    @project = cut.project
+
+    mail(to: @project.editor.email, subject: "Another cut has been requested for one of your projects")
+  end
 end

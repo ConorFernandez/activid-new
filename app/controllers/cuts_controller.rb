@@ -23,6 +23,7 @@ class CutsController < ApplicationController
 
   def reject
     if @cut.reject!(params[:cut].try(:[], :reject_reason))
+      Mailer.rejected_cut_email(@cut).deliver
       render json: {path: project_path(@cut.project)}
     else
       head :bad_request

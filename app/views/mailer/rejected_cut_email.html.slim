@@ -1,0 +1,9 @@
+p Hello,
+
+p= "Another cut has been requested for the project \"#{@project.name}\"."
+
+p= "#{display_name_for_user(@project.user)} said: \"#{@cut.reject_reason}\"."
+
+p= "You can view the project page here: #{link_to project_url(@project), project_url(@project)}".html_safe
+
+p= "- Activid"
