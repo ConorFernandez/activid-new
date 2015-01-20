@@ -2,10 +2,10 @@
   .header-logo
     - if current_user
       a src=projects_path
-       = image_tag 'activid_logo.png', :class =>'header-logo'
+       = image_tag "activid_logo.png", class: "header-logo"
     - else
       a src=root_path
-       = image_tag 'activid_logo.png', :class =>'header-logo'
+       = image_tag "activid_logo.png", class: "header-logo"
 
     a.mobile-menu-trigger href="#"
       i.icon-menu
@@ -13,7 +13,7 @@
   nav.header-navigation
     - if current_user
       - if current_user.user?
-        = link_to "Start a New Project", new_project_path, :class => "button"
+        = link_to "Start a New Project", new_project_path, class: "button"
         = link_to "Projects", projects_path
         = link_to "Your Account", edit_account_path
         = link_to "Log Out", destroy_user_session_path, method: :delete
@@ -33,4 +33,4 @@
       a How It Works
       a Pricing
       = link_to "Log In", "#", {class: "log-in-link"}
-      = link_to "Get Started", new_project_path, :class => "button"
+      = link_to "Get Started", new_project_path, class: "button"
