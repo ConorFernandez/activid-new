@@ -16,6 +16,14 @@ class Mailer < ActionMailer::Base
     mail(to: (@admins.map(&:email) + [@editor.email]), subject: "Editor payment for \"#{@project.name}\" failed")
   end
 
+  def successful_editor_payment_email(project, amount)
+    @project = project
+    @amount = amount
+    @editor = project.editor
+
+    mail(to: @editor.email, subject: "A payment has been initiated to your account for a completed project")
+  end
+
   def editor_application_email(params)
     @params = params
     @admins = User.all.select(&:admin?)
