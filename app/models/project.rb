@@ -177,6 +177,10 @@ class Project < ActiveRecord::Base
     video_uploads.all?(&:zencoder_finished?)
   end
 
+  def has_failed_uploads?
+    video_uploads.any?(&:zencoder_failed?)
+  end
+
   def editor_earnings
     if charged_price.present? && charged_price != 0
       (charged_price * 0.7).to_i

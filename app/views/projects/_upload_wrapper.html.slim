@@ -2,7 +2,7 @@
   .upload-empty style="#{file_uploads.any? ? 'display: none' : ''}"
     | Select a file to upload using the button below
   - file_uploads.each do |file_upload|
-    .upload-block.complete
+    div class="upload-block #{file_upload.zencoder_failed? ? 'failed' : 'complete'}"
       = hidden_field_tag "file_upload_uuids[]", file_upload.uuid
 
       h6= file_upload.file_name
@@ -12,6 +12,11 @@
           span style="width: 100%"
 
         a.delete-upload data-upload-uuid=file_upload.uuid delete
+
+      - if file_upload.zencoder_failed?
+        .upload-error
+          = "#{file_upload.zencoder_error} To continune, please delete this file and try again."
+
 
   footer
     button.add-file Choose file
