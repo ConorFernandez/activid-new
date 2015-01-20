@@ -21,4 +21,12 @@ class Mailer < ActionMailer::Base
 
     mail(to: @admins.map(&:email), subject: "New editor application")
   end
+
+  def new_cut_email(cut)
+    @cut = cut
+    @project = cut.project
+    @link = project_url(@project, anchor: "cut_#{cut.id}")
+
+    mail(to: @project.user.email, subject: "A new cut is ready for your review!")
+  end
 end

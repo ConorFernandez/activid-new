@@ -11,6 +11,7 @@ namespace :encoding do
       when "finished"
         preview_url = job.body["job"]["output_media_files"][0]["url"]
         upload.update(zencoder_status: "finished", preview_url: preview_url)
+        Mailer.new_cut_email(upload.attachable).deliver
       when "failed"
         error_message = job.body["job"]["input_media_file"]["error_message"]
         upload.update(zencoder_status: "failed", zencoder_error: error_message)
