@@ -1,11 +1,6 @@
 .wide-wrapper
   .header-logo
-    - if current_user
-      a src=projects_path
-       = image_tag "activid_logo.png", class: "header-logo"
-    - else
-      a src=root_path
-       = image_tag "activid_logo.png", class: "header-logo"
+    = link_to image_tag("activid_logo.png", class: "header-logo"), current_user ? projects_path : root_path
 
     a.mobile-menu-trigger href="#"
       i.icon-menu
