@@ -8,12 +8,13 @@ class CommentsController < ApplicationController
       commentable: @commentable
     ).tap{|h| h.delete(:commentable_uuid)}
 
-    Comment.create!(attributes)
+    @comment = Comment.create!(attributes)
 
     if @commentable.is_a?(User)
       redirect_to editor_path(@commentable)
     else
-      redirect_to @commentable
+      Mailer.new_comment_email(@comment).deliver
+      redirect_to project_path(@commentable, anchor: "comment_#{@comment.id}")
     end
   end
 

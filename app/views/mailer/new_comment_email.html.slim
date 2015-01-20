@@ -1,0 +1,9 @@
+p Hello,
+
+p= "#{display_name_for_user(@comment.poster)} has posted a new comment on your project, \"#{@project.name}\"."
+
+p= "\"#{@comment.body}\""
+
+p= "To reply, and to view the rest of the discussion for this project, follow this link: #{link_to @link, @link}".html_safe
+
+p= "- Activid"

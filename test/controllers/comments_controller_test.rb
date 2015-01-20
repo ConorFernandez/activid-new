@@ -12,7 +12,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert_equal comments_count + 1, project.reload.comments.count
     assert_equal body, project.comments.last.body
-    assert_redirected_to project
+    assert_redirected_to project_path(project, anchor: "comment_#{project.comments.last.id}")
   end
 
   test "user cannot create a comment for a project that doesn't belong to them" do
@@ -35,7 +35,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert_equal comments_count + 1, project.reload.comments.count
     assert_equal body, project.comments.last.body
-    assert_redirected_to project
+    assert_redirected_to project_path(project, anchor: "comment_#{project.comments.last.id}")
   end
 
   test "editors cannot create a comment for a project they're not assigned to" do
@@ -58,7 +58,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert_equal comments_count + 1, project.reload.comments.count
     assert_equal body, project.comments.last.body
-    assert_redirected_to project
+    assert_redirected_to project_path(project, anchor: "comment_#{project.comments.last.id}")
   end
 
   test "admins can comment on an editor" do
