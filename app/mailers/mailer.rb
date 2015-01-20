@@ -47,4 +47,12 @@ class Mailer < ActionMailer::Base
 
     mail(to: to_address, subject: "A comment was posted on your project") if to_address
   end
+
+  def cut_failed_encoding_email(cut)
+    @cut = cut
+    @project = cut.project
+    @link = project_url(@project)
+
+    mail(to: @project.editor.email, subject: "Error: a cut you uploaded could not be encoded")
+  end
 end

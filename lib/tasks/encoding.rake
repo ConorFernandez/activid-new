@@ -15,6 +15,7 @@ namespace :encoding do
       when "failed"
         error_message = job.body["job"]["input_media_file"]["error_message"]
         upload.update(zencoder_status: "failed", zencoder_error: error_message)
+        Mailer.cut_failed_encoding_email(upload.attachable).deliver
       end
     end
   end

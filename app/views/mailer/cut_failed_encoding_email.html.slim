@@ -1,0 +1,7 @@
+p Hello,
+
+p= "The cut that you uploaded for the project \"#{@project.name}\" could not be encoded. The error message was \"#{@cut.zencoder_error}\""
+
+p= "You will need to re-upload your cut before it will be available to the customer. You can view the project page here: #{link_to @link, @link}".html_safe
+
+p= "- Activid"
