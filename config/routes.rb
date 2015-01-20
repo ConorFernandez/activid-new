@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   put "editors/:id/unpause", to: "editors#unpause", as: "unpause_editor"
 
   resources :comments
+  resources :editor_applications
 
   devise_for :users, controllers: {
     passwords: "users/passwords",

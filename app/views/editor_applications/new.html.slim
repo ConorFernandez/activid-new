@@ -1,0 +1,18 @@
+- add_page_class :editor_application
+
+section
+  .compact-wrapper
+    = form_tag editor_applications_path, id: "editor-application" do
+
+      h4 Apply To Be An Editor
+
+      = text_field_tag :full_name, "", placeholder: "Full Name"
+      = text_field_tag :email, "", placeholder: "Email Address"
+
+      = label_tag "Please give a brief description of your video editing history and qualifications."
+      = text_area_tag :bio
+
+      = label_tag "Please provide some links to previous videos you have done."
+      = text_area_tag :portfolio
+
+      = submit_tag "Apply"
