@@ -1,0 +1,7 @@
+p Hello,
+
+p= "The latest cut for your project, \"#{@project.name}\", is still awaiting your feedback and approval. If the cut goes another week without any comments, it will automatically be accepted, which will complete your project and charge your card #{number_to_currency(@project.calculated_price / 100)}."
+
+p= "You can review the latest cut here: #{link_to @link, @link}".html_safe
+
+p= "- Activid"

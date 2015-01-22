@@ -10,7 +10,7 @@ namespace :encoding do
       case job.body["job"]["state"]
       when "finished"
         preview_url = job.body["job"]["output_media_files"][0]["url"]
-        upload.update(zencoder_status: "finished", preview_url: preview_url)
+        upload.update(zencoder_status: "finished", preview_url: preview_url, processed_at: Time.now)
         Mailer.new_cut_email(upload.attachable).deliver
       when "failed"
         error_message = job.body["job"]["input_media_file"]["error_message"]
