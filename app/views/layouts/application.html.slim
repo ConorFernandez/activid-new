@@ -15,17 +15,15 @@ html
     = javascript_include_tag "application"
     = csrf_meta_tags
 
-    script src="//use.typekit.net/kia0nrk.js"
-
-    javascript:
-      try{Typekit.load();}catch(e){}
-      Stripe.setPublishableKey("#{ENV["STRIPE_PUBLISHABLE_KEY"]}");
+    link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:500,700"
 
   body class=page_classes
+    
     = render "shared/modals/sign_up"
     = render "shared/modals/sign_in"
     = render "shared/modals/approve_cut"
     = render "shared/modals/reject_cut"
+
     - if @project && @project.persisted?
       = render "shared/modals/fix_card"
 
