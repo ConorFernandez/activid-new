@@ -9,7 +9,8 @@ namespace :encoding do
 
       if job.body["job"]["state"] == "finished" && job.body.try(:[], "job").try(:[], "input_media_file").try(:[], "video_codec")
         preview_url = job.body["job"]["output_media_files"][0]["url"]
-        upload.update(zencoder_status: "finished", preview_url: preview_url, processed_at: Time.now)
+        upload.update(zencoder_status: "finished", preview_url: preview_url)
+        upload.attachable.update(processed_at: Time.now)
         Mailer.new_cut_email(upload.attachable).deliver
       else
         error_message = job.body["job"]["input_media_file"]["error_message"]
