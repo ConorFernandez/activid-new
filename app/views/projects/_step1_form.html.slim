@@ -4,15 +4,13 @@
   = f.label :name, "Name your project"
   = f.text_field :name
 
-  .input-group
-    = f.label :category, "What type of video is this?"
-    .select-wrapper
-      = f.select :category, options_for_category_select
+  = f.label :category, "What type of video is this?"
+  .select-wrapper
+    = f.select :category, options_for_category_select
 
-  .input-group
-    = f.label :desired_length, "About how long should it be?"
-    .select-wrapper
-      = f.select :desired_length, options_for_desired_length_select
+  = f.label :desired_length, "About how long should it be?"
+  .select-wrapper
+    = f.select :desired_length, options_for_desired_length_select
 
   = f.label :instructions, "Special instructions"
   = f.text_area :instructions

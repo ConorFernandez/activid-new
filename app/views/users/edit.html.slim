@@ -22,6 +22,8 @@ section
 
         input type="text" placeholder="Routing Number" id="routing-number"
         input type="text" placeholder="Account Number" id="account-number"
-        = select_tag "country", options_for_country_select
+  
+        .select-wrapper
+          = select_tag "country", options_for_country_select
 
       = f.submit "Save"
