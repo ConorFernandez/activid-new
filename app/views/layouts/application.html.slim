@@ -17,6 +17,9 @@ html
 
     link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:500,700"
 
+    javascript:
+      Stripe.setPublishableKey("#{ENV["STRIPE_PUBLISHABLE_KEY"]}");
+  
   body class=page_classes
     
     = render "shared/modals/sign_up"
