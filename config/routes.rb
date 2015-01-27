@@ -31,5 +31,16 @@ Rails.application.routes.draw do
   get "/account", to: "users#edit", as: "edit_account"
   put "/account", to: "users#update"
 
+  get "/how_it_works", to: "pages#how_it_works", as: "how_it_works_page"
+  get "/pricing", to: "pages#pricing", as: "pricing_page"
+  get "/about", to: "pages#about", as: "about_page"
+  get "/video", to: "pages#video", as: "video_page"
+  get "/gallery", to: "pages#gallery", as: "gallery_page"
+  get "/tips", to: "pages#tips", as: "tips_page"
+  get "/faq", to: "pages#faq", as: "faq_page"
+  get "/terms", to: "pages#terms", as: "terms_page"
+  get "/privacy", to: "pages#privacy", as: "privacy_page"
+  get "/contact", to: "pages#contact", as: "contact_page"
+
   root "welcome#index"
 end
