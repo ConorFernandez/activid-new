@@ -3,27 +3,31 @@
 .thumbnail-block
   width: 31%
   position: relative
-  padding-bottom: 18%
-  background-color: $grayLight
   @include inline-block()
-  @include full-bg()
 
-  &:after
-    top: 50%
-    left: 50%
-    opacity: 0.5
-    color: $white
-    font-size: 2.25em
-    position: absolute
-    @include transform(translate(-50%) translateY(-50%))
-    @include use-icon('\e80c')
-    @include transition()
+  // &:after
+  //   top: 50%
+  //   left: 50%
+  //   opacity: 0.5
+  //   color: $white
+  //   font-size: 2.25em
+  //   position: absolute
+  //   @include transform(translate(-50%) translateY(-50%))
+  //   @include use-icon('\e80c')
+  //   @include transition()
+
+  h5
+    font-size: 1.15em
+    margin-bottom: 0.4em
+
+  object
+    width: 100%
 
   &:hover
     cursor: pointer
 
-    &:after
-      opacity: 0.75
+    // &:after
+    //   opacity: 0.75
 
 /*-----------  Thumbnail Gallery  -----------*/
 
@@ -37,5 +41,4 @@
 
   .thumbnail-block
     margin-bottom: 2.5%
-    padding-bottom: 18%
     @include flex(0 1 31%)
