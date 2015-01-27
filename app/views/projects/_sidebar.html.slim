@@ -74,6 +74,8 @@ br
 br
 
 /-----------  Video Type -----------/
-.project-meta
-  | Special Instructions: 
-  span.special-instructions= project.instructions
+- if project.instructions.presence
+
+  .project-meta
+    | Special Instructions: 
+    span.special-instructions= project.instructions
