@@ -1,33 +1,45 @@
-a name="cut_#{cut.id}"
-.discussion-block
-  .discussion-content
-    - if cut.uploader == current_user
-      strong You uploaded a cut:
-    - else
-      strong= "#{display_name_for_user(cut.uploader)} uploaded a cut:"
+a name="cut_#{cut.id}" class="discussion-block upload #{ cut.uploader == current_user ? 'mine' : 'theirs' }"
 
+  - if cut.uploader == current_user
+    .discussion-title You uploaded a cut:
+    .discussion-timestamp= "#{time_ago_in_words(cut.created_at)} ago"
+  - else
+    .discussion-title= "#{display_name_for_user(cut.uploader)} uploaded a cut:"
     .discussion-timestamp= "#{time_ago_in_words(cut.created_at)} ago"
 
+  .discussion-content
     - if cut.processed?
+    
       video width="100%" controls="true"
         source src=(cut.approved? ? cut.file_upload.url : cut.preview_url) type="video/mp4"
         Your browser does not support the video tag.
+    
       - if cut.needs_approval? && current_user.user?
+    
         .approve-reject-links
           a class="button approve" data-preview-url=cut.preview_url data-cost=(cut.project.calculated_price / 100) data-cut-id=cut.id data-num-revisions=cut.project.rejected_cuts.count
             | Approve
+    
           - if cut.project.rejected_cuts.any?
             a class="reject" data-preview-url=cut.preview_url data-cut-id=cut.id data-charge-for-revision=1
               = "Request another cut (+$#{Project::ADDITIONAL_CUT_COST / 100})"
           - else
             a class="reject" data-preview-url=cut.preview_url data-cut-id=cut.id
               = "Request another cut"
+    
       - elsif cut.rejected?
+    
         p
           strong Changes requested: 
           = cut.reject_reason
+    
     - elsif cut.failed?
-      p There was a problem encoding your upload. Please try again.
-      p= "Error: #{cut.zencoder_error}"
+    
+      p.error
+        | There was a problem encoding your upload. Please try again.
+        br
+        = "Error: #{cut.zencoder_error}"
+    
     - else
-      p Your cut is being encoded. Once it has completed, it will become visible to the customer and they'll receive a notification.
+
+      p.uploading Your cut is being encoded. Once it has completed, it will become visible to the customer and they'll receive a notification.
