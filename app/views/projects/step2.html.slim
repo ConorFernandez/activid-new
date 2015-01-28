@@ -16,6 +16,10 @@ section
       small Tip 1: When uploading video files, make sure you're on a strong internet connection.
       small Tip 2: The files might take some time to upload. You can leave this page open, set your computer to never enter sleep mode, and come back when they're done!
 
+      h5 ...or link to files in DropBox
+      p Click the button below to attach files that you've already uploaded to your DropBox account.
+      a.button.dropbox-upload Upload from DropBox
+
       .button-wrapper
         = link_to "< Back", project_step1_path(@project), :class => "button alt"
         = f.submit "Select Music >", class: "alt"

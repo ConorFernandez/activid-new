@@ -33,7 +33,11 @@ class FileUploadsController < ApplicationController
   private
 
   def file_upload_params
-    params.require(:file_upload).permit(:url)
+    if params[:file_upload][:source_url].present?
+      params[:file_upload][:source_url] = params[:file_upload][:source_url].gsub("www.dropbox.com", "dl.dropboxusercontent.com")
+    end
+
+    params.require(:file_upload).permit(:url, :source_url)
   end
 
   def load_file_upload

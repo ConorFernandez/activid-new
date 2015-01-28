@@ -16,7 +16,7 @@ $.fn.bindUploadActions = ->
 $.fn.makeDirectUpload = (presignedPost) ->
   dU.makeDirectUpload(this, presignedPost)
 
-dU =
+window.dU =
   addFileUpload: (form, formats) ->
     fileUpload = $("<input>", type: "file")
     container = $("<div>", class: "upload-block-placeholder")

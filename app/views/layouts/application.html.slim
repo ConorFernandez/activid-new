@@ -21,6 +21,7 @@ html
       Stripe.setPublishableKey("#{ENV["STRIPE_PUBLISHABLE_KEY"]}");
   
   body class=page_classes
+  script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="#{ENV["DROPBOX_APP_KEY"]}"
     
     = render "shared/modals/sign_up"
     = render "shared/modals/sign_in"

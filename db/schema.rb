@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150122011429) do
+ActiveRecord::Schema.define(version: 20150128234347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20150122011429) do
     t.string   "zencoder_status"
     t.string   "preview_url"
     t.string   "zencoder_error"
+    t.string   "source_url"
   end
 
   add_index "file_uploads", ["attachable_id", "attachable_type"], name: "index_file_uploads_on_attachable_id_and_attachable_type", using: :btree

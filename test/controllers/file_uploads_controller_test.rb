@@ -39,4 +39,24 @@ class FileUploadsControllerTest < ActionController::TestCase
 
     assert project.reload.file_uploads.map(&:url).include?(url)
   end
+
+  test "user can post a file with just a source_url" do
+    project = projects(:has_files)
+    sign_in project.user
+    source_url = "http://dl.dropboxusercontent.com/cinemagic.mp4"
+
+    post :create, file_upload: {source_url: source_url}, project_uuid: project.uuid
+
+    assert project.reload.file_uploads.map(&:source_url).include?(source_url)
+  end
+
+  test "converts dropbox source URL to actual URL where file is" do
+    project = projects(:has_files)
+    sign_in project.user
+    source_url = "http://www.dropbox.com/cinemagic.mp4"
+
+    post :create, file_upload: {source_url: source_url}, project_uuid: project.uuid
+
+    assert_equal "http://dl.dropboxusercontent.com/cinemagic.mp4", project.reload.file_uploads.last.source_url
+  end
 end
