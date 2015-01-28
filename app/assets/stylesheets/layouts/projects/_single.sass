@@ -2,6 +2,37 @@
 
 body.project_single
 
+  /*-----------  Main Content  -----------*/
+
+  .layout-wrapper
+    margin: -$gutterSm
+    @include justify-content(space-between)
+    @include align-items(stretch)
+    @include flex-wrap(nowrap)
+    @include display(flex)
+
+    .main-layout
+      padding: $gutter
+      @include flex(1 0 70%)
+
+      .step-wrapper
+        position: absolute
+        @include justify-content(inherit)
+
+        .step-block
+          margin-right: 1.75em
+
+      .step-container
+        padding-top: 3.5em
+
+    /*-----------  Sidebar  -----------*/
+
+    .side-layout
+      padding: $gutter
+      border-left: 1px solid $grayLighter
+      background-color: lighten($grayLightest, 2%)
+      @include flex(0 1 auto)
+
   /*-----------  Discussions  -----------*/
 
   .discussion-status
