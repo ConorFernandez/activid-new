@@ -1,0 +1,29 @@
+<video width="100%" controls>
+  <source src="<%= cut.approved? ? cut.file_upload.url : cut.preview_url %>" type="video/mp4"></source>
+  Your browser does not support the video tag.
+</video>
+
+<%- if cut.needs_approval? && current_user.user? %>
+  
+  <div class="approve-reject-links">
+    <%- if cut.project.rejected_cuts.any? %>
+      <a class="reject" data-preview-url="<%= cut.preview_url %>" data-cut-id="<%= cut.id %>" data-charge-for-revision="1">
+        Request another cut (+$<%= Project::ADDITIONAL_CUT_COST / 100 %>)
+      </a>
+    <%- else %>
+      <a class="reject" data-preview-url="<%= cut.preview_url %>" data-cut-id="<%= cut.id %>">
+        Request another cut
+      </a>
+    <%- end %>
+
+    <a class="button approve" data-preview-url="<%= cut.preview_url %>" data-cost="<%= (cut.project.calculated_price / 100) %>" data-cut-id="<%= cut.id %>" data-num-revisions="<%= cut.project.rejected_cuts.count %>">Approve</a>
+  </div>
+
+<%- elsif cut.rejected? %>
+    
+  <p>
+    <strong>Changes requested: </strong> 
+    <%= cut.reject_reason %>
+  </p>
+
+<%- end %>

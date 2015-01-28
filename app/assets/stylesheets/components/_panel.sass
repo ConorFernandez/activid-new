@@ -5,7 +5,6 @@
   margin-left: auto
   margin-right: auto
   position: relative
-  padding: $paddingWidth
   background-color: $white
   border-width: $borderWidth
   @include clearfix()
@@ -15,6 +14,7 @@
     padding-right: $gutterSm
 
   hr
+    border-top-style: dotted
     margin-top: $paddingWidth
     margin-bottom: $paddingWidth
     margin-left: -$paddingWidth
@@ -27,43 +27,37 @@
     position: relative
     background-color: $grayDark
     padding: ($paddingWidth/2) $paddingWidth
-    margin: (-$paddingWidth) (-$paddingWidth) $paddingWidth (-$paddingWidth)    
-
-  /*-----------  Sidebar  -----------*/
-
-  > aside
-    width: 33%
-    margin-left: 3%
-    padding-left: 3%
-    // border-left: $border
-    @include inline-block(top)
-
-    @include media($middleBreak)
-      width: 100%
-      margin-left: 0
-      padding-left: 0
-      border-left: none
-      margin-top: 1.5em
-      padding-top: 1.5em
-      border-top: $border
+    // margin: (-$paddingWidth) (-$paddingWidth) $paddingWidth (-$paddingWidth)    
 
   /*-----------  Main Content  -----------*/
 
-  > section
-    width: 64%
-    position: relative
-    margin-right: -1px
-    @include inline-block(top)
+  .layout-wrapper
+    @include justify-content(space-between)
+    @include align-items(stretch)
+    @include flex-wrap(nowrap)
+    @include display(flex)
 
-    .step-wrapper
-      display: block !important
+    > section
+      padding: $gutter
+      @include flex(1 0 70%)
 
-      .step-block
-        margin-right: 1.75em
+      .step-wrapper
+        position: absolute
+        @include justify-content(inherit)
 
-    @include media($middleBreak)
-      width: 100%
-      margin-right: 0
+        .step-block
+          margin-right: 1.75em
+
+      .step-container
+        padding-top: 3.5em
+
+    /*-----------  Sidebar  -----------*/
+
+    > aside
+      padding: $gutter
+      border-left: 1px solid $grayLighter
+      background-color: lighten($grayLightest, 2%)
+      @include flex(0 1 auto)
 
   /*-----------  Footer  -----------*/
 
@@ -72,4 +66,3 @@
     border-top: $border
     padding: $paddingWidth
     background-color: $grayLighter
-    margin: $paddingWidth (-$paddingWidth) (-$paddingWidth) (-$paddingWidth)    

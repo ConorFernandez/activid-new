@@ -11,7 +11,7 @@ $ ->
     newContent = $("[data-tab-content='#{tag}']")
 
     tabs.removeClass('selected')
-    $(@).addClass('selected')
+    $("[data-tab='#{tag}']").addClass('selected')
 
     oldContent.removeClass('selected')
     newContent.addClass('selected')

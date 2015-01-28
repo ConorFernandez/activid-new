@@ -11,7 +11,7 @@
     padding-right: 1.67em
 
     &:before,
-      right: 3px
+      right: 0
       bottom: 0
       content: ''
       position: absolute
@@ -21,7 +21,7 @@
       @include inline-block()
 
     &:after
-      right: 3px
+      right: 0
       bottom: -1px
       content: ''
       position: absolute
@@ -41,7 +41,7 @@
   .discussion-content
     clear: both
     border-radius: 5px
-    padding: 1em 1.25em
+    padding: 1.1em 1.25em
     border: 1px solid $grayLight
 
     *
@@ -67,9 +67,8 @@
 
   &.upload
 
-    .discussion-title:before,
     .discussion-title:after    
-      display: none
+      border-left-color: $grayLighter
   
     .discussion-content
       background-color: $grayLighter
@@ -81,13 +80,30 @@
         line-height: 125%
         text-align: center
 
-    textarea + .button
-      float: right
+      video
+        border-radius: 3px
+        vertical-align: baseline
 
-    .approve-reject-links
-      background-color: $blueLighter
-      text-align: right
-      padding: 1em
+      .approve-reject-links
+        margin-top: 0.75em
+        text-align: right
+ 
+        .button
+          color: $white
+          margin-left: 0.75em
 
-      a
-        margin-left: 1em
+  /*-----------  Reply Message  -----------*/
+
+  &.reply
+    font-size: 1.1em
+    margin-bottom: 0
+
+    textarea
+      padding: 0
+      border: none
+      margin-top: 0
+      margin-bottom: 0.75em
+
+    .button
+      color: $white
+      margin-right: 0.75em
