@@ -17,8 +17,11 @@ class CutsController < ApplicationController
   end
 
   def approve
-    @cut.approve!
-    render json: {path: project_path(@cut.project)}
+    if @cut.approve!
+      render json: {path: project_path(@cut.project)}
+    else
+      head :bad_request
+    end
   end
 
   def reject

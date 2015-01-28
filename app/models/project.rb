@@ -211,6 +211,9 @@ class Project < ActiveRecord::Base
     else
       return false
     end
+  rescue Stripe::CardError => e
+    Rails.logger.error "Error charging project #{id}: #{e}"
+    return false
   end
 
   def pay_editor!
