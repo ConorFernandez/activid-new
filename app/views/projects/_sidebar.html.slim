@@ -18,6 +18,8 @@
   .project-meta
     | Customer: 
     span= long_display_name_for_user(project.user)
+    - if current_user.admin?
+      span= "(#{project.user.email})"
 
 /-----------  Submission Time  -----------/
 - unless project.draft?
