@@ -12,7 +12,8 @@ namespace :encoding do
         upload.update(zencoder_status: "finished", preview_url: preview_url)
         upload.attachable.update(processed_at: Time.now)
         Mailer.new_cut_email(upload.attachable).deliver
-      else
+      elsif %w(failed finished).include?(job.body["job"]["state"])
+        binding.pry
         error_message = job.body["job"]["input_media_file"]["error_message"]
         upload.update(zencoder_status: "failed", zencoder_error: error_message || "File does not appear to be a valid video file.")
         Mailer.cut_failed_encoding_email(upload.attachable).deliver
@@ -29,7 +30,7 @@ namespace :encoding do
       if job.body["job"]["state"] == "finished" && job.body.try(:[], "job").try(:[], "input_media_file").try(:[], "video_codec")
         duration = job.body["job"]["input_media_file"]["duration_in_ms"] / 1000
         upload.update(zencoder_status: "finished", duration: duration)
-      else
+      elsif %w(failed finished).include?(job.body["job"]["state"])
         error_message = job.body["job"]["input_media_file"]["error_message"]
         upload.update(zencoder_status: "failed", zencoder_error: error_message || "File does not appear to be a valid video file.")
       end
