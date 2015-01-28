@@ -1,4 +1,4 @@
-a name="comment_#{comment.id}" class="discussion-block #{ comment.poster == current_user ? 'mine' : 'theirs' }"
+div id="comment_#{comment.id}" class="discussion-block #{ comment.poster == current_user ? 'mine' : 'theirs' }"
 
   - if comment.poster == current_user
     .discussion-title You said:

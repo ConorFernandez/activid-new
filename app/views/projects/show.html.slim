@@ -14,23 +14,26 @@ section
 
       = render "alert", project: @project
 
-      section
+      .layout-wrapper
 
-        .step-wrapper
-          a.step-block.selected data-tab="discussion" Project Discussion
-          a.step-block data-tab="files" Files
-          - if current_user == @project.editor && !@project.completed?
-            a.step-block data-tab="upload-cut" Upload Cut
+        section
 
-        .step-container data-tab-content="discussion"
-          = render "discussion", project: @project
+          .step-wrapper
+            a.step-block.selected data-tab="discussion" Project Discussion
+            a.step-block data-tab="files" Files
+            - if current_user == @project.editor && !@project.completed?
+              a.step-block data-tab="upload-cut" Upload Cut
 
-        .step-container data-tab-content="files"
-          = render "files", project: @project
+          .step-container data-tab-content="discussion"
+            = render "discussion", project: @project
 
-        .step-container data-tab-content="upload-cut"
-          = render "upload_cut", project: @project
+          .step-container data-tab-content="files"
+            = render "files", project: @project
 
-      /-----------  Sidebar  -----------/
-      aside
-        = render "sidebar", project: @project
+          .step-container data-tab-content="upload-cut"
+            = render "upload_cut", project: @project
+
+        /-----------  Sidebar  -----------/
+
+        aside
+          = render "sidebar", project: @project
