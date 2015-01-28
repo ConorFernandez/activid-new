@@ -1,0 +1,68 @@
+// /*-----------  Panel  -----------*/
+
+// @mixin panel($borderWidth: 2px, $paddingWidth: $gutter)
+//   border: $border
+//   margin-left: auto
+//   margin-right: auto
+//   position: relative
+//   background-color: $white
+//   border-width: $borderWidth
+//   @include clearfix()
+
+//   @include media($mobileBreak)
+//     padding-left: $gutterSm
+//     padding-right: $gutterSm
+
+//   hr
+//     border-top-style: dotted
+//     margin-top: $paddingWidth
+//     margin-bottom: $paddingWidth
+//     margin-left: -$paddingWidth
+//     margin-right: -$paddingWidth
+
+//   /*-----------  Header  -----------*/
+
+//   > header
+//     color: $white
+//     position: relative
+//     background-color: $grayDark
+//     padding: ($paddingWidth/2) $paddingWidth
+//     // margin: (-$paddingWidth) (-$paddingWidth) $paddingWidth (-$paddingWidth)    
+
+//   /*-----------  Main Content  -----------*/
+
+//   .layout-wrapper
+//     @include justify-content(space-between)
+//     @include align-items(stretch)
+//     @include flex-wrap(nowrap)
+//     @include display(flex)
+
+//     > section
+//       padding: $gutter
+//       @include flex(1 0 70%)
+
+//       .step-wrapper
+//         position: absolute
+//         @include justify-content(inherit)
+
+//         .step-block
+//           margin-right: 1.75em
+
+//       .step-container
+//         padding-top: 3.5em
+
+//     /*-----------  Sidebar  -----------*/
+
+//     > aside
+//       padding: $gutter
+//       border-left: 1px solid $grayLighter
+//       background-color: lighten($grayLightest, 2%)
+//       @include flex(0 1 auto)
+
+//   /*-----------  Footer  -----------*/
+
+//   > footer
+//     position: relative
+//     border-top: $border
+//     padding: $paddingWidth
+//     background-color: $grayLighter
