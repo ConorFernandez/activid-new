@@ -1,0 +1,21 @@
+/*-----------  FAQ  -----------*/
+
+body.faq
+
+  h5
+    cursor: pointer
+    margin: 2.5rem 0 0.33rem
+    @include transition()
+
+    &:hover
+      color: $gray
+
+    &.selected
+      color: $blue
+
+  p
+    font-size: 0.95em
+    margin-top: 0.33rem
+    padding-top: 0.33rem
+    padding-bottom: 1rem
+    border-top: 1px solid $grayLighter
