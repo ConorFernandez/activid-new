@@ -10,11 +10,16 @@
         Your browser does not support the video tag.
       </video>
 
-      <textarea id="reject_reason" placeholder="Notes for your editor..."></textarea>
+      <small>Please provide some comments for your editor to let him know what you would like changed. {{#if chargeForRevision}} Note that each revision after the first costs an additional $<%= Project::ADDITIONAL_CUT_COST / 100 %>.{{/if}}</small>
 
-      <p>Please provide some comments for your editor to let him know what you would like changed.{{#if chargeForRevision}} Note that each revision after the first costs an additional $<%= Project::ADDITIONAL_CUT_COST / 100 %>{{/if}}.</p>
+      <div class="discussion-block reply">
+        <div class="discussion-title">Comments:</div>
+        <div class="discussion-content">
+          <textarea id="reject_reason" placeholder="Notes for your editor..."></textarea>
+        </div>
+      </div>
 
-      <a class="confirm button">Confirm</a>
+      <a class="confirm button">Submit Request</a>
     </div>
   </div>
 </script>

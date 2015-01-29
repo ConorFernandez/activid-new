@@ -8,6 +8,10 @@ class @RejectCutModal extends Modal
 
     @_bindSubmit()
 
+  open: ->
+    @$modal.find("textarea").focus()
+    super()
+
   _bindSubmit: ->
     @$modal.find("a.confirm").click (e) =>
       comments = @$modal.find("textarea#reject_reason").val()
