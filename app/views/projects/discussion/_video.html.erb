@@ -21,9 +21,7 @@
 
 <%- elsif cut.rejected? %>
     
-  <p>
-    <strong>Changes requested: </strong> 
-    <%= cut.reject_reason %>
-  </p>
+  <strong>Changes requested: </strong> 
+  <p><%= cut.reject_reason %></p>
 
 <%- end %>

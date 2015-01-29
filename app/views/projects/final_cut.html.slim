@@ -1,10 +1,13 @@
 - page_title @project.name
+- add_page_class :project_single
 
 section
-  .bounds-wrapper
-    h1= @project.name
 
-    video width="100%" controls="true"
+  .compact-wrapper
+
+    h3= @project.name
+
+    video.final-cut width="100%" controls="true"
       source src=@project.latest_cut.file_upload.url type="video/mp4"
       Your browser does not support the video tag.
 

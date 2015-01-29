@@ -37,9 +37,7 @@ $(document).ready ->
     windowHeight = $(window).height()
     headerHeight = $('.global-header').outerHeight(true)
     footerHeight = $('.global-footer').outerHeight(true)
-
     minHeight = windowHeight - headerHeight - footerHeight
-
     $('.global-content').css({minHeight: minHeight})
     
   footerFloat()

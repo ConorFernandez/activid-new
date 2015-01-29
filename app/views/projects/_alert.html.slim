@@ -31,6 +31,10 @@
   .alert-wrapper.waiting
 
     - if project.user == current_user
-      = link_to "Your project is complete! You can view your final cut here.", final_cut_path(project.uuid)
+      = link_to "Your project is complete! Your final cut is ready for download.", final_cut_path(project.uuid)
+      br
+      = link_to "View Final Cut", final_cut_path(project.uuid), :class => 'button'
     - else
-      = link_to "This project is complete! You can view the final cut here.", final_cut_path(project.uuid)
+      = link_to "This project is complete! The final cut is ready for viewing.", final_cut_path(project.uuid)
+      br
+      = link_to "View Final Cut", final_cut_path(project.uuid), :class => 'button'

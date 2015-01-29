@@ -1,13 +1,14 @@
 .wide-wrapper
   = link_to "Home", root_path
   = link_to "How It Works", how_it_works_page_path
+  = link_to "FAQ", faq_page_path
   = link_to "Pricing", pricing_page_path
   = link_to "About Us", about_page_path
+  = link_to "Video Gallery", gallery_page_path
+  = link_to "Videography Tips", tips_page_path
+  = link_to "Apply to be an Editor", new_editor_application_path
+  = link_to "Privacy Policy", privacy_page_path
+
   / = link_to "Video", video_page_path
-  = link_to "Gallery", gallery_page_path
-  = link_to "Tips", tips_page_path
-  = link_to "FAQ", faq_page_path
-  = link_to "Terms", terms_page_path
-  = link_to "Privacy", privacy_page_path
-  = mail_to "contact@activid.co", "Contact"
-  = link_to "Apply to be an editor", new_editor_application_path
+  / = link_to "Terms", terms_page_path
+  / = mail_to "contact@activid.co", "Contact"
