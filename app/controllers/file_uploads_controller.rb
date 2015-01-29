@@ -9,7 +9,7 @@ class FileUploadsController < ApplicationController
       @file_upload.queue_zencoder_job(params[:attachable_type]) if @file_upload.video?
       attach_file_upload(@file_upload) if params[:project_uuid].present?
 
-      render json: @file_upload
+      render json: @file_upload.as_json.merge("file_name" => @file_upload.file_name)
     else
       render json: @file_upload.errors, status: :unprocessable_entity
     end
