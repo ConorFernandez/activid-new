@@ -2,7 +2,9 @@
 - add_page_class :editor_application
 
 section
-  .compact-wrapper
+  
+  .panel-wrapper
+  
     = form_tag editor_applications_path, id: "editor-application" do
 
       h4 Apply To Be An Editor
@@ -13,7 +15,7 @@ section
       = text_field_tag :full_name, ""
       
       = label_tag "Email"
-      = text_field_tag :email, "", placeholder: "you@mail.com"
+      = text_field_tag :email, "", placeholder: ""
 
       = label_tag "Location"
       .input-wrapper
@@ -35,4 +37,4 @@ section
       = text_field_tag :portfolio_2, "", placeholder: "http://..."
       = text_field_tag :portfolio_3, "", placeholder: "http://..."
 
-      = submit_tag "Apply"
+      = submit_tag "Submit Application"
