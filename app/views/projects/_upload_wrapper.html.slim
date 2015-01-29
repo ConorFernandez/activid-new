@@ -1,6 +1,9 @@
 .upload-wrapper
   .upload-empty style="#{file_uploads.any? ? 'display: none' : ''}"
     | Select a file to upload using the buttons below
+  .upload-spinner
+    = image_tag "spinner.gif"
+
   - file_uploads.each do |file_upload|
     div class="upload-block #{file_upload.zencoder_failed? ? 'failed' : 'complete'}"
       = hidden_field_tag "file_upload_uuids[]", file_upload.uuid

@@ -5,6 +5,10 @@ $ ->
     Dropbox.choose
       multiselect: true
       success: (files) =>
+        if form.find(".upload-empty:visible").length > 0
+          form.find(".upload-wrapper .upload-empty").hide()
+          form.find(".upload-wrapper .upload-spinner").show()
+
         for file in files
           $.ajax
             type: "POST"
@@ -19,4 +23,4 @@ $ ->
               dU.insertUploadActions(actionsContainer, "done", data.uuid, null)
 
               form.find(".upload-wrapper").prepend(uploadBlock)
-              form.find(".upload-wrapper .upload-empty").hide()
+              form.find(".upload-wrapper .upload-spinner").hide()

@@ -38,8 +38,6 @@ $(document).ready ->
     headerHeight = $('.global-header').outerHeight(true)
     footerHeight = $('.global-footer').outerHeight(true)
 
-    console.log windowHeight, headerHeight, footerHeight
-
     minHeight = windowHeight - headerHeight - footerHeight
 
     $('.global-content').css({minHeight: minHeight})
