@@ -1,6 +1,6 @@
 .upload-wrapper
   .upload-empty style="#{file_uploads.any? ? 'display: none' : ''}"
-    | Select a file to upload using the button below
+    | Select a file to upload using the buttons below
   - file_uploads.each do |file_upload|
     div class="upload-block #{file_upload.zencoder_failed? ? 'failed' : 'complete'}"
       = hidden_field_tag "file_upload_uuids[]", file_upload.uuid
@@ -19,4 +19,5 @@
 
 
   footer
-    button.add-file Choose file
+    button.add-file My Computer
+    a.button.dropbox-upload DropBox
