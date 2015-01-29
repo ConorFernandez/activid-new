@@ -74,7 +74,7 @@ class FileUpload < ActiveRecord::Base
   end
 
   def file_name
-    (url || source_url || "").split("/").last.split("?").first
+    (url || source_url || "").split("/").last.split(/\?(?!\.)/).first
   end
 
   def extension
