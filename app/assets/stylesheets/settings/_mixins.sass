@@ -46,6 +46,14 @@
   position: $position
   @include transform(translateX(-50%))
 
+/*-----------  Center Alignment  -----------*/
+
+@mixin center-align($position: relative)
+  top: 50%
+  left: 50%
+  position: $position
+  @include transform(translate(-50%, -50%))
+
 /*-----------  Arrows  -----------*/
 
 @mixin left-arrow($height: 1em, $color: $grayLighter)
