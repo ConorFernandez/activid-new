@@ -28,3 +28,23 @@ $ ->
     e.preventDefault()
     flash.animate {height: 0, paddingTop: 0, paddingBottom: 0}, 300, ->
       flash.remove()
+
+$(document).ready ->
+
+  #-----------  Footer Bugfix  -----------#
+
+  footerFloat = ->
+    windowHeight = $(window).height()
+    headerHeight = $('.global-header').outerHeight(true)
+    footerHeight = $('.global-footer').outerHeight(true)
+
+    console.log windowHeight, headerHeight, footerHeight
+
+    minHeight = windowHeight - headerHeight - footerHeight
+
+    $('.global-content').css({minHeight: minHeight})
+    
+  footerFloat()
+
+  $(window).resize ->
+    footerFloat()
