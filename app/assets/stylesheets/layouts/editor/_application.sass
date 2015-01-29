@@ -1,0 +1,23 @@
+/*-----------  Editor Application  -----------*/
+
+body.editor_application
+
+  .input-wrapper
+    @include justify-content(space-between)
+    @include align-items(center)
+    @include display(flex)
+
+    .input-block
+
+      input
+        margin-top: 0
+
+      &.city
+        @include flex(0 1 auto)
+
+      &.state
+        margin: 0 0.5em
+        @include flex(1 0 3em)
+
+      &.country
+        @include flex(0 1 40%)
