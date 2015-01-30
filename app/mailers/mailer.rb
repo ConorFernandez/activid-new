@@ -40,6 +40,14 @@ class Mailer < ActionMailer::Base
     mail(to: @project.user.email, subject: "A new cut is ready for your review!")
   end
 
+  def cut_approved_email(cut)
+    @cut = cut
+    @project = cut.project
+    @link = final_cut_url(@project)
+
+    mail(to: @project.user.email, subject: "Your project is complete!")
+  end
+
   def new_comment_email(comment)
     return unless comment.commentable.is_a?(Project)
 

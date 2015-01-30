@@ -1,0 +1,7 @@
+p Hello,
+
+p= "The latest cut for your project, \"#{@project.name}\", has been approved. Your project is now complete, and you can view your final cut here: #{link_to @link, @link}".html_safe
+
+p= "Your card has been charged charged #{number_to_currency(@project.calculated_price / 100)}."
+
+p= "- Activid"

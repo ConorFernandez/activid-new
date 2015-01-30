@@ -18,6 +18,7 @@ class CutsController < ApplicationController
 
   def approve
     if @cut.approve!
+      Mailer.cut_approved_email(@cut).deliver
       render json: {path: project_path(@cut.project)}
     else
       head :bad_request
