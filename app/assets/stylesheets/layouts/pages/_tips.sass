@@ -1,0 +1,99 @@
+/*-----------  Static Pages  -----------*/
+
+body.videography
+
+  .global-content
+
+    > section:first-child
+      color: $white
+      padding-top: 6em
+      padding-bottom: 6em
+      box-shadow: inset $shadow
+      background-size: contain
+      background-color: #b3b4ae
+      background-repeat: no-repeat
+      background-position: center right
+
+      h1
+        margin-bottom: 0.33em
+
+      p
+        padding-right: 38%
+
+  .tips-wrapper
+    @include bounds-wrapper($max: $blockWidth)
+
+    .tips-block
+      width: 100%
+      margin-top: 4em
+      margin-bottom: 4em
+      padding-bottom: 4em
+      border-bottom: 1px solid $grayLighter
+      @include justify-content(space-between)
+      @include align-items(center)
+      @include display(flex)
+
+      .tips-image
+        height: 0
+        border: $border
+        overflow: hidden
+        position: relative
+        text-align: center
+        border-radius: 10em
+        padding-bottom: 25%
+        background-color: $white
+        @include flex(1 0 25%)
+        @include full-bg()
+
+        i
+          color: $purple
+          font-size: 3.5em
+          @include center-align(absolute)
+
+          &:before
+            margin: 0
+
+      .tips-text
+        width: 73%
+        font-size: 90%
+        @include flex(0 1 auto)
+
+        h4
+          margin-bottom: 0.5em
+
+        p
+
+          em
+            display: block
+            margin-top: 1em
+            font-size: 0.9em
+
+      &:nth-child(odd)
+        text-align: left
+
+        .tips-image
+          margin-right: 5%
+          @include order(1)
+
+        .tips-text
+          @include order(2)
+
+      &:nth-child(even)
+        text-align: right      
+
+        .tips-image
+          margin-left: 5%
+          @include order(2)
+
+        .tips-text
+          @include order(1)
+
+      &:first-child
+        margin-top: 0
+
+      &:last-child
+        padding-bottom: 0
+        border-bottom: none
+
+      @include media($mobileBreak)
+        display: block
