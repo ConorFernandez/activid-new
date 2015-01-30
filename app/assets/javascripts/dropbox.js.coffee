@@ -6,11 +6,13 @@ $ ->
     Dropbox.choose
       multiselect: true
       success: (files) =>
+        console.log(JSON.stringify(files))
         invalid_files = false
 
         for file in files
           parts = file.link.split("/")
           fileName = parts[parts.length - 1]
+          console.log(fileName)
           extension = fileName.match(/\.(\w+)/)[1].toLowerCase()
 
           if formats.length > 0 && formats.indexOf(extension) < 0
