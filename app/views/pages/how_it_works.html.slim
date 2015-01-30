@@ -5,4 +5,44 @@ section
   
   .panel-wrapper
   
-    h3.page-title How it Works
+    h3.page-title How Activid Works
+    p Starting a project is simple! Below is a typical example.
+
+    .hiw-split
+      .left
+        h5 Customer
+      .right
+        h5 Editor
+
+    .hiw-block.left
+      .hiw-text
+        h4 Upload
+        p Etiam sollicitudin, ipsum eu pulvinar rutrum, tellus ipsum laoreet sapien, quis venenatis ante odio sit amet eros. Sed consequat.
+      .hiw-icon
+        i.icon-upload
+      .hiw-next
+
+    .hiw-block.right
+      .hiw-text
+        h4 Edit
+        p Etiam sollicitudin, ipsum eu pulvinar rutrum, tellus ipsum laoreet sapien, quis venenatis ante odio sit amet eros. Sed consequat.
+      .hiw-icon
+        i.icon-scissors
+      .hiw-next
+
+    .hiw-block.left
+      .hiw-text
+        h4 Approve
+        p Etiam sollicitudin, ipsum eu pulvinar rutrum, tellus ipsum laoreet sapien, quis venenatis ante odio sit amet eros. Sed consequat.
+      .hiw-icon
+        i.icon-thumbsup
+      .hiw-next
+
+    .hiw-block.right
+      .hiw-text
+        h4 Pay
+        p Etiam sollicitudin, ipsum eu pulvinar rutrum, tellus ipsum laoreet sapien, quis venenatis ante odio sit amet eros. Sed consequat.
+      .hiw-icon
+        i.icon-money
+
+    = link_to 'Start a New Project', new_project_path, :class => 'button'

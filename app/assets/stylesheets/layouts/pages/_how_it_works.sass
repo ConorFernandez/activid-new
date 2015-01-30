@@ -1,0 +1,129 @@
+/*-----------  How It Works  -----------*/
+
+body.how-it-works
+  
+  .panel-wrapper
+    text-align: center
+    max-width: $blockWidth
+
+  .page-title
+    margin: 0.67em 0 0.33em !important
+
+  .page-title + p
+    color: $gray
+
+  .hiw-split
+    margin: 3em -2em 4em
+    background-color: $purple
+
+    .left,
+    .right
+      width: 50%
+      padding: 1em 1.75em
+      @include inline-block()
+
+      h5
+        color: $white
+
+    .left
+      text-align: right
+      border-right: 2px solid $white
+
+    .right
+      text-align: left
+
+  .button
+    margin: 3em 0
+    font-size: 1.15em
+
+  /*-----------  How It Works Blocks  -----------*/
+
+  .hiw-block
+    margin: 1.5em 0
+    position: relative
+    @include align-items(center)
+    @include display(flex)
+
+    .hiw-text
+      @include flex(0 1 42%)
+
+      h4
+        margin-bottom: 0.25em
+        text-transform: uppercase
+
+      p
+        margin: 0
+        color: $gray
+        font-size: 0.9em
+
+    .hiw-icon
+      color: $purple
+      margin: 0 1rem
+      font-size: 6.25em
+      text-align: center
+      @include flex(0 1 15%)
+
+      i:before
+        margin-right: 0
+
+    .hiw-next
+      height: 4.5em
+      margin-top: 2em
+      margin-bottom: -2em
+      border-top: 2px solid $grayLight
+      @include flex(0 1 5%)
+
+    &.left
+      text-align: right
+      @include justify-content(flex-start)
+      
+      .hiw-text
+        @include order(1)
+
+      .hiw-icon
+        @include order(2)
+
+      .hiw-next
+        border-right: 2px solid $grayLight
+        @include order(3)
+
+    &.right
+      text-align: left
+      @include justify-content(flex-end)
+
+      .hiw-text
+        @include order(3)
+
+      .hiw-icon
+        @include order(2)
+
+      .hiw-next
+        border-left: 2px solid $grayLight
+        @include order(1)
+
+    @include media($tabletBreak)
+      @include justify-content(space-between)
+      
+      .hiw-text
+        @include flex(0 1 75%)
+
+      .hiw-next
+        display: none
+
+    @include media($middleBreak)
+      @include flex-direction(column)
+      
+      .hiw-text
+        text-align: center
+        -webkit-box-ordinal-group: 2 !important
+        -moz-box-ordinal-group: 2 !important
+        -ms-flex-order: 2 !important
+        -webkit-order: 2 !important
+        order: 2 !important
+
+      .hiw-icon
+        -webkit-box-ordinal-group: 1 !important
+        -moz-box-ordinal-group: 1 !important
+        -ms-flex-order: 1 !important
+        -webkit-order: 1 !important
+        order: 1 !important
