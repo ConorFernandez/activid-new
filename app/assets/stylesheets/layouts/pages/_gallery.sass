@@ -1,0 +1,51 @@
+/*-----------  Video Gallery  -----------*/
+
+body.gallery
+  
+  .panel-wrapper
+    text-align: center
+    max-width: $blockWidth
+
+    .button
+      margin: 4em 0 2em
+      font-size: 1.15em
+
+  .page-title
+    margin: 0.67em 0 0.15em !important
+
+  .page-title + p
+    color: $gray
+
+  a[id]
+    display: block
+    padding: 1.67em 0 0.67em
+    @extend h4
+
+    &:focus
+      outline: none
+
+  .featured-video
+    text-align: center
+
+    .embed-block
+      margin: 2em auto 0
+      max-width: $smallWidth
+
+    .button
+      margin: 0
+
+  /*-----------  Individual Galleries  -----------*/
+
+  .gallery-wrapper
+    @include justify-content(space-between)
+    @include align-items(center)
+    @include display(flex)
+
+    .embed-block
+      @include flex(0 1 31%)
+
+    @include media($middleBreak)
+      display: block
+
+      .embed-block
+        margin-bottom: 1em  
