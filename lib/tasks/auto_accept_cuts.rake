@@ -11,7 +11,7 @@ namespace :auto_accept_cuts do
 
   desc "Auto-accept cuts that are two weeks old"
   task :accept do
-    cuts = Cut.where("processed_at < ?", 2.weeks.ago).where(approve_at: nil, failed_auto_approve_at: nil).all.select(&:needs_approval?)
+    cuts = Cut.where("processed_at < ?", 2.weeks.ago).where(approved_at: nil, failed_auto_approve_at: nil).all.select(&:needs_approval?)
 
     cuts.each do |cut|
       if cut.approve!
