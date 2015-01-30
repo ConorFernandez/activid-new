@@ -12,4 +12,4 @@ section
       Your browser does not support the video tag.
 
     - if current_user && (@project.user == current_user || current_user.admin?)
-      = link_to "Download", @project.latest_cut.file_upload.url, class: "button"
+      = link_to "Download", @project.latest_cut.file_upload.url, class: "button", download: @project.latest_cut.file_upload.file_name
