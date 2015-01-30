@@ -127,6 +127,36 @@
       "src": "fontawesome"
     },
     {
+      "uid": "4743b088aa95d6f3b6b990e770d3b647",
+      "css": "facebook",
+      "code": 59422,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "4c1ef492f1d2c39a2250ae457cee2a6e",
+      "css": "instagram",
+      "code": 59423,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "906348dc798a0d42715cc97c875e3ac6",
+      "css": "twitter",
+      "code": 59421,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "1f66490bf24c99e2c56b866d8fbd0372",
+      "css": "vimeo",
+      "code": 59420,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "e331ff486a299c6bdf0056426c8fac53",
+      "css": "youtube",
+      "code": 59419,
+      "src": "fontawesome"
+    },
+    {
       "uid": "bf45c39702763f1803b550c36a0ceb12",
       "css": "cancel",
       "code": 59406,
@@ -154,18 +184,6 @@
       "uid": "8ax1xqcbzz1hobyd4i7f0unwib1bztip",
       "css": "down",
       "code": 59398,
-      "src": "modernpics"
-    },
-    {
-      "uid": "03cmb4p7niofd11yos3fpjjuvvpy7mji",
-      "css": "facebook",
-      "code": 59395,
-      "src": "modernpics"
-    },
-    {
-      "uid": "gq8m9lqx2hhwxf7rz30adbr37rthzirq",
-      "css": "twitter",
-      "code": 59394,
       "src": "modernpics"
     },
     {

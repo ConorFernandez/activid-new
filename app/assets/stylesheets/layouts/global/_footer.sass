@@ -7,7 +7,7 @@
 
   @include media($tabletBreak)
     text-align: center
-
+    
   a:not(.button)
     color: $gray
     line-height: 200%
@@ -20,3 +20,18 @@
     &.active
       color: $white
       pointer-events: none
+
+    @include media($middleBreak)
+      display: block
+      margin-right: 0     
+  
+  .social-nav
+
+    a
+      margin-right: 0.1em
+
+      @include media($middleBreak)
+        @include inline-block()
+
+    i
+      font-size: 1.67em
