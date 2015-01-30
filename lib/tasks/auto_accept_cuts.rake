@@ -11,10 +11,14 @@ namespace :auto_accept_cuts do
 
   desc "Auto-accept cuts that are two weeks old"
   task :accept do
-    cuts = Cut.where("processed_at < ?", 2.weeks.ago).all.select(&:needs_approval?)
+    cuts = Cut.where("processed_at < ?", 2.weeks.ago).where(approve_at: nil, failed_auto_approve_at: nil).all.select(&:needs_approval?)
 
     cuts.each do |cut|
-      cut.approve! && Mailer.cut_auto_accepted_email(cut).deliver
+      if cut.approve!
+        Mailer.cut_auto_accepted_email(cut).deliver
+      else
+        cut.update(failed_auto_approve_at: Time.now)
+      end
     end
   end
 end
