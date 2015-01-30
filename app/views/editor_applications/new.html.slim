@@ -12,29 +12,29 @@ section
       p Do you have video editing skills? Apply to be an editor here - once you're accepted, you can immediately start working on projects and getting paid.
 
       = label_tag "Full Name"
-      = text_field_tag :full_name, ""
+      = text_field_tag :full_name, params[:full_name]
       
       = label_tag "Email"
-      = text_field_tag :email, "", placeholder: ""
+      = text_field_tag :email, params[:email]
 
       = label_tag "Location"
       .input-wrapper
 
         .input-block.city
-          = text_field_tag :city, "", placeholder: "City"
+          = text_field_tag :city, params[:city], placeholder: "City"
 
         .input-block.state
-          = text_field_tag :state, "", placeholder: "ST"
+          = text_field_tag :state, params[:state], placeholder: "ST"
 
         .input-block.country
-          = text_field_tag :country, "", placeholder: "Country"
+          = text_field_tag :country, params[:country], placeholder: "Country"
 
       = label_tag "Tell us a little about yourself and your video editing experience."
-      = text_area_tag :bio
+      = text_area_tag :bio, params[:bio]
 
       = label_tag "Leave us three links to examples of your work"
-      = text_field_tag :portfolio_1, "", placeholder: "http://..."
-      = text_field_tag :portfolio_2, "", placeholder: "http://..."
-      = text_field_tag :portfolio_3, "", placeholder: "http://..."
+      = text_field_tag :portfolio_1, params[:portfolio_1], placeholder: "http://..."
+      = text_field_tag :portfolio_2, params[:portfolio_2], placeholder: "http://..."
+      = text_field_tag :portfolio_3, params[:portfolio_3], placeholder: "http://..."
 
       = submit_tag "Submit Application"

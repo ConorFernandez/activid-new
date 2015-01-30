@@ -1,4 +1,13 @@
 p= "Name: #{@params[:full_name]}"
 p= "Email: #{@params[:email]}"
 p= "Bio: #{@params[:bio]}"
-p= "Portfolio: #{@params[:portfolio]}"
+p= "Address: #{@params[:city]}, #{@params[:state]}, #{@params[:country]}"
+
+p
+  = "Portfolio links:"
+  br
+  = @params[:portfolio_1]
+  br
+  = @params[:portfolio_2]
+  br
+  = @params[:portfolio_3]
