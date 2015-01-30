@@ -4,7 +4,9 @@
 
 - unless current_user
   javascript:
-    new SignUpModal({inescapable: true}).open()
+    $(function() {
+      new SignUpModal({inescapable: true}).open()
+    });
 
 section
   .compact-wrapper
