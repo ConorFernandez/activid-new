@@ -166,7 +166,7 @@ class Project < ActiveRecord::Base
   end
 
   def purchasable?
-    draft? && video_uploads.any? && all_uploads_encoded?
+    user.present? && draft? && video_uploads.any? && all_uploads_encoded?
   end
 
   def duration_of_uploads # in seconds
