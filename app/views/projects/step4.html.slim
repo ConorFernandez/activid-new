@@ -41,12 +41,15 @@ section
       - if @project.purchasable?
         - if @project.user.stripe_customer
           .stored-cards
-            - @project.user.stripe_customer.cards.each do |card|
-              = radio_button_tag :stripe_card_id, card.id
-              = label_tag "stripe_card_id_#{card.id}", "#{card.brand}: *-#{card.last4}, Expires #{card.exp_month}/#{card.exp_year}"
+            - cards = @project.user.stripe_customer.cards
+            - cards.each do |card|
+              div
+                = radio_button_tag :stripe_card_id, card.id, card == cards.first
+                = label_tag "stripe_card_id_#{card.id}", "#{card.brand}: *-#{card.last4}, Expires #{card.exp_month}/#{card.exp_year}"
 
-            = radio_button_tag :stripe_card_id, "", true
-            = label_tag "stripe_card_id_", "New card"
+            div
+              = radio_button_tag :stripe_card_id, ""
+              = label_tag "stripe_card_id_", "New card"
 
         .payment-errors
 
