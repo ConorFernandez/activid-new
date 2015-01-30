@@ -11,5 +11,5 @@ section
       source src=@project.latest_cut.file_upload.url type="video/mp4"
       Your browser does not support the video tag.
 
-    - if (current_user && @project.user == current_user) or (current_user && current_user.admin?)
+    - if current_user && (@project.user == current_user || current_user.admin?)
       = link_to "Download", @project.latest_cut.file_upload.url, class: "button"
