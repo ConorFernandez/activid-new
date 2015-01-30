@@ -1,25 +1,25 @@
 ul
-  li
-    a Home
-  li
-    a How It Works
-  li
-    a Pricing
-  li
-    a About Us
-  li
-    a Video
-  li
-    a Gallery
-  li
-    a Video
-  li
-    a Tips
-  li
-    a FAQ
-  li
-    a Terms
-  li
-    a Privacy
-  li
-    a Contact
+  - if current_user
+    - if current_user.user?
+      li= link_to "Start a New Project", new_project_path
+      li= link_to "Projects", projects_path
+      li= link_to "Your Account", edit_account_path
+      li= link_to "Log Out", destroy_user_session_path, method: :delete
+
+    - elsif current_user.editor?
+      li= link_to "Projects", projects_path
+      li= link_to "Your Account", edit_account_path
+      li= link_to "Log Out", destroy_user_session_path, method: :delete
+
+    - elsif current_user.admin?
+      li= link_to "Editors", editors_path
+      li= link_to "Projects", projects_path
+      li= link_to "Your Account", edit_account_path
+      li= link_to "Log Out", destroy_user_session_path, method: :delete
+
+  - else
+    li= link_to "How It Works", how_it_works_page_path
+    li= link_to "FAQ", faq_page_path
+    li= link_to "Pricing", pricing_page_path
+    li= link_to "Log In", "#", {class: "log-in-link"}
+    li= link_to "Get Started", new_project_path
