@@ -6,6 +6,7 @@ class @SignUpModal extends Modal
 
     @_bindLinks()
     @_bindSubmit()
+    @_bindTermsAcceptance()
 
     super(@$modal, @options)
 
@@ -42,3 +43,12 @@ class @SignUpModal extends Modal
     @$modal.find("a.sign-in").click (e) =>
       @close()
       new SignInModal(@options).open()
+
+  _bindTermsAcceptance: ->
+    @$modal.find("#user_accept_terms").change (e) =>
+      if $(e.target).prop("checked")
+        @_enableSubmit()
+      else
+        @_disableSubmit()
+
+    @$modal.find("#user_accept_terms").trigger("change")

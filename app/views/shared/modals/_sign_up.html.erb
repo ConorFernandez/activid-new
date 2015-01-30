@@ -16,6 +16,9 @@
         <%= password_field_tag "user[password]", nil, placeholder: "Password" %>
         <%= password_field_tag "user[password_confirmation]", nil, placeholder: "Password Confirmation" %>
 
+        <input type="checkbox" id="user_accept_terms">
+        <label for="user_accept_terms" id="user_accept_terms_label">I accept the <%= link_to "terms of service", terms_page_path, target: "_new" %></label>
+
         <button class="submit">Sign Up</button>
 
         <div class="devise-links">
