@@ -1,4 +1,4 @@
-/*-----------  Static Pages  -----------*/
+/*-----------  Videography Tips  -----------*/
 
 body.videography
 
@@ -19,6 +19,17 @@ body.videography
 
       p
         padding-right: 38%
+
+      @include media($tabletBreak)
+        padding-top: 4em
+        padding-bottom: 4em
+        text-align: center
+        background-image: none !important
+
+        p
+          padding-right: 0
+
+  /*-----------  Tips  -----------*/
 
   .tips-wrapper
     @include bounds-wrapper($max: $blockWidth)
@@ -88,9 +99,18 @@ body.videography
         .tips-text
           @include order(1)
 
+      @include media($middleBreak)
+        margin-top: 2em
+        margin-bottom: 2em
+        padding-bottom: 2em
+        
+        .tips-image
+          display: none
+
+        .tips-text
+          width: 100%
+          text-align: center
+
       &:last-child
         padding-bottom: 0
         border-bottom: none
-
-      @include media($mobileBreak)
-        display: block
