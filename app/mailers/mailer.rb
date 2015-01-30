@@ -71,7 +71,7 @@ class Mailer < ActionMailer::Base
     mail(to: @project.editor.email, subject: "Another cut has been requested for one of your projects")
   end
 
-  def cut_auto_acceptance_warning_email(cut)
+  def cut_auto_approval_warning_email(cut)
     @cut = cut
     @project = cut.project
     @link = project_url(@project, anchor: "cut_#{cut.id}")
@@ -79,7 +79,7 @@ class Mailer < ActionMailer::Base
     mail(to: @project.user, subject: "The latest cut for your project is still waiting for your approval")
   end
 
-  def cut_auto_accepted_email(cut)
+  def cut_auto_approved_email(cut)
     @cut = cut
     @project = cut.project
     @link = final_cut_url(@project)

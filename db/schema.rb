@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150130163806) do
+ActiveRecord::Schema.define(version: 20150130171836) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20150130163806) do
     t.datetime "rejected_at"
     t.text     "reject_reason"
     t.datetime "processed_at"
-    t.datetime "user_warned_of_auto_acceptance_at"
+    t.datetime "user_warned_of_auto_approval_at"
     t.datetime "failed_auto_approve_at"
   end
 

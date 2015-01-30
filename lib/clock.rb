@@ -15,6 +15,6 @@ module Clockwork
   every(1.minute,  "rake encoding:check_user_uploads")
   every(5.minutes, "rake encoding:check_cuts")
   every(1.day,     "rake pay_editors", at: "04:00")
-  every(1.day,     "rake auto_accept_cuts:send_warnings", at: "05:00")
-  every(1.day,     "rake auto_accept_cuts:accept", at: "05:00")
+  every(1.day,     "rake auto_approve_cuts:send_warnings", at: "05:00")
+  every(1.day,     "rake auto_approve_cuts:approve", at: "05:00")
 end
