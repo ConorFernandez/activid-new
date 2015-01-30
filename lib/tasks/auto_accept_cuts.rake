@@ -18,6 +18,7 @@ namespace :auto_approve_cuts do
         Mailer.cut_auto_approved_email(cut).deliver
       else
         cut.update(failed_auto_approve_at: Time.now)
+        Mailer.cut_auto_approve_failed_email(cut).deliver
       end
     end
   end

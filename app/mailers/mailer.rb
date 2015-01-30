@@ -1,6 +1,7 @@
 class Mailer < ActionMailer::Base
   helper :application, :users
-  default from: "Activid <notifications@activid.co>"
+  default from: "Activid <notifications@activid.co>",
+          reply_to: "Activid <notifications@activid.co>"
 
   def new_editor_email(editor)
     @editor = editor
@@ -76,7 +77,7 @@ class Mailer < ActionMailer::Base
     @project = cut.project
     @link = project_url(@project, anchor: "cut_#{cut.id}")
 
-    mail(to: @project.user, subject: "The latest cut for your project is still waiting for your approval")
+    mail(to: @project.user.email, subject: "The latest cut for your project is still waiting for your approval")
   end
 
   def cut_auto_approved_email(cut)
@@ -84,6 +85,15 @@ class Mailer < ActionMailer::Base
     @project = cut.project
     @link = final_cut_url(@project)
 
-    mail(to: @project.user, subject: "Your project is complete!")
+    mail(to: @project.user.email, subject: "Your project is complete!")
+  end
+
+  def cut_auto_approve_failed_email(cut)
+    @cut = cut
+    @project = cut.project
+    @link = project_url(@project, anchor: "cut_#{cut.id}")
+    @admins = User.all.select(&:admin?)
+
+    mail(to: @project.user.email, cc: @admins.map(&:email), subject: "Please update your payment information")
   end
 end
