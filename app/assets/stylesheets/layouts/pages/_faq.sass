@@ -2,23 +2,25 @@
 
 body.faq
 
-  h5
-    cursor: pointer
-    margin: 2.5rem 0 0.33rem
-    @include transition()
+  .panel-wrapper
 
-    &:hover
-      color: $gray
+    h5
+      cursor: pointer
+      margin: 2.5rem 0 0.33rem
+      @include transition()
 
-    &.selected
+      &:hover
+        color: $gray
+
+      &.selected
+        color: $blue
+
+    a
       color: $blue
 
-  a
-    color: $blue
-
-  p
-    font-size: 0.95em
-    margin-top: 0.33rem
-    padding-top: 0.33rem
-    padding-bottom: 1rem
-    border-top: 1px solid $grayLighter
+    p
+      font-size: 0.95em
+      margin-top: 0.33rem
+      padding-top: 0.33rem
+      padding-bottom: 1rem
+      border-top: 1px solid $grayLighter
