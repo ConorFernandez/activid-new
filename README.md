@@ -1,6 +1,6 @@
 ## Activid
 
-Activid is a company that connects freelance video editors with customers who need their services. The videos that customers need edited are things like vacation videos, sports reels, Kickstarted pitches, etc. Pricing for the projects is based on length of uploaded customer video, category, desired length of the edited video, and a few other factors.
+Activid is a company that connects freelance video editors with customers who need their services. The videos that customers need edited are things like vacation videos, sports reels, Kickstarter pitches, etc. Pricing for the projects is based on length of uploaded customer video, category, desired length of the final video, and a few other factors.
 
 ### Zencoder
 
@@ -12,7 +12,7 @@ When a user comes to Activid for the first time, they start by creating a projec
 
 After the user submits a project, it goes into a queue of projects that are waiting for editors. Editors can log in to Activid, view this queue, and claim projects that they want to work on.
 
-The editor has a certain number of days to deliver the first "cut" for a project, depending on what the user selected at project creation. After posting a cut, the user can view a watermarked version of it, and choose to approve it or ask for another revision. Once a user approve a cut, their project is completed and their card is charged immediately.
+The editor has a certain number of days to deliver the first "cut" for a project, depending on what the user selected at project creation. After posting a cut, the user can view a watermarked version of it, and choose to approve it or ask for another revision. Once a user approve a cut, their project is completed and their card is charged.
 
 If a cut is posted and a user does not approve it after two weeks, it will be approved automatically. The user will get a warning about this after one week.
 
@@ -24,10 +24,10 @@ In addition to linking to files in DropBox, users can upload files from their lo
 
 ### Clock.rb
 
-This project uses a [clock process](https://devcenter.heroku.com/articles/scheduled-jobs-custom-clock-processes) for scheduling background job. This allows more control than Heroku's built-in scheduler. The jobs and their schedules are defined in `lib/clock.rb`.
+This project uses a [clock process](https://devcenter.heroku.com/articles/scheduled-jobs-custom-clock-processes) for scheduling background jobs. This allows more control than Heroku's built-in scheduler. The jobs and their schedules are defined in `lib/clock.rb`.
 
 ### Config and Deployment
 
 Activid is hosted on Heroku, so deployments are just a matter of pushing to the Heroku branch and and running any necessary migrations.
 
-If you run the app with foreman (`foreman start` or `foreman run rails c`), it will load the environment variables defined in `.env` (API keys, S3 bucket, etc). If you need a list of these config keys and some sample values, check the staging app (`heroku config -a activid-stagingg`)
+If you run the app locally with foreman (eg: `foreman start` or `foreman run rails c`), it will load the environment variables defined in `.env` (API keys, S3 bucket name, etc). If you need a list of these config keys and some sample values, check the staging app (`heroku config -a activid-stagingg`)
