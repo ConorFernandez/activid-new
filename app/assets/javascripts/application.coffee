@@ -44,3 +44,10 @@ $(document).ready ->
 
   $(window).resize ->
     footerFloat()
+
+  #-----------  Youtube Modal Trigger  -----------#
+
+  $('.youtube-block').click ->
+    yid = $(@).data('yid')
+    new YoutubeModal({yid: yid}).open()
+

@@ -27,6 +27,7 @@ html
     = render "shared/modals/sign_in"
     = render "shared/modals/approve_cut"
     = render "shared/modals/reject_cut"
+    = render "shared/modals/youtube"
 
     - if @project && @project.persisted?
       = render "shared/modals/fix_card"
@@ -46,3 +47,4 @@ html
 
       footer.global-footer
         = render "shared/footer"
+        

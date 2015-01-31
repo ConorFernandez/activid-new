@@ -10,20 +10,20 @@ section
 
 
     .featured-video
-      = render partial: "youtube_embed", locals: { video_id: "wmvYvlpJBGs" }
+      .gallery-block= render partial: "shared/youtube", locals: { yid: "wmvYvlpJBGs" }
       br
       = link_to 'Start a New Project', new_project_path, :class => 'button'
 
     a#weddings href="#weddings" Weddings
     .gallery-wrapper
-      = render partial: "youtube_embed", locals: { video_id: "mFrd1T0U4BA" }
-      = render partial: "youtube_embed", locals: { video_id: "mFrd1T0U4BA" }
-      = render partial: "youtube_embed", locals: { video_id: "mFrd1T0U4BA" }
+      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
+      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
+      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
 
     a#busieness href="#busieness" Business
     .gallery-wrapper
-      = render partial: "youtube_embed", locals: { video_id: "pSc2v5TnmWo" }
-      = render partial: "youtube_embed", locals: { video_id: "pSc2v5TnmWo" }
-      = render partial: "youtube_embed", locals: { video_id: "pSc2v5TnmWo" }
+      .gallery-block= render partial: "shared/youtube", locals: { yid: "pSc2v5TnmWo" }
+      .gallery-block= render partial: "shared/youtube", locals: { yid: "pSc2v5TnmWo" }
+      .gallery-block= render partial: "shared/youtube", locals: { yid: "pSc2v5TnmWo" }
 
     = link_to 'Start a New Project', new_project_path, :class => 'button'

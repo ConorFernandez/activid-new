@@ -7,8 +7,6 @@ class @ApproveCutModal extends Modal
     @options.priceOfRevisions = (@options.numRevisions - 1) * 25
     @options.initialPrice = @options.cost - @options.priceOfRevisions
 
-    console.log @options
-
     @$modal = $(@template(@options))
 
     super(@$modal, @options)

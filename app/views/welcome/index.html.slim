@@ -17,27 +17,27 @@ section.home-marketing
     .thumbnail-wrapper
       .thumbnail-block
         h5 Travel
-        = render partial: "pages/youtube_embed", locals: { video_id: "wmvYvlpJBGs" }
+        = render partial: "shared/youtube", locals: { yid: "wmvYvlpJBGs" }
 
       .thumbnail-block
         h5 Family & Friends
-        = render partial: "pages/youtube_embed", locals: { video_id: "fhC0dEOE8Z8" }
+        = render partial: "shared/youtube", locals: { yid: "fhC0dEOE8Z8" }
 
       .thumbnail-block
         h5 Sports
-        = render partial: "pages/youtube_embed", locals: { video_id: "g1nl4ZbuEXA" }
+        = render partial: "shared/youtube", locals: { yid: "g1nl4ZbuEXA" }
 
       .thumbnail-block
         h5 Kickstarter
-        = render partial: "pages/youtube_embed", locals: { video_id: "YzzRtYRlct8" }
+        = render partial: "shared/youtube", locals: { yid: "YzzRtYRlct8" }
 
       .thumbnail-block
         h5 Wedding
-        = render partial: "pages/youtube_embed", locals: { video_id: "mFrd1T0U4BA" }
+        = render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
 
       .thumbnail-block
         h5 Business
-        = render partial: "pages/youtube_embed", locals: { video_id: "pSc2v5TnmWo" }
+        = render partial: "shared/youtube", locals: { yid: "pSc2v5TnmWo" }
 
     = link_to "Video Gallery", gallery_page_path, :class => 'button'
 
