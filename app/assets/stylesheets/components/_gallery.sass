@@ -1,0 +1,15 @@
+/*-----------  Gallery Carousel  -----------*/
+
+.gallery-wrapper
+  @include justify-content(space-between)
+  @include align-items(center)
+  @include display(flex)
+
+  .gallery-block
+    @include flex(0 1 31%)
+
+  @include media($middleBreak)
+    display: block
+
+    .gallery-block
+      margin-bottom: 1em  

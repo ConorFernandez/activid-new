@@ -1,51 +1,70 @@
 /*-----------  Video Gallery  -----------*/
 
 body.gallery
-  
-  .panel-wrapper
-    text-align: center
-    max-width: $blockWidth
 
-    .button
-      margin: 4em 0 2em
-      font-size: 1.15em
+  .global-content
 
-  .page-title
-    margin: 0.67em 0 0.15em !important
+    > section:first-child
+      color: $white
+      padding-top: 6em
+      padding-bottom: 6em
+      box-shadow: inset $shadow
+      @include clearfix()
+      @include full-bg()
 
-  .page-title + p
-    color: $gray
+      .bounds-wrapper
+        padding-bottom: 0
 
-  a[id]
-    display: block
-    padding: 1.67em 0 0.67em
-    @extend h4
+      .text-block,
+      .featured-video
+        width: 48%
+        @include inline-block()
 
-    &:focus
-      outline: none
+      .text-block
+        margin-right: 4%
 
-  .featured-video
-    text-align: center
+        *
+          text-shadow: 0 0 0.5em rgba($black, 0.5)
 
-    .gallery-block
-      margin: 2em auto 0
-      max-width: $smallWidth
+        h1
+          margin-bottom: 0.33em
 
-    .button
-      margin: 0
+      .featured-video
+        @include panel(0, 2px)
 
-  /*-----------  Individual Galleries  -----------*/
+      @include media($tabletBreak)
+        padding-top: 4em
+        padding-bottom: 4em
+        text-align: center
 
-  .gallery-wrapper
-    @include justify-content(space-between)
-    @include align-items(center)
-    @include display(flex)
+        .text-block,
+        .featured-video
+          width: 100%
+          display: block
 
-    .gallery-block
-      @include flex(0 1 31%)
+        p
+          padding-right: 0
 
-    @include media($middleBreak)
-      display: block
+    /*-----------  Video Galleries  -----------*/
 
-      .gallery-block
-        margin-bottom: 1em  
+    > section:last-child
+      text-align: center
+
+      .bounds-wrapper
+        text-align: left
+        margin-bottom: 2em
+        padding-bottom: 5em
+        border-bottom: 1px solid $grayLighter
+
+        a[id]
+          display: block
+          padding: 0.67em 0
+          @extend h3
+
+          &:focus
+            outline: none
+
+      .button
+        font-size: 145%
+        margin: 1.5em auto
+        box-shadow: $shadow

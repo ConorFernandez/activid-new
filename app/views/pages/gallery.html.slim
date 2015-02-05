@@ -1,29 +1,71 @@
 - page_title 'Video Gallery'
 - add_page_class 'static gallery'
 
-section
-  
-  .panel-wrapper
-  
-    h3.page-title Video Gallery
-    p A few examples of our great videos!
+section style="background-image:url(#{image_url('gallery_bg.jpg')})"
 
+  .bounds-wrapper
+
+    .text-block
+      h1 Customer Video Gallery
+      p Watch some of the amazing videos that our customers have created with Activid!
 
     .featured-video
       .gallery-block= render partial: "shared/youtube", locals: { yid: "wmvYvlpJBGs" }
-      br
-      = link_to 'Start a New Project', new_project_path, :class => 'button'
+
+section
+  
+  .bounds-wrapper
+
+    a#travel href="#travel" Travel
+
+    .gallery-wrapper
+      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
+      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
+      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
+  
+  .bounds-wrapper
+
+    a#family href="#family" Family & Friends
+
+    .gallery-wrapper
+      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
+      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
+      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
+
+  .bounds-wrapper
+
+    a#sports href="#sports" Sports
+
+    .gallery-wrapper
+      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
+      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
+      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
+
+  .bounds-wrapper
+
+    a#drone href="#drone" Drone & Aerial
+
+    .gallery-wrapper
+      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
+      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
+      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
+
+  .bounds-wrapper
 
     a#weddings href="#weddings" Weddings
+
     .gallery-wrapper
       .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
       .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
       .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
+
+  .bounds-wrapper
 
     a#busieness href="#busieness" Business
+
     .gallery-wrapper
       .gallery-block= render partial: "shared/youtube", locals: { yid: "pSc2v5TnmWo" }
       .gallery-block= render partial: "shared/youtube", locals: { yid: "pSc2v5TnmWo" }
       .gallery-block= render partial: "shared/youtube", locals: { yid: "pSc2v5TnmWo" }
 
-    = link_to 'Start a New Project', new_project_path, :class => 'button'
+  = link_to 'Start a New Project', new_project_path, :class => 'button'
