@@ -4,11 +4,18 @@
 section.home-hero
   .bounds-wrapper
 
-    h1 We help you make the perfect video
+    .backdrop-wrapper
+      .backdrop-block.selected style="background-image:url(#{ image_url('backdrop_1.jpg') });"
+      .backdrop-block style="background-image:url(#{ image_url('backdrop_2.jpg') });"
+      .backdrop-block style="background-image:url(#{ image_url('backdrop_3.jpg') });"
+      .backdrop-block style="background-image:url(#{ image_url('backdrop_4.jpg') });"
 
-    p Transform your raw video into a beautifully edited movie
+    .text-wrapper
+      h1 We help you make the perfect video
 
-    = link_to 'Start a New Project', new_project_path, :class => 'button'
+      p Transform your raw video into a beautifully edited movie.
+
+      = link_to 'Start a New Project', new_project_path, :class => 'button'
 
 section.home-marketing
   .panel-wrapper
@@ -28,8 +35,8 @@ section.home-marketing
         = render partial: "shared/youtube", locals: { yid: "g1nl4ZbuEXA" }
 
       .thumbnail-block
-        h5 Kickstarter
-        = render partial: "shared/youtube", locals: { yid: "YzzRtYRlct8" }
+        h5 Drone & Aerial
+        = render partial: "shared/youtube", locals: { yid: "meS8TdpQNZQ" }
 
       .thumbnail-block
         h5 Wedding
@@ -39,9 +46,13 @@ section.home-marketing
         h5 Business
         = render partial: "shared/youtube", locals: { yid: "pSc2v5TnmWo" }
 
-    = link_to "Video Gallery", gallery_page_path, :class => 'button'
+    p Hundreds of videos have been created on Activid. People use Activid for everything from special occasions like birthdays, weddings and trips, to Kickstarter and business videos, to just sharing everyday moments. What will you use Activid for?
+
+    = link_to "Watch More Customer Videos", gallery_page_path, :class => 'button'
 
   .bounds-wrapper
+
+    h3 Why Use Activid?
 
     .marketing-wrapper
       .marketing-block
@@ -49,27 +60,28 @@ section.home-marketing
           i.icon-thumbsup
         .marketing-text
           h4 Quality
-          p We only work with top editors which means your video is going to turn out great.
+          p Activid only accepts the best editors, which means your video will turn out awesome.
       .marketing-block
         .marketing-image
           i.icon-stopwatch
         .marketing-text
           h4 Speed
-          p We guarantee a set turnaround time for your final video.
+          p With Activid, you get your video back in days, not weeks. Share your video with friends and family sooner!
       .marketing-block
         .marketing-image
           i.icon-money
         .marketing-text
           h4 Affordability
-          p We offer the most affordable pricing of any human-powered editing service, starting at just $95.         
+          p Activid offers the most affordable pricing of any human-powered editing service. A standard video starts at just $145.         
       .marketing-block
         .marketing-image
           i.icon-checkmark
         .marketing-text
           h4 Guarantee
           p Get a video that you absolutely love, or your money back. Guaranteed.
-
-section.home-wrapup
-  .bounds-wrapper
+  
+  .home-wrappup
+  
+    p Use Activid to make your perfect video today!
 
     = link_to 'Start a New Project', new_project_path, :class => 'button'

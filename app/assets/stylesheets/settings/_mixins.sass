@@ -12,10 +12,10 @@
 
 /*-----------  Decoration  -----------*/
 
-@mixin full-bg($url: '')
+@mixin full-bg($url: '', $v-align: center)
   background-size: cover
   background-repeat: no-repeat
-  background-position: center center
+  background-position: center $v-align
   background-image: image-url($url)
 
 /*-----------  Decoration  -----------*/
