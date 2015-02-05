@@ -10,6 +10,7 @@
     
   a:not(.button)
     color: $gray
+    font-size: 0.8em
     line-height: 200%
     margin-right: 1.75em
     @include inline-block()
@@ -24,8 +25,12 @@
     @include media($middleBreak)
       display: block
       margin-right: 0     
-  
+
+  nav
+    float: left
+
   .social-nav
+    float: right
 
     a
       margin-right: 0.1em
@@ -35,3 +40,17 @@
 
     i
       font-size: 1.67em
+
+  @include media($tabletBreak)
+
+    nav,
+    .social-nav
+      width: 100%
+      float: none
+      text-align: center
+
+    nav a
+      font-size: 1.25em
+
+    .social-nav
+      margin-top: 1em

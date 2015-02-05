@@ -1,14 +1,16 @@
 .wide-wrapper
-  = link_to "Home", root_path
-  = link_to "How It Works", how_it_works_page_path
-  = link_to "FAQ", faq_page_path
-  = link_to "Pricing", pricing_page_path
-  = link_to "About Us", about_page_path
-  = link_to "Video Gallery", gallery_page_path
-  = link_to "Videography Tips", tips_page_path
-  = link_to "Apply to be an Editor", new_editor_application_path
-  = link_to "Privacy Policy", privacy_page_path
-  = link_to "Terms of Service", terms_page_path
+
+  nav
+    = link_to "Home", root_path
+    = link_to "How It Works", how_it_works_page_path
+    = link_to "FAQ", faq_page_path
+    = link_to "Pricing", pricing_page_path
+    = link_to "About", about_page_path
+    = link_to "Video Gallery", gallery_page_path
+    = link_to "Videography Tips", tips_page_path
+    = link_to "Apply to be an Editor", new_editor_application_path
+    = link_to "Privacy", privacy_page_path
+    = link_to "Terms", terms_page_path
 
   .social-nav
     = link_to 'https://www.facebook.com/actividfilms', :target => '_blank' do
