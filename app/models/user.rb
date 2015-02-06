@@ -11,8 +11,6 @@ class User < ActiveRecord::Base
 
   validates_confirmation_of :password
 
-  after_create :send_welcome_email
-
   scope :editor, -> { where(role: ROLE::EDITOR) }
 
   def can_view_project?(project)
