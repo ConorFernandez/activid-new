@@ -30,4 +30,6 @@ This project uses a [clock process](https://devcenter.heroku.com/articles/schedu
 
 Activid is hosted on Heroku, so deployments are just a matter of pushing to the Heroku branch and and running any necessary migrations.
 
+Make sure that at least one "clock" process is running; this is what triggers the scheduled rake tasks, such as checking for completed Zencoder jobs, paying editors, etc.
+
 If you run the app locally with foreman (eg: `foreman start` or `foreman run rails c`), it will load the environment variables defined in `.env` (API keys, S3 bucket name, etc). If you need a list of these config keys and some sample values, check the staging app (`heroku config -a activid-stagingg`)
