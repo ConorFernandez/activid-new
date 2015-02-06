@@ -19,7 +19,12 @@ class ProjectsController < ApplicationController
 
       render :editor_index
     elsif current_user.admin?
-      @all = Project.order("created_at DESC").all.select{ |p| !p.draft? }
+      if params[:email] && user = User.where(email: params[:email]).first
+        @all = user.projects.order("created_at DESC").all.select{ |p| !p.draft? }
+      else
+        @all = Project.order("created_at DESC").all.select{ |p| !p.draft? }
+      end
+
       @available = @all.select(&:available?)
       @in_progress = @all.select(&:in_progress?)
       @completed = @all.select(&:completed?)

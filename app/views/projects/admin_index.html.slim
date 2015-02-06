@@ -22,6 +22,8 @@ section
   .bounds-wrapper
 
     .projects-wrapper.selected data-tab-content="all"
+      = form_tag projects_path, method: "get", class: "admin-email-search" do
+        = text_field_tag "email", params[:email], placeholder: "search: user@email.com"
       = render partial: "project", collection: @all
 
     .projects-wrapper data-tab-content="available"
