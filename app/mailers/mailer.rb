@@ -104,4 +104,9 @@ class Mailer < ActionMailer::Base
 
     mail(to: @project.user.email, cc: @admins.map(&:email), subject: "Please update your payment information")
   end
+
+  def welcome_email(user)
+    @user = user
+    mail(to: @user.email, subject: "Welcome to Activid!")
+  end
 end

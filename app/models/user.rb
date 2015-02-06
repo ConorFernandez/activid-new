@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
 
   validates_confirmation_of :password
 
+  after_create :send_welcome_email
+
   scope :editor, -> { where(role: ROLE::EDITOR) }
 
   def can_view_project?(project)
@@ -53,5 +55,9 @@ class User < ActiveRecord::Base
 
   def can_accept_projects?
     editor? && !paused? && stripe_recipient_id.present?
+  end
+
+  def send_welcome_email
+    Mailer.welcome_email(self).deliver if user?
   end
 end
