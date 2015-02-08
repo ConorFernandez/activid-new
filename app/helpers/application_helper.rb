@@ -15,6 +15,10 @@ module ApplicationHelper
     params[:action]
   end
 
+  def add_page_description(desc)
+    @page_description = desc.blank? ? "Activid helps you transform your raw video into the perfect, beautifully edited movie." : desc
+  end
+
   def add_page_class(klass)
     @page_classes ||= []
     @page_classes << klass
