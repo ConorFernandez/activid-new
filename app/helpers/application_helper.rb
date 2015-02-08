@@ -15,6 +15,10 @@ module ApplicationHelper
     params[:action]
   end
 
+  def page_robots_follow content
+    @page_robots_follow = content
+  end
+
   def add_page_description(desc)
     @page_description = desc.blank? ? "Activid helps you transform your raw video into the perfect, beautifully edited movie." : desc
   end
@@ -27,6 +31,8 @@ module ApplicationHelper
   def page_classes
     (@page_classes || []).uniq.join(" ")
   end
+
+
 
   def duration(seconds)
     return "0:00" if seconds.nil?
