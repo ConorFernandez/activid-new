@@ -1,28 +1,25 @@
 /*-----------  How It Works  -----------*/
 
 body.how-it-works
-  
-  .panel-wrapper
-    text-align: center
-    max-width: $blockWidth
 
-    .button
-      margin: 2em 0
-      font-size: 1.15em
+  section:last-child
+    margin-top: 0
+    padding-top: 0
 
-  .page-title
-    margin: 0.67em 0 0.14em !important
+    .bounds-wrapper
+      text-align: center
 
-  .page-title + p
-    color: $gray
+      .button
+        margin: 3em auto
 
   .hiw-split
-    margin: 3em -2em 4em
+    margin: 0 -2em 4em
     background-color: $purple
 
     .left,
     .right
       width: 50%
+      text-align: center
       padding: 1em 1.75em
       @include inline-block()
 
@@ -30,11 +27,7 @@ body.how-it-works
         color: $white
 
     .left
-      text-align: right
       border-right: 2px solid $white
-
-    .right
-      text-align: left
 
   /*-----------  How It Works Blocks  -----------*/
 
@@ -45,6 +38,7 @@ body.how-it-works
     @include display(flex)
 
     .hiw-text
+      margin: 0 1rem
       @include flex(0 1 42%)
 
       h4
@@ -58,7 +52,6 @@ body.how-it-works
 
     .hiw-icon
       color: $purple
-      margin: 0 1rem
       font-size: 6.25em
       text-align: center
       @include flex(0 1 15%)
@@ -74,13 +67,13 @@ body.how-it-works
       @include flex(0 1 5%)
 
     &.left
-      text-align: right
+      text-align: left
       @include justify-content(flex-start)
       
-      .hiw-text
+      .hiw-icon
         @include order(1)
 
-      .hiw-icon
+      .hiw-text
         @include order(2)
 
       .hiw-next
@@ -88,13 +81,13 @@ body.how-it-works
         @include order(3)
 
     &.right
-      text-align: left
+      text-align: right
       @include justify-content(flex-end)
 
-      .hiw-text
+      .hiw-icon
         @include order(3)
 
-      .hiw-icon
+      .hiw-text
         @include order(2)
 
       .hiw-next

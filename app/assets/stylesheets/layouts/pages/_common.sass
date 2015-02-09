@@ -1,7 +1,24 @@
 /*-----------  Static Pages  -----------*/
 
 body.static
-  
+
+  section[style]
+    color: $white
+    padding-top: 6em
+    padding-bottom: 6em
+    box-shadow: inset $shadow
+    @include clearfix()
+    @include full-bg()
+
+    .text-block
+
+      *
+        text-shadow: 0 0 0.5em rgba($black, 0.5)
+
+      h1
+        margin-bottom: 0.33em
+
+
   .panel-wrapper
     max-width: 40em
 
