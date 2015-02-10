@@ -1,0 +1,11 @@
+.slider-wrapper
+  
+  .move-left
+    i.icon-left-open
+
+  .gallery-wrapper
+    - videos.each do |video|
+      .gallery-block= render partial: "shared/youtube", locals: { yid: video }
+  
+  .move-right.disabled
+    i.icon-right-open

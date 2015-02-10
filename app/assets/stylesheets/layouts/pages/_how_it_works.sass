@@ -13,21 +13,22 @@ body.how-it-works
         margin: 3em auto
 
   .hiw-split
-    margin: 0 -2em 4em
-    background-color: $purple
+    margin: 0 4em 4em
 
     .left,
     .right
       width: 50%
+      font-size: 120%
       text-align: center
       padding: 1em 1.75em
       @include inline-block()
 
       h5
-        color: $white
+        color: $purple
+        text-decoration: underline
 
-    .left
-      border-right: 2px solid $white
+    @include media($tabletBreak)
+      display: none
 
   /*-----------  How It Works Blocks  -----------*/
 

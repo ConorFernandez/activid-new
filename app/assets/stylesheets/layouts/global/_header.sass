@@ -47,6 +47,7 @@
   .header-navigation
     text-align: right
 
+    span,
     > a:not(.button),
     .dropdown-wrapper > a
       color: $gray
@@ -55,7 +56,7 @@
       line-height: 2.5625rem
       @include inline-block()
 
-      &:hover
+      &[href]:hover
         color: $blue
 
       &.active

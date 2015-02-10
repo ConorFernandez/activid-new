@@ -20,54 +20,40 @@ section
 
     a#travel href="#travel" Travel
 
-    .gallery-wrapper
-      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
-      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
-      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
-  
+    - travel = ['mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA']
+
+    = render partial: "shared/gallery", locals: { videos: travel }
+
   .bounds-wrapper
 
     a#family href="#family" Family & Friends
 
-    .gallery-wrapper
-      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
-      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
-      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
+    - family = ['mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA']
+
+    = render partial: "shared/gallery", locals: { videos: family }
 
   .bounds-wrapper
 
     a#sports href="#sports" Sports
 
-    .gallery-wrapper
-      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
-      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
-      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
+    - sports = ['mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA']
+
+    = render partial: "shared/gallery", locals: { videos: sports }
 
   .bounds-wrapper
 
     a#drone href="#drone" Drone & Aerial
 
-    .gallery-wrapper
-      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
-      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
-      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
+    - drone = ['mFrd1T0U4BA', 'mFrd1T0U4BA']
 
-  .bounds-wrapper
-
-    a#weddings href="#weddings" Weddings
-
-    .gallery-wrapper
-      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
-      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
-      .gallery-block= render partial: "shared/youtube", locals: { yid: "mFrd1T0U4BA" }
+    = render partial: "shared/gallery", locals: { videos: drone }
 
   .bounds-wrapper
 
     a#busieness href="#busieness" Business
 
-    .gallery-wrapper
-      .gallery-block= render partial: "shared/youtube", locals: { yid: "pSc2v5TnmWo" }
-      .gallery-block= render partial: "shared/youtube", locals: { yid: "pSc2v5TnmWo" }
-      .gallery-block= render partial: "shared/youtube", locals: { yid: "pSc2v5TnmWo" }
+    - busieness = ['mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA']
+
+    = render partial: "shared/gallery", locals: { videos: busieness }
 
   = link_to 'Start a New Project', new_project_path, :class => 'button'

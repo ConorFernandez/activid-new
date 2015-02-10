@@ -1,15 +1,74 @@
 /*-----------  Gallery Carousel  -----------*/
 
-.gallery-wrapper
-  @include justify-content(space-between)
-  @include align-items(center)
-  @include display(flex)
+.slider-wrapper
+  margin: 0 -4em
+  padding: 0 4em
+  overflow: hidden
+  position: relative
+  @include user-select(none)
 
-  .gallery-block
-    @include flex(0 1 31%)
+  .move-left,
+  .move-right
+    top: 0
+    width: 4em
+    height: 100%
+    z-index: 100
+    text-align: center
+    position: absolute
+    @include transition()
 
-  @include media($middleBreak)
-    display: block
+    i
+      font-size: 1.67em
+      @include center-align(absolute)
+
+      &:before
+        margin: 0
+
+    &:hover
+      color: $blue
+      cursor: pointer
+
+    &.disabled
+      color: $grayLight
+      cursor: not-allowed
+
+  .move-left
+    left: 0
+    @include background-image(linear-gradient(to right, $grayLightest 66.7%, rgba($grayLightest, 0) 100%))
+
+  .move-right
+    right: 0
+    @include background-image(linear-gradient(to right, rgba($grayLightest, 0) 0%, $grayLightest 33.3%))
+
+  .gallery-wrapper
+    left: 0
+    z-index: 50
+    position: relative
+    @include justify-content(space-between)
+    @include align-items(center)
+    @include display(flex)
 
     .gallery-block
-      margin-bottom: 1em  
+      margin-right: 3.33%
+      @include flex(1 0 31.1%)
+
+  /*-----------  Tablet  -----------*/
+
+  @include media($tabletBreak)
+    margin: 0 -2em
+    text-align: center
+
+    .gallery-wrapper
+
+      .gallery-block
+        margin-right: 6%
+        @include flex(1 0 47%)
+
+  /*-----------  Mobile  -----------*/
+
+  @include media($middleBreak)
+
+    .gallery-wrapper
+
+      .gallery-block
+        @include flex(1 0 100%)

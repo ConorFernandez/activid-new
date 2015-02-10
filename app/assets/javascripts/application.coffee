@@ -15,6 +15,7 @@
 #= require jquery.ui.widget
 #= require jquery.fileupload
 #= require handlebars
+#= require lowdash
 #= require stripe
 #= require_tree .
 

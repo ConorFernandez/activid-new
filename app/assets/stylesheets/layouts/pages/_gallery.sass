@@ -55,7 +55,10 @@ body.gallery
         margin-bottom: 2em
         padding-bottom: 5em
         border-bottom: 1px solid $grayLighter
-
+  
+        @include media($tabletBreak)
+          text-align: center
+          
         a[id]
           display: block
           padding: 0.67em 0
