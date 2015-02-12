@@ -30,7 +30,7 @@ class Project < ActiveRecord::Base
     one_day:   {name: "1-Day Turnaround", cost: 9900, time: 3.days}
   }
 
-  REMOVE_LOGO_COST = 2900
+  REMOVE_LOGO_COST = 2500
   ADDITIONAL_CUT_COST = 2500
 
   belongs_to :user

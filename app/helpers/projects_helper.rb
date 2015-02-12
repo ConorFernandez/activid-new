@@ -33,7 +33,7 @@ module ProjectsHelper
 
   def options_for_append_logo
     [
-      ["Activid Logo", true, {"data-price" => 0}],
+      ["Activid Logo at End", true, {"data-price" => 0}],
       ["Remove Activid Logo (+$#{Project::REMOVE_LOGO_COST / 100})", false, {"data-price" => Project::REMOVE_LOGO_COST}]
     ]
   end
