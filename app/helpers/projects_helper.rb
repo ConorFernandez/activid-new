@@ -8,7 +8,12 @@ module ProjectsHelper
   end
 
   def cut_due_in(project)
-    "#{distance_of_time_in_words_to_now(project.cut_due_at)}#{project.cut_due_at < Time.now ? ' ago' : nil}"
+    t = project.cut_due_at - Time.now
+    d = (t / 1.day).to_i
+    h = ((t % 1.day) / 1.hour).to_i
+    m = ((t % 1.hour) / 1.minute).to_i
+    "#{d} Days #{h} Hours #{m} Minutes #{project.cut_due_at < Time.now ? ' ago' : nil}"
+    #"#{distance_of_time_in_words_to_now(project.cut_due_at)}#{project.cut_due_at < Time.now ? ' ago' : nil}"
   end
 
   def options_for_category_select
