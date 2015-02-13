@@ -15,35 +15,10 @@ body.gallery
       .bounds-wrapper
         padding-bottom: 0
 
-      .text-block,
-      .featured-video
-        width: 48%
-        @include inline-block()
-
-      .text-block
-        margin-right: 4%
-
-        *
-          text-shadow: 0 0 0.5em rgba($black, 0.5)
-
-        h1
-          margin-bottom: 0.33em
-
-      .featured-video
-        @include panel(0, 2px)
-
       @include media($tabletBreak)
         padding-top: 4em
         padding-bottom: 4em
         text-align: center
-
-        .text-block,
-        .featured-video
-          width: 100%
-          display: block
-
-        p
-          padding-right: 0
 
     /*-----------  Video Galleries  -----------*/
 
@@ -52,8 +27,8 @@ body.gallery
 
       .bounds-wrapper
         text-align: left
-        margin-bottom: 2em
-        padding-bottom: 5em
+        margin-bottom: 0em
+        padding-bottom: 3em
         border-bottom: 1px solid $grayLighter
   
         @include media($tabletBreak)

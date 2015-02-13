@@ -2,6 +2,7 @@
 - add_page_class :project_single
 - add_page_description "Activid video: #{@project.name}. Transform your own raw video into the perfect, beautifully edited movie."
 - page_robots_follow 'none'
+
 section
 
   .compact-wrapper
@@ -13,4 +14,24 @@ section
       Your browser does not support the video tag.
 
     - if current_user && (@project.user == current_user || current_user.admin?)
+
       = link_to "Download", @project.latest_cut.file_upload.url, class: "button", download: @project.latest_cut.file_upload.file_name
+
+    .share-links
+      h5 Share this video!
+  
+      a.facebook-link onClick="window.open('https://www.facebook.com/sharer/sharer.php?u=#{request.original_url}', 'pop', 'width=600, height=400, scrollbars=no');"
+        i.icon-facebook
+
+      a.twitter-link onClick="window.open('https://twitter.com/share?url=#{request.original_url}&text=#{@project.name}&hashtags=activid', 'pop', 'width=600, height=400, scrollbars=no');"
+        i.icon-twitter
+
+      a.gplus-link onClick="window.open('https://plus.google.com/share?url=#{request.original_url}', 'pop', 'width=600, height=400, scrollbars=no');"
+        i.icon-gplus
+
+      a.linkedin-link onClick="window.open('http://www.linkedin.com/shareArticle?url=#{request.original_url}&title=#{@project.name}', 'pop', 'width=600, height=400, scrollbars=no');"
+        i.icon-linkedin
+
+      span or email this link: 
+
+      div= request.original_url

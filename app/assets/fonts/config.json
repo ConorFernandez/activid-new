@@ -157,9 +157,21 @@
       "src": "fontawesome"
     },
     {
+      "uid": "f0cf7db1b03cb65adc450aa3bdaf8c4d",
+      "css": "gplus",
+      "code": 59426,
+      "src": "fontawesome"
+    },
+    {
       "uid": "4c1ef492f1d2c39a2250ae457cee2a6e",
       "css": "instagram",
       "code": 59423,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "1145676a91138011729fa2909997af66",
+      "css": "linkedin",
+      "code": 59427,
       "src": "fontawesome"
     },
     {

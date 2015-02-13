@@ -11,11 +11,15 @@ section style="background-image:url(#{image_url('gallery_bg.jpg')})"
       h1 Customer Video Gallery
       p Watch some of the amazing videos that our customers have created with Activid!
 
+section
+  
+  .bounds-wrapper
+
+    a#featured href="#featured" Featured Video
+
     .featured-video
       .gallery-block= render partial: "shared/youtube", locals: { yid: "wmvYvlpJBGs" }
 
-section
-  
   .bounds-wrapper
 
     a#travel href="#travel" Travel

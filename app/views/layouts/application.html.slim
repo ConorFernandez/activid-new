@@ -18,11 +18,16 @@ html
     meta name="twitter:title" content="#{@page_title.blank? ? "Activid" : "Activid • #{@page_title}"}"
     meta name="twitter:description" content="#{@page_description}" 
     meta name="twitter:image" content= "#{image_url("activid_logo.png")}"
+
     meta name="og:site_name" content="Activid"
-    meta name="og:type" content="website"
+    meta name="og:type" content="video"
     meta name="og:description" content="#{@page_description}"
     meta name="og:image" content= "#{image_url("activid_logo.png")}"
+    meta name="og:url" content="#{request.original_url}"
+    meta name="og:title" content="#{@page_title.blank? ? "Activid" : "Activid • #{@page_title}"}"
+
     title= @page_title.blank? ? "Activid" : "Activid • #{@page_title}"
+
     link rel="shortcut icon" href="#{image_path('favicon.png')}" type="image/x-icon"
 
     = stylesheet_link_tag    "application", media: "all"
