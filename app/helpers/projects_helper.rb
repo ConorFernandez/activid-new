@@ -8,11 +8,11 @@ module ProjectsHelper
   end
 
   def cut_due_in(project)
-    t = project.cut_due_at - Time.now
+    t = project.cut_due_at > Time.now ? project.cut_due_at - Time.now : Time.now - project.cut_due_at
     d = (t / 1.day).to_i
     h = ((t % 1.day) / 1.hour).to_i
     m = ((t % 1.hour) / 1.minute).to_i
-    "#{d} Days #{h} Hours #{m} Minutes #{project.cut_due_at < Time.now ? ' ago' : nil}"
+    "#{d} Days #{h} Hours #{m} Minutes #{project.cut_due_at < Time.now ? 'PAST DUE' : nil}"
     #"#{distance_of_time_in_words_to_now(project.cut_due_at)}#{project.cut_due_at < Time.now ? ' ago' : nil}"
   end
 
