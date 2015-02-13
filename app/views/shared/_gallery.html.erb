@@ -7,7 +7,7 @@
     </a>
 
     <div class="slider-wrapper">
-      <div class="move-left">
+      <div class="move-left {{#unless playlist.hasMore}}disabled{{/unless}}">
         <i class="icon-left-open"></i>
       </div>
 
@@ -39,10 +39,10 @@
     <div class="featured-video">
 
       <div class="gallery-block">
-        <a class="youtube-block" data-yid="{{id}}" style="background-image:url({{video.img}}))">
+        <a class="youtube-block" data-yid="{{video.id}}" style="background-image:url({{video.img}}))">
           <img src="/assets/youtube_play.jpg" />
         </a>
-        <p>{{title}}</p>
+        <p>{{video.title}}</p>
       </div>
 
     </div>

@@ -3,15 +3,19 @@ $ ->
   #-----------  Gallery Carousel Actions  -----------#
   
   warpper   = $('.video-gallery')
+  moveLeft  = '.move-left'
+  moveRight = '.move-right'
 
-  warpper.on 'click touch', '.move-left', _.throttle( (event) ->
-    return false if $(event.target).hasClass('disabled')
-    slideGallery $(event.target).parent().siblings('.gallery-wrapper')
+  warpper.on 'click touch', moveLeft, _.throttle( (event) ->
+    target = $(event.target).parent()
+    return false if target.hasClass('disabled')
+    slideGallery target.siblings('.gallery-wrapper')
   , 500)
 
-  warpper.on 'click touch', '.move-right', _.throttle( (event) ->
-    return false if $(event.target).hasClass('disabled')
-    slideGallery $(event.target).parent().siblings('.gallery-wrapper'), false
+  warpper.on 'click touch', moveRight, _.throttle( (event) ->
+    target = $(event.target).parent()
+    return false if target.hasClass('disabled')
+    slideGallery target.siblings('.gallery-wrapper'), false
   , 500)
 
   $(window).resize _.debounce( ->
@@ -22,12 +26,9 @@ $ ->
 
   $('.gallery-wrapper').each ->
     videos = $(@).children('.gallery-block').length
-
     $(@).data
-      step       : 0
-      count      : videos
-      leftArrow  : $(@).siblings('.move-left')
-      rightArrow : $(@).siblings('.move-right')
+      step  : 0
+      count : videos
 
   #-----------  Gallery Carousel  -----------#
 
@@ -41,17 +42,19 @@ $ ->
     checkBounds(gallery, nextStep)
 
   checkBounds = (gallery) ->
-    maxBounds = gallery.data('count') - 3
+    maxBounds  = gallery.data('count') - 3
+    leftArrow  = gallery.siblings(moveLeft)
+    rightArrow = gallery.siblings(moveRight)
 
     if gallery.data('step') <= 0 
-      gallery.data('rightArrow').addClass('disabled')
+      rightArrow.addClass('disabled')
     else
-      gallery.data('rightArrow').removeClass('disabled')
+      rightArrow.removeClass('disabled')
 
     if gallery.data('step') >= maxBounds 
-      gallery.data('leftArrow').addClass('disabled')
+      leftArrow.addClass('disabled')
     else
-      gallery.data('leftArrow').removeClass('disabled')
+      leftArrow.removeClass('disabled')
 
   #-----------  Gallery Resets  -----------#
 
