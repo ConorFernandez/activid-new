@@ -1,4 +1,5 @@
 - if project.cut_due_at && project.needs_cut?
   .project-meta
     | Cut due in:
-    span= cut_due_in(project)
+    span style="#{project.cut_due_at < Time.now ? "color:red;" : nil}"
+      = cut_due_in(project)
