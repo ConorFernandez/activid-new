@@ -2,17 +2,16 @@ $ ->
       
   #-----------  Gallery Carousel Actions  -----------#
   
-  moveLeft = $('.move-left')
-  moveRight = $('.move-right')
+  warpper   = $('.video-gallery')
 
-  moveLeft.click _.throttle( ->
-    return false if $(@).hasClass('disabled')
-    slideGallery $(@).siblings('.gallery-wrapper')
+  warpper.on 'click touch', '.move-left', _.throttle( (event) ->
+    return false if $(event.target).hasClass('disabled')
+    slideGallery $(event.target).parent().siblings('.gallery-wrapper')
   , 500)
 
-  moveRight.click _.throttle( ->
-    return false if $(@).hasClass('disabled')
-    slideGallery $(@).siblings('.gallery-wrapper'), false
+  warpper.on 'click touch', '.move-right', _.throttle( (event) ->
+    return false if $(event.target).hasClass('disabled')
+    slideGallery $(event.target).parent().siblings('.gallery-wrapper'), false
   , 500)
 
   $(window).resize _.debounce( ->

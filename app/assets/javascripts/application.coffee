@@ -48,7 +48,7 @@ $(document).ready ->
 
   #-----------  Youtube Modal Trigger  -----------#
 
-  $('.youtube-block').click ->
+  $(document).on 'click touch', '.youtube-block', (event) ->
     yid = $(@).data('yid')
     new YoutubeModal({yid: yid}).open()
 

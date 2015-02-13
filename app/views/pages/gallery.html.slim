@@ -11,53 +11,56 @@ section style="background-image:url(#{image_url('gallery_bg.jpg')})"
       h1 Customer Video Gallery
       p Watch some of the amazing videos that our customers have created with Activid!
 
-section
+section.video-gallery
   
-  .bounds-wrapper
+  / .bounds-wrapper
 
-    a#featured href="#featured" Featured Video
+  /   a#featured href="#featured" Featured Video
 
-    .featured-video
-      .gallery-block= render partial: "shared/youtube", locals: { yid: "wmvYvlpJBGs" }
+  /   .featured-video
+  /     .gallery-block= render partial: "shared/youtube", locals: { yid: "wmvYvlpJBGs" }
 
-  .bounds-wrapper
+  / .bounds-wrapper
 
-    a#travel href="#travel" Travel
+  /   a#travel href="#travel" Travel
 
-    - travel = ['mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA']
+  /   - travel = ['mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA']
 
-    = render partial: "shared/gallery", locals: { videos: travel }
+  /   = render partial: "shared/gallery", locals: { videos: travel }
 
-  .bounds-wrapper
+  / .bounds-wrapper
 
-    a#family href="#family" Family & Friends
+  /   a#family href="#family" Family & Friends
 
-    - family = ['mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA']
+  /   - family = ['mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA']
 
-    = render partial: "shared/gallery", locals: { videos: family }
+  /   = render partial: "shared/gallery", locals: { videos: family }
 
-  .bounds-wrapper
+  / .bounds-wrapper
 
-    a#sports href="#sports" Sports
+  /   a#sports href="#sports" Sports
 
-    - sports = ['mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA']
+  /   - sports = ['mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA']
 
-    = render partial: "shared/gallery", locals: { videos: sports }
+  /   = render partial: "shared/gallery", locals: { videos: sports }
 
-  .bounds-wrapper
+  / .bounds-wrapper
 
-    a#drone href="#drone" Drone & Aerial
+  /   a#drone href="#drone" Drone & Aerial
 
-    - drone = ['mFrd1T0U4BA', 'mFrd1T0U4BA']
+  /   - drone = ['mFrd1T0U4BA', 'mFrd1T0U4BA']
 
-    = render partial: "shared/gallery", locals: { videos: drone }
+  /   = render partial: "shared/gallery", locals: { videos: drone }
 
-  .bounds-wrapper
+  / .bounds-wrapper
 
-    a#busieness href="#busieness" Business
+  /   a#busieness href="#busieness" Business
 
-    - busieness = ['mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA']
+  /   - busieness = ['mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA']
 
-    = render partial: "shared/gallery", locals: { videos: busieness }
+  /   = render partial: "shared/gallery", locals: { videos: busieness }
 
-  = link_to 'Start a New Project', new_project_path, :class => 'button'
+= link_to 'Start a New Project', new_project_path, :class => 'button'
+
+= render "shared/gallery"
+

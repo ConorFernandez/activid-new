@@ -1,0 +1,50 @@
+<script id="gallery-template" type="text/x-handlebars-template">
+  {{log playlist}}
+
+  <div class="bounds-wrapper">
+    <a id="{{playlist.slug}}" href="#{{playlist.slug}}">
+      {{playlist.title}}
+    </a>
+
+    <div class="slider-wrapper">
+      <div class="move-left">
+        <i class="icon-left-open"></i>
+      </div>
+
+      <div class="gallery-wrapper">
+        {{#each videos}}
+
+          <div class="gallery-block">
+            <a class="youtube-block" data-yid="{{id}}" style="background-image:url({{img}})">
+              <img src="/assets/youtube_play.jpg" />
+            </a>
+            <p>{{title}}</p>
+          </div>
+
+        {{/each}}
+      </div>
+
+      <div class="move-right disabled">
+        <i class="icon-right-open"></i>
+      </div>
+    </div>
+  </div>  
+</script>
+
+
+<script id="featured-template" type="text/x-handlebars-template">
+  <div class="bounds-wrapper">
+    <a id="featured" href="#featured">Featured Video</a>
+
+    <div class="featured-video">
+
+      <div class="gallery-block">
+        <a class="youtube-block" data-yid="{{id}}" style="background-image:url({{video.img}}))">
+          <img src="/assets/youtube_play.jpg" />
+        </a>
+        <p>{{title}}</p>
+      </div>
+
+    </div>
+  </div>  
+</script>
