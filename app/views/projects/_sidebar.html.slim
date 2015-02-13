@@ -70,6 +70,14 @@ br
 .project-meta
   | Uploaded footage: 
   span= project.all_uploads_encoded? ? duration(project.duration_of_uploads) : "(calculating)"
+/-----------  Video Details -----------/
+.project-meta
+  | Activid Logo: 
+  span= project.append_logo? ? "Include Activid Logo at end" : "Remove Activid Logo"
+/-----------  Video Details -----------/
+.project-meta
+  | Share on Activid: 
+  span= project.allow_to_be_featured? ? "Allow to be featured" : "Don't allow to be featured"
 
 br
 
