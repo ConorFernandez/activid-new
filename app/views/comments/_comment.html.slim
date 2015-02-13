@@ -4,7 +4,10 @@ div id="comment_#{comment.id}" class="discussion-block #{ comment.poster == curr
     .discussion-title You said:
     .discussion-timestamp= "#{time_ago_in_words(comment.created_at)} ago"
   - else
-    .discussion-title= "#{display_name_for_user(comment.poster)} said:"
+    - if comment.poster and comment.poster.admin?
+      .discussion-title= "#{display_name_for_user(comment.poster)}(admin) said:"
+    - else
+      .discussion-title= "#{display_name_for_user(comment.poster)} said:"
     .discussion-timestamp= "#{time_ago_in_words(comment.created_at)} ago"
 
   .discussion-content
