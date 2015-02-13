@@ -1,6 +1,7 @@
 - if project.available? && project.editor.nil? && current_user.can_accept_projects?
   .alert-wrapper
-    h6= "Cut due in: #{cut_due_in(project)}"
+    h6 style="#{project.cut_due_at < Time.now ? "color:red;" : nil}"
+      = "Cut due in: #{cut_due_in(project)}"
     = link_to "Accept this project", claim_project_path(project), class: "button", method: "put"
 
 - if project.available? && project.editor.nil? && current_user.editor? && current_user.stripe_recipient_id.blank?
@@ -13,7 +14,8 @@
 
 - elsif project.editor == current_user && project.needs_cut?
   .alert-wrapper
-    h6= "Cut due in: #{cut_due_in(project)}"
+    h6 style="#{project.cut_due_at < Time.now ? "color:red;" : nil}"
+      = "Cut due in: #{cut_due_in(project)}"
 
 - elsif project.user == current_user && project.in_progress? && project.needs_cut?
   .alert-wrapper.waiting
