@@ -74,7 +74,7 @@ section
       - elsif @project.has_failed_uploads?
         .unpurchasable-warning= "We were unable to process some of the files you uploaded. #{link_to 'Click here to review the upload errors and try again.', project_step2_path(@project)}".html_safe
       - else
-        .unpurchasable-warning We're still processing the footage you uploaded. Once we've finished, you'll be able to submit your project to an editor. Please select "post later" below and check back soon.
+        .unpurchasable-warning Sit tight! We're still processing the footage you uploaded. Kindly take a break, do something fun, come back and refresh the page. Once ready, you'll be prompted to enter your payment information and submit your project to the editors.
 
       footer
         .total-block
