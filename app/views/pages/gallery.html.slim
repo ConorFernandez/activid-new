@@ -13,54 +13,16 @@ section style="background-image:url(#{image_url('gallery_bg.jpg')})"
 
 section.video-gallery
   
-  / .bounds-wrapper
+  .bounds-wrapper
 
-  /   a#featured href="#featured" Featured Video
+    a#featured href="#featured" Featured Video
 
-  /   .featured-video
-  /     .gallery-block= render partial: "shared/youtube", locals: { yid: "wmvYvlpJBGs" }
+    .featured-video
+      .gallery-block= render partial: "shared/youtube", locals: { yid: "wmvYvlpJBGs" }
 
-  / .bounds-wrapper
+section
 
-  /   a#travel href="#travel" Travel
-
-  /   - travel = ['mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA']
-
-  /   = render partial: "shared/gallery", locals: { videos: travel }
-
-  / .bounds-wrapper
-
-  /   a#family href="#family" Family & Friends
-
-  /   - family = ['mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA']
-
-  /   = render partial: "shared/gallery", locals: { videos: family }
-
-  / .bounds-wrapper
-
-  /   a#sports href="#sports" Sports
-
-  /   - sports = ['mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA']
-
-  /   = render partial: "shared/gallery", locals: { videos: sports }
-
-  / .bounds-wrapper
-
-  /   a#drone href="#drone" Drone & Aerial
-
-  /   - drone = ['mFrd1T0U4BA', 'mFrd1T0U4BA']
-
-  /   = render partial: "shared/gallery", locals: { videos: drone }
-
-  / .bounds-wrapper
-
-  /   a#busieness href="#busieness" Business
-
-  /   - busieness = ['mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA', 'mFrd1T0U4BA']
-
-  /   = render partial: "shared/gallery", locals: { videos: busieness }
-
-= link_to 'Start a New Project', new_project_path, :class => 'button'
+  = link_to 'Start a New Project', new_project_path, :class => 'button'
 
 = render "shared/gallery"
 
