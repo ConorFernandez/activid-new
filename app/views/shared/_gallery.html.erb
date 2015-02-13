@@ -16,7 +16,7 @@
 
           <div class="gallery-block">
             <a class="youtube-block" data-yid="{{id}}" style="background-image:url({{img}})">
-              <img src="/assets/youtube_play.jpg" />
+              <%= image_tag "youtube_play.jpg" %>
             </a>
             <p>{{title}}</p>
           </div>
@@ -40,7 +40,7 @@
 
       <div class="gallery-block">
         <a class="youtube-block" data-yid="{{video.id}}" style="background-image:url({{video.img}})">
-          <img src="/assets/youtube_play.jpg" />
+          <%= image_tag "youtube_play.jpg" %>
         </a>
         <p>{{video.title}}</p>
       </div>

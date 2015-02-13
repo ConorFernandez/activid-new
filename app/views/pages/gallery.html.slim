@@ -18,9 +18,10 @@ section.video-gallery
     a#featured href="#featured" Featured Video
 
     .featured-video
-      .gallery-block= render partial: "shared/youtube", locals: { yid: "wmvYvlpJBGs" }
+      .gallery-block
+        = render partial: "shared/youtube", locals: { yid: "wmvYvlpJBGs", title: "Greece 2013" }
 
-section
+section.button-wrapper
 
   = link_to 'Start a New Project', new_project_path, :class => 'button'
 
