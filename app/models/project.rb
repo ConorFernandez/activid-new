@@ -143,7 +143,7 @@ class Project < ActiveRecord::Base
 
   def submit!
     update(initial_price: calculated_price, submitted_at: Time.now)
-    Mailer.new_project_created(this).deliver
+    Mailer.new_project_created(self).deliver
   end
 
   def submittable?
