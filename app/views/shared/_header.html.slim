@@ -8,7 +8,7 @@
   nav.header-navigation
     - if current_user
       - if current_user.user?
-        = link_to "Start a New Project", new_project_path, class: "button"
+        = link_to "Make a Video", new_project_path, class: "button"
         = link_to "Projects", projects_path
         = link_to "Your Account", edit_account_path
         = link_to "Log Out", destroy_user_session_path, method: :delete
@@ -30,4 +30,4 @@
         | (866) 945-7640
       = link_to "Pricing", pricing_page_path
       = link_to "Log In", "#", {class: "log-in-link"}
-      = link_to "Start a New Project", new_project_path, class: "button"
+      = link_to "Make a Video", new_project_path, class: "button"

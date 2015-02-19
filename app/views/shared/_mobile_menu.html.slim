@@ -1,7 +1,7 @@
 ul
   - if current_user
     - if current_user.user?
-      li= link_to "Start a New Project", new_project_path
+      li= link_to "Make a Video", new_project_path
       li= link_to "Projects", projects_path
       li= link_to "Your Account", edit_account_path
       li= link_to "Log Out", destroy_user_session_path, method: :delete
