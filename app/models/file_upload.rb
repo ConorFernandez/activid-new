@@ -1,6 +1,6 @@
 class FileUpload < ActiveRecord::Base
   FORMATS = {
-    video: %w(mov mp4 mpg flv wmv 3gp asf rm swf avi),
+    video: %w(mov mp4 mpg flv wmv 3gp asf rm swf avi tif tiff gif jpeg jpg jif jfif jp2 jpx j2c png pdf psd),
     music: %w(mp3 aac ogg wma wav mp4 flac)
   }
   belongs_to :attachable, polymorphic: true
