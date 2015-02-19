@@ -8,6 +8,14 @@ class Mailer < ActionMailer::Base
     mail(to: @editor.email, subject: "Your Activid Editor Account Has Been Created")
   end
 
+  def new_project_created(project)
+    @project = project
+    @admins = User.all.select(&:admin?)
+    @editors = User.all.select(&:editor?)
+    @link = project_url(@project)
+    mail(to: (@admins.map(&:email) + @editors.map(&:email)), subject: "A new project is available.")
+  end
+
   def failed_editor_payment_email(project, reason)
     @project = project
     @reason = reason
