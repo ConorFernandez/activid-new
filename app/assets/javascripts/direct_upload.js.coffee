@@ -106,7 +106,7 @@ window.dU =
     switch status
       when "done"
         element.append $("<span>", class: "delete-upload", html: "done", "data-upload-uuid": uuid) if uuid
-        element.append $("<a>", class: "delete-upload", html: "delete", "data-upload-uuid": uuid) if uuid
+        element.append $("<a>", class: "delete-upload", html: "delete?", "data-upload-uuid": uuid) if uuid
       when "uploading"
         element.append $("<a>", class: "cancel-upload", html: "cancel")
 
