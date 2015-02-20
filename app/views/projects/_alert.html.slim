@@ -28,7 +28,7 @@
 - elsif project.user == current_user && project.needs_approval?
   .alert-wrapper.waiting
     = link_to "A new cut is awaiting your approval. This is a watermarked and low resolution preview.", "#cut_#{project.latest_cut.id}"
-    = "This is a watermarked and low resolution preview.  Once you approve the cut, you will have access to the full quality video without watermark."
+    = " Once you approve the cut, you will have access to the full quality video without watermark."
 
 - elsif project.completed?
   .alert-wrapper.waiting
