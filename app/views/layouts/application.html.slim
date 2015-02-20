@@ -19,14 +19,14 @@ html
     meta name="twitter:description" content="#{@page_description}" 
     meta name="twitter:image" content= "#{image_url("activid_logo.png")}"
 
-    meta name="og:site_name" content="Activid"
-    meta name="og:type" content="video"
-    meta name="og:description" content="#{@page_description}"
-    meta name="og:image" content= "#{image_url("activid_logo.png")}"
-    meta name="og:url" content="#{request.original_url}"
-    meta name="og:title" content="#{@page_title.blank? ? "Activid" : "Activid • #{@page_title}"}"
+    meta property="og:site_name" content="Activid"
+    meta property="og:type" content="video"
+    meta property="og:description" content="#{@page_description}"
+    meta property="og:image" content= "#{image_url("activid_logo.png")}"
+    meta property="og:url" content="#{request.original_url}"
+    meta property="og:title" content="#{@page_title.blank? ? "Activid" : "Activid • #{@page_title}"}"
     - if @include_video_meta
-      meta name="og:video" content="#{@include_video_meta}"
+      meta property="og:video" content="#{@include_video_meta}"
 
     title= @page_title.blank? ? "Activid" : "Activid • #{@page_title}"
 
