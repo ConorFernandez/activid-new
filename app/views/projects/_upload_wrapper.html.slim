@@ -14,7 +14,8 @@
         .upload-progress
           span style="width: 100%"
 
-        a.delete-upload data-upload-uuid=file_upload.uuid Done. Delete?
+        span data-upload-uuid=file_upload.uuid Done
+        a.delete-upload data-upload-uuid=file_upload.uuid Delete?
 
       - if file_upload.zencoder_failed?
         .upload-error
