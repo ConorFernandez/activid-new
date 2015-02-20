@@ -11,7 +11,7 @@
 - if current_user.editor?
   .project-meta
     | Editor earnings: 
-    span= number_to_currency(project.editor_earnings / 100)
+    span= number_to_currency(project.editor_earnings / 100.0)
 
 /-----------  Customer  -----------/
 - unless current_user.user?
@@ -46,7 +46,7 @@
       | Final payment amount: 
     - else
       | Payment due upon approval: 
-    span= project.draft? ? "n/a" : number_to_currency(project.display_price / 100)
+    span= project.draft? ? "n/a" : number_to_currency(project.display_price / 100.0)
 
 /-----------  Assigned Editor  -----------/
 - unless current_user.editor? || project.editor.nil?

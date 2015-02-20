@@ -1,6 +1,6 @@
 p= "Hello,"
 
-p= "A payment in the amount of #{number_to_currency(@amount / 100)} has been sent to your bank account (ending in #{@editor.bank_account_last_four}) for the completion of \"#{@project.name}\": #{link_to project_url(@project), project_url(@project)}".html_safe
+p= "A payment in the amount of #{number_to_currency(@amount / 100.0)} has been sent to your bank account (ending in #{@editor.bank_account_last_four}) for the completion of \"#{@project.name}\": #{link_to project_url(@project), project_url(@project)}".html_safe
 
 p= "Note that it may take up to three days for the transfer to appear in your account."
 
