@@ -26,7 +26,8 @@ html
     meta property="og:url" content="#{request.original_url}"
     meta property="og:title" content="#{@page_title.blank? ? "Activid" : "Activid • #{@page_title}"}"
     - if @include_video_meta
-      meta property="og:video" content="#{@include_video_meta}"
+      meta property="og:video" content="http:#{@include_video_meta}"
+      meta property="og:video:secure_url" content="https:#{@include_video_meta}"
 
     title= @page_title.blank? ? "Activid" : "Activid • #{@page_title}"
 
