@@ -198,6 +198,10 @@ class Project < ActiveRecord::Base
     file_uploads.select(&:music?)
   end
 
+  def image_uploads
+    file_uploads.select(&:image?)
+  end
+
   def charge!
     if charged_at.nil?
       Stripe::Charge.create(
