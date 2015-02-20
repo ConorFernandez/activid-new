@@ -19,6 +19,10 @@ module ApplicationHelper
     @page_robots_follow = content
   end
 
+  def include_video_meta url
+    @include_video_meta = url
+  end
+
   def add_page_description(desc)
     @page_description = desc.blank? ? "Activid helps you transform your raw video into the perfect, beautifully edited movie." : desc
   end

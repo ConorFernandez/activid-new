@@ -2,6 +2,7 @@
 - add_page_class :project_single
 - add_page_description "Activid video: #{@project.name}. Transform your own raw video into the perfect, beautifully edited movie."
 - page_robots_follow 'none'
+- include_video_meta @project.latest_cut.file_upload.url 
 
 section
 
