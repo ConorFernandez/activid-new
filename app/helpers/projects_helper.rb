@@ -7,6 +7,10 @@ module ProjectsHelper
     end
   end
 
+  def url_safe_name project
+    URI.encode project.name
+  end
+
   def cut_due_in(project)
     t = project.cut_due_at > Time.now ? project.cut_due_at - Time.now : Time.now - project.cut_due_at
     d = (t / 1.day).to_i
