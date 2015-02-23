@@ -24,13 +24,13 @@ section
       a.facebook-link onClick="window.open('https://www.facebook.com/sharer/sharer.php?u=#{request.original_url}', 'pop', 'width=600, height=400, scrollbars=no');"
         i.icon-facebook
 
-      a.twitter-link onClick="window.open('https://twitter.com/share?url=#{request.original_url}&text=#{h(@project)}&hashtags=activid', 'pop', 'width=600, height=400, scrollbars=no');"
+      a.twitter-link onClick="window.open('https://twitter.com/share?url=#{request.original_url}&text=#{h(@project.name)}&hashtags=activid', 'pop', 'width=600, height=400, scrollbars=no');"
         i.icon-twitter
 
       a.gplus-link onClick="window.open('https://plus.google.com/share?url=#{request.original_url}', 'pop', 'width=600, height=400, scrollbars=no');"
         i.icon-gplus
 
-      a.linkedin-link onClick="window.open('http://www.linkedin.com/shareArticle?url=#{request.original_url}&title=#{h(@project)}', 'pop', 'width=600, height=400, scrollbars=no');"
+      a.linkedin-link onClick="window.open('http://www.linkedin.com/shareArticle?url=#{request.original_url}&title=#{h(@project.name)}', 'pop', 'width=600, height=400, scrollbars=no');"
         i.icon-linkedin
 
       span or email this link: 
