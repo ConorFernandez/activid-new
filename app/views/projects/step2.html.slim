@@ -8,9 +8,13 @@ section
     = form_for @project, html: {class: "direct-upload project-step-2", "data-attachable-type" => "project", "data-formats" => FileUpload::FORMATS[:video].join(","), "data-project-uuid" => @project.uuid} do |f|
       = hidden_field_tag :step, 2
 
-      h5 Upload your video files
-      p Add video or images - any type, no size limit!
+      h5 Upload your files
+      p Add video or image files. No size limit!
       p You can upload video files from your computer, or link to files that are in your DropBox account.
+      p
+        | Upload up to 30 minutes of video at no additional cost. Any video beyond 30 minutes will be subject to an additional charge. Please see our 
+        = link_to " pricing page", pricing_page_path
+        = " for more detail."
 
       = render "projects/upload_wrapper", file_uploads: @project.video_uploads
 
