@@ -28,6 +28,9 @@ section
             = "(#{@project.all_uploads_encoded? ? duration(@project.duration_of_uploads) : "calculating"}):"
           td= @project.all_uploads_encoded? ? "$#{@project.uploaded_footage_cost / 100}" : "-"
         tr
+          td= "Uploaded Images: #{@project.total_images}"
+          td= "$0"          
+        tr
           td.explainer colspan="2"
             | Turnaround time from project submission to first cut.
         tr
