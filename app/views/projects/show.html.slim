@@ -20,7 +20,7 @@ section
 
           .step-wrapper
             a.step-block.selected data-tab="discussion" Project Discussion
-            a.step-block data-tab="files" Files
+            a.step-block data-tab="files" Project Files
             - if current_user == @project.editor && !@project.completed?
               a.step-block data-tab="upload-cut" Upload Cut
 
