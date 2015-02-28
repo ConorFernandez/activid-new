@@ -28,7 +28,7 @@ section
             = "(#{@project.all_uploads_encoded? ? duration(@project.duration_of_uploads) : "calculating"}):"
           td= @project.all_uploads_encoded? ? "$#{@project.uploaded_footage_cost / 100}" : "-"
         tr
-          td= "Uploaded Images: #{@project.total_images}"
+          td= "Uploaded Images: #{@project.image_uploads.count}"
           td= "$0"          
         tr
           td.explainer colspan="2"

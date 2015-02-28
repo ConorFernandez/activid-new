@@ -93,16 +93,6 @@ class Project < ActiveRecord::Base
     end
   end
 
-  def total_images
-    images = []
-
-    self.file_uploads.each do |file|
-      images << file if file.image?
-    end 
-
-    return images.length   
-  end 
-
   def remove_logo_cost
     append_logo ? 0 : REMOVE_LOGO_COST
   end
