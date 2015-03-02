@@ -35,16 +35,24 @@ class UsersController < ApplicationController
   end
 
   def update_stripe_recipient
-    recipient = Stripe::Recipient.create(
-      :name => @user.full_name,
-      :type => "individual",
-      :email => @user.email,
-      :bank_account => params[:bank_account_token]
-    )
+    if @user.stripe_recipient_id.nil?
+      recipient = Stripe::Recipient.create(
+        :name => @user.full_name,
+        :type => "individual",
+        :email => @user.email,
+        :bank_account => params[:bank_account_token]
+      )
 
-    @user.update(
-      stripe_recipient_id: recipient.id,
-      bank_account_last_four: recipient.active_account.last4
-    )
+      @user.update(
+        stripe_recipient_id: recipient.id,
+        bank_account_last_four: recipient.active_account.last4
+      )
+    else
+      recipient = Stripe::Recipient.retrieve(@user.stripe_recipient_id)
+      recipient.bank_account = params[:bank_account_token]
+      recipient.name = @user.full_name
+      recipient.email = @user.email
+      recipient.save
+    end
   end
 end
