@@ -5,7 +5,7 @@
     - if project.draft? || project.initial_price.nil?
       span n/a
     - else
-      span= "#{number_to_currency(project.display_price / 100.0)} (#{number_to_currency(project.editor_earnings / 100.0)} editor / #{number_to_currency((project.display_price - project.editor_earnings) / 100.0)} Activid))"
+      span= "#{number_to_currency(project.display_price / 100.0)} (#{number_to_currency(project.editor_earnings / 100.0)} editor / #{number_to_currency((project.display_price - project.stripe_earnings - project.editor_earnings) / 100.0)} Activid))"
 
 /-----------  Editor Earnings  -----------/
 - if current_user.editor?

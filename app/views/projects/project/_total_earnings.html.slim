@@ -1,6 +1,6 @@
 .project-meta
   | Payment: 
   - if project.initial_price
-    span= "#{number_to_currency(project.display_price / 100.0)} (#{number_to_currency(project.editor_earnings / 100.0)} / #{number_to_currency((project.display_price - project.editor_earnings) / 100.0)})"
+    span= "#{number_to_currency(project.display_price / 100.0)} (#{number_to_currency(project.editor_earnings / 100.0)} / #{number_to_currency((project.display_price - project.stripe_earnings - project.editor_earnings) / 100.0)})"
   - else
     span n/a

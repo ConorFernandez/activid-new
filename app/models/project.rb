@@ -32,6 +32,8 @@ class Project < ActiveRecord::Base
 
   REMOVE_LOGO_COST = 2500
   ADDITIONAL_CUT_COST = 2500
+  STRIPE_CHARGE_PERCENTAGE = 0.029
+  STRIPE_CHARGE_FLAT = 30
 
   belongs_to :user
   belongs_to :editor, class_name: "User"
@@ -184,9 +186,17 @@ class Project < ActiveRecord::Base
 
   def editor_earnings
     if charged_price.present? && charged_price != 0
-      (charged_price * 0.7).to_i
+      (((charged_price * (1 - STRIPE_CHARGE_PERCENTAGE)) - STRIPE_CHARGE_FLAT) * 0.7).to_i
     else
-      ((calculated_price.presence || 0) * 0.7).to_i
+      ((((calculated_price.presence || 0) * (1 - STRIPE_CHARGE_PERCENTAGE)) - STRIPE_CHARGE_FLAT) * 0.7).to_i
+    end
+  end
+
+  def stripe_earnings
+    if charged_price.present? && charged_price != 0
+      ((charged_price * STRIPE_CHARGE_PERCENTAGE) + STRIPE_CHARGE_FLAT).to_i
+    else
+      (((calculated_price.presence || 0) * STRIPE_CHARGE_PERCENTAGE) + STRIPE_CHARGE_FLAT).to_i
     end
   end
 
