@@ -13,8 +13,8 @@ namespace :encoding do
         upload.attachable.update(processed_at: Time.now)
         Mailer.new_cut_email(upload.attachable).deliver
       elsif %w(failed finished).include?(job.body["job"]["state"])
+        error_message = job.body["job"]["input_media_file"]["error_message"]
         binding.pry
-        error_message = truncate(job.body["job"]["input_media_file"]["error_message"],250)
         upload.update(zencoder_status: "failed", zencoder_error: error_message || "File does not appear to be a valid video file.")
         Mailer.cut_failed_encoding_email(upload.attachable).deliver
       end
