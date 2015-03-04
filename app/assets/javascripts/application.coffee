@@ -14,6 +14,7 @@
 #= require jquery_ujs
 #= require jquery.ui.widget
 #= require jquery.fileupload
+#= require jquery.multidownload
 #= require handlebars
 #= require lowdash
 #= require stripe
