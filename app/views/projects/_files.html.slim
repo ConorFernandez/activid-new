@@ -6,6 +6,7 @@
   ul
     - project.video_uploads.each do |upload|
       li= link_to upload.file_name, upload.url, download: upload.file_name
+
 .file-list
   h6
     | Music 
@@ -16,3 +17,12 @@
       li= link_to url.split("/").last, url
     - project.music_uploads.each do |upload|
       li= link_to upload.file_name, upload.url
+  
+  .file-list
+  h6
+    | Images 
+    small= "(#{project.image_uploads.count})"
+
+  ul
+    - project.image_uploads.each do |upload|
+      li= link_to upload.file_name, upload.url    
