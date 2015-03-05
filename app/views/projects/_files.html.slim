@@ -8,10 +8,12 @@
     | Video
     small= "(#{project.video_uploads.count})"
  
+
+  - if (project.video_uploads.count > 1)
+    a href='#' id='download-video-button' class='button file-button' Download video 
+
   ul
-    - if (project.video_uploads.count > 1)
-      li
-        a href='#' id='download-video-button' class='file-button' Download all video 
+
     - if (project.video_uploads.count == 0)   
       li 
         | No videos files for this project   
@@ -23,10 +25,11 @@
     | Music 
     small= "(#{project.activid_music_urls.count + project.music_uploads.count})"
 
+  - if ((project.activid_music_urls.count + project.music_uploads.count) > 1)    
+    a href='#' id='download-audio-button' class='button file-button' Download music 
+
   ul
-    - if ((project.activid_music_urls.count + project.music_uploads.count) > 1)
-      li 
-        a href='#' id='download-audio-button' class='file-button' Download all music 
+
     - if ((project.activid_music_urls.count + project.music_uploads.count) == 0)   
       li 
         | No music files for this project       
@@ -40,10 +43,10 @@
     | Images 
     small= "(#{project.image_uploads.count})"
 
+  - if ((project.activid_music_urls.count + project.music_uploads.count) > 1)    
+    a href='#' id='download-images-button' class='button file-button' Download images 
+
   ul
-    - if (project.image_uploads.count > 1)
-      li 
-       a href='#' id='download-images-button' class='file-button' Download all images 
     - if ((project.image_uploads.count) == 0)   
       li 
         | No image files for this project       
