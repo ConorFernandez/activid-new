@@ -3,7 +3,7 @@
 var downloadAll; // takes a JQuery selector as string such as ".downloadable" or ".downloadable-image"
 
 downloadAll = function (event) { 
-  event.preventDefault; 
+  event.preventDefault(); 
   $(event.data.selector).multiDownload({ delay: 1000 }); // delay prevents "multiple file downloads: allow? yes/no" warning in some browsers
   $(event.data.selector).css("background-color", "yellow");
   setTimeout(function(){ $(event.data.selector).css("background-color", "inherit");;}, 250);
