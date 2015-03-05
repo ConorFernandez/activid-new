@@ -21,7 +21,7 @@ class FileUploadsController < ApplicationController
   end
 
   def presigned_post
-    presigned_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read)
+    presigned_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read, content_disposition: "attachment")
 
     render json: {
       post_url: presigned_post.url.to_s,
