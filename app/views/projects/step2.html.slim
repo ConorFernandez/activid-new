@@ -5,7 +5,7 @@ section
   .compact-wrapper
     = render "step_navigation", project: @project, step: 2
 
-    = form_for @project, html: {class: "direct-upload project-step-2", "data-attachable-type" => "project", "data-formats" => FileUpload::FORMATS[:video].join(","), "data-project-uuid" => @project.uuid} do |f|
+    = form_for @project, html: {class: "direct-upload project-step-2", "data-attachable-type" => "project", "data-formats" => (FileUpload::FORMATS[:video] + FileUpload::FORMATS[:image]).join(","), "data-project-uuid" => @project.uuid} do |f|
       = hidden_field_tag :step, 2
 
       h5 Upload your files
@@ -15,7 +15,7 @@ section
         = link_to " pricing page", pricing_page_path
         = " for more detail."
 
-      = render "projects/upload_wrapper", file_uploads: @project.video_uploads
+      = render "projects/upload_wrapper", file_uploads: ( @project.video_uploads + @project.image_uploads )
 
       small Tip 1: When uploading video files, make sure you're on a strong internet connection.
       small Tip 2: The files might take some time to upload. You can leave this page open, set your computer to never enter sleep mode, and come back when they're done!

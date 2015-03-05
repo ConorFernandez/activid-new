@@ -136,9 +136,9 @@ class ProjectsController < ApplicationController
 
     uploads_to_keep =
       if current_step == 2
-        project.music_uploads
+        project.music_uploads 
       elsif current_step == 3
-        project.video_uploads
+        project.video_uploads + project.image_uploads
       else
         []
       end

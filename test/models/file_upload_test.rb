@@ -22,6 +22,22 @@ class FileUploadTest < ActiveSupport::TestCase
     end
   end
 
+  test "identifies the correct extensions as image files" do
+    urls = [
+      "//activid-dev.s3.amazonaws.com/uploads/uuid/wrecking_ball.gif",
+      "//activid-dev.s3.amazonaws.com/uploads/uuid/wrecking_ball.tif",
+      "//activid-dev.s3.amazonaws.com/uploads/uuid/wrecking_ball.png",
+      "//activid-dev.s3.amazonaws.com/uploads/uuid/wrecking_ball.jpg"
+    ]
+
+    urls.each do |url|
+      file_upload = FileUpload.new(url: url)
+      p file_upload
+      p file_upload.file_type
+      assert_equal :image, file_upload.file_type, url
+    end
+  end
+
   test "identifies videos with a source_url but no url as having the correct type" do
     url = "https://www.dropbox.com/s/whjiecwxtlk2lkn/wrecking_ball.mp4?dl=0"
     file_upload = FileUpload.new(source_url: url)
