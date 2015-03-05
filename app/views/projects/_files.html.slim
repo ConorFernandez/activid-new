@@ -6,12 +6,9 @@
 .file-list
   h6
     | Video
-    small= "(#{project.video_uploads.count})"
+    - if (project.video_uploads.count > 1)
+      a href='#' id='download-video-button' class='button file-button' Download (#{project.video_uploads.count}) 
  
-
-  - if (project.video_uploads.count > 1)
-    a href='#' id='download-video-button' class='button file-button' Download video 
-
   ul
 
     - if (project.video_uploads.count == 0)   
@@ -22,11 +19,9 @@
 
 .file-list
   h6
-    | Music 
-    small= "(#{project.activid_music_urls.count + project.music_uploads.count})"
-
-  - if ((project.activid_music_urls.count + project.music_uploads.count) > 1)    
-    a href='#' id='download-audio-button' class='button file-button' Download music 
+    | Music
+    - if ((project.activid_music_urls.count + project.music_uploads.count) > 1)    
+      a href='#' id='download-audio-button' class='button file-button' Download (#{project.activid_music_urls.count + project.music_uploads.count})
 
   ul
 
@@ -40,11 +35,10 @@
   
   .file-list
   h6
-    | Images 
-    small= "(#{project.image_uploads.count})"
+    | Images
 
-  - if ((project.activid_music_urls.count + project.music_uploads.count) > 1)    
-    a href='#' id='download-images-button' class='button file-button' Download images 
+    - if (project.image_uploads.count > 1)    
+      a href='#' id='download-images-button' class='button file-button' Download (#{project.image_uploads.count}) 
 
   ul
     - if ((project.image_uploads.count) == 0)   
