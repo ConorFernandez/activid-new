@@ -9,8 +9,9 @@
     small= "(#{project.video_uploads.count})"
  
   ul
-    li
-      a href='#' id='download-video-button' class='file-button' Download all video 
+    - if (project.video_uploads.count > 1)
+     li
+        a href='#' id='download-video-button' class='file-button' Download all video 
     - project.video_uploads.each do |upload|
       li= link_to upload.file_name, upload.url, download: upload.file_name, class: "downloadable downloadable-video"
 
@@ -20,8 +21,9 @@
     small= "(#{project.activid_music_urls.count + project.music_uploads.count})"
 
   ul
-    li 
-      a href='#' id='download-audio-button' class='file-button' Download all music 
+    - if ((project.activid_music_urls.count + project.music_uploads.count) > 1)
+      li 
+        a href='#' id='download-audio-button' class='file-button' Download all music 
     - project.activid_music_urls.each do |url|
       li= link_to url.split("/").last, url, class: "downloadable downloadable-audio"
     - project.music_uploads.each do |upload|
@@ -33,8 +35,9 @@
     small= "(#{project.image_uploads.count})"
 
   ul
-    li 
-      a href='#' id='download-images-button' class='file-button' Download all images 
+    - if (project.image_uploads.count > 1)
+      li 
+       a href='#' id='download-images-button' class='file-button' Download all images 
     - project.image_uploads.each do |upload|
       li= link_to upload.file_name, upload.url, class: "downloadable downloadable-image"  
 
