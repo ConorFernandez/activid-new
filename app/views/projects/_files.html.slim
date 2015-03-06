@@ -1,28 +1,51 @@
+
+
+.file-list 
+  a href='#' id='download-all-button' class='button' Download all files 
+
 .file-list
   h6
-    | Video 
-    small= "(#{project.video_uploads.count})"
-
+    | Video
+    - if (project.video_uploads.count > 1)
+      a href='#' id='download-video-button' class='button file-button' Download (#{project.video_uploads.count}) 
+ 
   ul
+
+    - if (project.video_uploads.count == 0)   
+      li 
+        | No videos files for this project   
     - project.video_uploads.each do |upload|
-      li= link_to upload.file_name, upload.url, download: upload.file_name
+      li= link_to upload.file_name, upload.url, download: upload.file_name, class: "downloadable downloadable-video"
 
 .file-list
   h6
-    | Music 
-    small= "(#{project.activid_music_urls.count + project.music_uploads.count})"
+    | Music
+    - if ((project.activid_music_urls.count + project.music_uploads.count) > 1)    
+      a href='#' id='download-audio-button' class='button file-button' Download (#{project.activid_music_urls.count + project.music_uploads.count})
 
   ul
+
+    - if ((project.activid_music_urls.count + project.music_uploads.count) == 0)   
+      li 
+        | No music files for this project       
     - project.activid_music_urls.each do |url|
-      li= link_to url.split("/").last, url
+      li= link_to url.split("/").last, url, class: "downloadable downloadable-audio"
     - project.music_uploads.each do |upload|
-      li= link_to upload.file_name, upload.url
+      li= link_to upload.file_name, upload.url, class: "downloadable downloadable-audio"
   
   .file-list
   h6
-    | Images 
-    small= "(#{project.image_uploads.count})"
+    | Images
+
+    - if (project.image_uploads.count > 1)    
+      a href='#' id='download-images-button' class='button file-button' Download (#{project.image_uploads.count}) 
 
   ul
+    - if ((project.image_uploads.count) == 0)   
+      li 
+        | No image files for this project       
     - project.image_uploads.each do |upload|
-      li= link_to upload.file_name, upload.url    
+      li= link_to upload.file_name, upload.url, class: "downloadable downloadable-image"  
+
+
+
