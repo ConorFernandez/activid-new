@@ -20,6 +20,17 @@ class FileUpload < ActiveRecord::Base
     uuid
   end
 
+  def create_s3_url!
+    if self.url == nil
+      @target_url = "http://#{ENV["S3_BUCKET"]}.s3.amazonaws.com/uploads/#{SecureRandom.uuid}/#{file_name}"
+      update(url: @target_url)
+      puts "FILE UPLOAD: file_upload URL updated to " + url
+    else
+      puts "FILE UPLOAD: file_upload URL already exists"
+      p self.url
+    end  
+  end  
+
   def queue_zencoder_job(attachable_type)
     job =
       case attachable_type
@@ -29,21 +40,6 @@ class FileUpload < ActiveRecord::Base
             input: "s3:#{url}",
             outputs: {
               type: "transfer-only"
-            }
-          })
-        elsif source_url.present?
-          target_url = "http://#{ENV["S3_BUCKET"]}.s3.amazonaws.com/uploads/#{SecureRandom.uuid}/#{file_name}"
-          update(url: target_url)
-
-          Zencoder::Job.create({
-            input: source_url,
-            outputs: {
-              type: "transfer-only",
-              url: target_url,
-              access_control: [{
-                permission: ["READ_ACP", "READ"],
-                grantee: "http://acs.amazonaws.com/groups/global/AllUsers"
-              }]
             }
           })
           puts "FILE UPLOAD: queue_zencoder_job sent a job to Zencoder: " + url  

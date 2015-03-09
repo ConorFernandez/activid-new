@@ -11,6 +11,7 @@ class FileUploadsController < ApplicationController
     # puts  "file_upload_params:"
     # p file_upload_params
     if @file_upload.save
+      @file_upload.create_s3_url!
       @file_upload.queue_zencoder_job(params[:attachable_type]) if @file_upload.video?
       attach_file_upload(@file_upload) if params[:project_uuid].present?
 
