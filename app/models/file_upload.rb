@@ -46,6 +46,9 @@ class FileUpload < ActiveRecord::Base
               }]
             }
           })
+          puts "FILE UPLOAD: queue_zencoder_job sent a job to Zencoder: " + url  
+        else
+          puts "FILE UPLOAD: ----- ERROR: queue_zencoder_job couldn't find a file_upload URL ----"  
         end
       when "cut"
         Zencoder::Job.create({
@@ -79,6 +82,7 @@ class FileUpload < ActiveRecord::Base
   end
 
   def extension
+    # p "FILE UPLOAD: extension runs: " + file_name.split(".").last.downcase + " from " + file_name
     file_name.split(".").last.downcase
   end
 
@@ -118,5 +122,6 @@ class FileUpload < ActiveRecord::Base
 
   def generate_uuid
     self.uuid = UUID.new.generate
+    puts "FILE UPLOAD: UUID generated: " + self.uuid
   end
 end
