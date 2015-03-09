@@ -32,8 +32,6 @@ class FileUploadTest < ActiveSupport::TestCase
 
     urls.each do |url|
       file_upload = FileUpload.new(url: url)
-      p file_upload
-      p file_upload.file_type
       assert_equal :image, file_upload.file_type, url
     end
   end
