@@ -5,7 +5,6 @@ class FileUploadsController < ApplicationController
   def create
     puts ""
     puts "FILE UPLOAD: file_upload create runs"
-    puts ""
     @file_upload = FileUpload.new(file_upload_params)
 
     # puts  "file_upload_params:"

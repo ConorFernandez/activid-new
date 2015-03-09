@@ -36,15 +36,17 @@ class FileUpload < ActiveRecord::Base
       case attachable_type
       when "project"
         if url.present?
+
+          puts "FILE UPLOAD: queue_zencoder_job sent a job to Zencoder: " + url  
           Zencoder::Job.create({
             input: "s3:#{url}",
             outputs: {
               type: "transfer-only"
             }
           })
-          puts "FILE UPLOAD: queue_zencoder_job sent a job to Zencoder: " + url  
+
         else
-          puts "FILE UPLOAD: ----- ERROR: queue_zencoder_job couldn't find a file_upload URL ----"  
+          puts "FILE UPLOAD: ----- ERROR: queue_zencoder_job couldn't find a file_upload URL -----"  
         end
       when "cut"
         Zencoder::Job.create({
@@ -63,9 +65,11 @@ class FileUpload < ActiveRecord::Base
           }
         })
       else
-        nil
+        puts "FILE UPLOAD: ----- ERROR: queue_zencoder_job couldn't find a file_upload URL for cut -----"
       end
 
+    puts "FILE UPLOAD: Inspecting zencoder job"
+    p job
     update(zencoder_job_id: job.body["id"], zencoder_status: "processing") if job
   end
 
