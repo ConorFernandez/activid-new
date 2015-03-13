@@ -9,6 +9,13 @@ class ProjectsController < ApplicationController
     @project = Project.new
   end
 
+  def destroy
+    @project = Project.where(uuid: params[:id]).first
+    Mailer.project_deleted(@project).deliver
+    @project.destroy
+    redirect_to(projects_path)
+  end
+
   def index
     if current_user.user?
       @projects = current_user.projects.order("created_at DESC")

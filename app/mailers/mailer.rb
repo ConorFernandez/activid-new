@@ -16,11 +16,21 @@ class Mailer < ActionMailer::Base
     mail(to: (@admins.map(&:email) + @editors.map(&:email)), subject: "A new project is available.")
   end
 
+  def project_deleted(project)
+    @project = project
+    @editor = @project.editor
+    @admins = User.all.select(&:admin?)
+    @user =  @project.user
+    
+    mail(to: @admins.map(&:email), subject: "An admin deleted a project")
+
+  end
+
   def failed_editor_payment_email(project, reason)
     @project = project
     @reason = reason
     @editor = project.editor
-    @admins = User.all.select(&:admin?)
+    @admins =User.all.select(&:admin?)
 
     mail(to: (@admins.map(&:email) + [@editor.email]), subject: "Editor payment for \"#{@project.name}\" failed")
   end
