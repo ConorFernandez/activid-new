@@ -87,3 +87,12 @@ br
   .project-meta
     | Special Instructions: 
     span.special-instructions= project.instructions
+
+/------------- Admin DELETE SETTINGS --------/
+- if current_user.admin?
+  .project-meta
+    | Delete this project? WARNING
+    | You will be e-mailed a summary of the project, and then it will be purged from the system.
+    | You will need to contact the editor and customer to let them know the project was cancelled
+
+    = button_to "delete forever", @project, :method => :delete
