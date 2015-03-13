@@ -2,7 +2,12 @@ p Hello,
 
 p = "An admin canceled and deleted a project. \"#{@project.name}\" is no longer available. No further charges or payments will occur and must be done manually."
 
-p = "The customer's email is #{@user.email} and the editor's e-mail is #{@editor.email}"
+p = "The customer's email is #{@user.email}"
+
+- if @editor.nil?
+  p = "This project was 'available' so there was no editor"
+-  else
+  p = "The editor's e-mail is #{@editor.email}"
 
 
 p = "Original earnings split: #{number_to_currency(@project.display_price / 100.0)} (#{number_to_currency(@project.editor_earnings / 100.0)} editor / #{number_to_currency((@project.display_price - @project.stripe_earnings - @project.editor_earnings) / 100.0)} Activid))"
