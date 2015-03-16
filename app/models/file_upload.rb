@@ -16,37 +16,54 @@ class FileUpload < ActiveRecord::Base
   validates :uuid, presence: true,
                    uniqueness: true
 
+# Kinds of URL on this object:
+# - url / intially meaning a file which came in via direct upload. zencoder wants this prepended with s3://my-path
+# - target_url / a local value, not in schema 
+# - source_url / meaning a file via a dropbox url. zencoder wants this prepended with http://my-path plus some metadata about access control
+
   def to_param
     uuid
   end
 
   def create_s3_url!
+   
     if self.url == nil
-      @target_url = "//#{ENV["S3_BUCKET"]}.s3.amazonaws.com/uploads/#{SecureRandom.uuid}/#{file_name}"
+      @target_url = "http://#{ENV["S3_BUCKET"]}.s3.amazonaws.com/uploads/#{SecureRandom.uuid}/#{file_name}"
       update(url: @target_url)
-      puts "FILE UPLOAD: file_upload URL updated to " + url
+      puts "FILE UPLOAD: Dropbox upload. File_upload url updated to " + self.url
     else
-      puts "FILE UPLOAD: file_upload URL already exists"
+      puts "FILE UPLOAD: Direct upload. File_upload url already exists"
       p self.url
-    end  
+    end 
   end  
 
   def queue_zencoder_job(attachable_type)
     job =
       case attachable_type
       when "project"
-        if url.present?
+        if source_url == nil
 
-          puts "FILE UPLOAD: queue_zencoder_job sent a job to Zencoder: " + url  
+          puts "FILE UPLOAD: queue_zencoder_job sent a direct upload file to Zencoder: " + url  
           Zencoder::Job.create({
-            input: "s3:#{url}",
+            input: "s3:" + url,
             outputs: {
               type: "transfer-only"
             }
           })
 
         else
-          puts "FILE UPLOAD: ----- ERROR: queue_zencoder_job couldn't find a file_upload URL -----"  
+          puts "FILE UPLOAD: queue_zencoder_job sent a dropbox upload to Zencoder: " + url  
+          Zencoder::Job.create({
+            input: source_url,
+            outputs: {
+              type: "transfer-only",
+              url: url,
+              access_control: [{
+                permission: ["READ_ACP", "READ"],
+                grantee: "http://acs.amazonaws.com/groups/global/AllUsers"
+              }]
+            }
+          })
         end
       when "cut"
         Zencoder::Job.create({
