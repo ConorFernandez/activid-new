@@ -22,7 +22,7 @@ class FileUpload < ActiveRecord::Base
 
   def create_s3_url!
     if self.url == nil
-      @target_url = "http://#{ENV["S3_BUCKET"]}.s3.amazonaws.com/uploads/#{SecureRandom.uuid}/#{file_name}"
+      @target_url = "//#{ENV["S3_BUCKET"]}.s3.amazonaws.com/uploads/#{SecureRandom.uuid}/#{file_name}"
       update(url: @target_url)
       puts "FILE UPLOAD: file_upload URL updated to " + url
     else
