@@ -1,14 +1,14 @@
 $.fn.directUpload = ->
   formats = this.data("formats").split(",")
 
-  this.addFileUpload(formats)
+  this.addMultipleFileUpload()
   this.bindUploadActions()
   this.find("button.add-file").click (event) ->
     event.preventDefault()
     $("input[type=file]:last").click()
 
-$.fn.addFileUpload = (formats) ->
-  dU.addFileUpload(this, formats)
+$.fn.addMultipleFileUpload = (formats) ->
+  dU.addMultipleFileUpload(this, formats)
 
 $.fn.bindUploadActions = ->
   dU.bindUploadActions(this)
@@ -17,6 +17,7 @@ $.fn.makeDirectUpload = (presignedPost) ->
   dU.makeDirectUpload(this, presignedPost)
 
 window.dU =
+  # @deprecated, please use addMultipleFileUpload()
   addFileUpload: (form, formats) ->
     fileUpload = $("<input>", type: "file")
     container = $("<div>", class: "upload-block-placeholder")
@@ -24,6 +25,18 @@ window.dU =
     $.get "/file_uploads/presigned_post", (data, status) ->
       container.append(fileUpload).insertBefore(form.find(".upload-wrapper footer"))
       dU.makeDirectUpload(fileUpload, data, formats)
+
+  addMultipleFileUpload: (form, formats) ->
+    container = $("<div>", class: "upload-block-placeholder")
+    fileUpload = $("<input>", type: "file")
+    fileUpload.on('change', this.filesAdded.bind(this))
+    container.append(fileUpload).insertBefore(form.find(".upload-wrapper footer"))
+
+  filesAdded: (event) ->
+    files = event.originalEvent.target.files
+    $.get "/file_uploads/presigned_posts/#{files.length}", (presignedPosts, status) ->
+      for posts in presignedPosts
+        dU.makeDirectUpload(fileUpload, posts, formats)
 
   makeDirectUpload: (fileInput, presignedPost, formats) ->
     form = $(fileInput.parents("form:first"))

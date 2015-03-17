@@ -31,12 +31,14 @@ class FileUploadsController < ApplicationController
   end
 
   def presigned_post
-    presigned_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read, content_disposition: "attachment")
+    render json: retrieve_presigned_post
+  end
+
+  def presigned_posts
+    posts = params[:count].to_i.times.collect { retrieve_presigned_post }
 
     render json: {
-      post_url: presigned_post.url.to_s,
-      form_data: presigned_post.fields,
-      remote_host: presigned_post.url.host
+      presigned_posts: posts
     }
   end
 
@@ -65,5 +67,15 @@ class FileUploadsController < ApplicationController
     if project && (project.user == current_user || project.user.nil?)
       file_upload.update(attachable: project)
     end
+  end
+
+  def retrieve_presigned_post
+    presigned_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read, content_disposition: "attachment")
+
+    {
+      post_url: presigned_post.url.to_s,
+      form_data: presigned_post.fields,
+      remote_host: presigned_post.url.host
+    }
   end
 end
