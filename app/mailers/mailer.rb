@@ -13,7 +13,7 @@ class Mailer < ActionMailer::Base
     @admins = User.all.select(&:admin?)
     @editors = User.all.select(&:editor?)
     @link = project_url(@project)
-    mail(to: (@admins.map(&:email) + @editors.map(&:email)), subject: "A new project is available.")
+    mail(bcc: (@admins.map(&:email) + @editors.map(&:email)), subject: "A new project is available.")
   end
 
   def project_deleted(project)
@@ -32,7 +32,7 @@ class Mailer < ActionMailer::Base
     @editor = project.editor
     @admins =User.all.select(&:admin?)
 
-    mail(to: (@admins.map(&:email) + [@editor.email]), subject: "Editor payment for \"#{@project.name}\" failed")
+    mail(bcc: (@admins.map(&:email) + [@editor.email]), subject: "Editor payment for \"#{@project.name}\" failed")
   end
 
   def successful_editor_payment_email(project, amount)
