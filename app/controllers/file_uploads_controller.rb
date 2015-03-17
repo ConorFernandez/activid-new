@@ -34,7 +34,7 @@ class FileUploadsController < ApplicationController
   end
 
   def presigned_posts
-    posts = params[:count].to_i.times.collect { retrieve_presigned_post }
+    posts = params[:number].to_i.times.collect { retrieve_presigned_post }
 
     render json: {
       presigned_posts: posts
