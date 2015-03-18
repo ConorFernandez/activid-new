@@ -29,6 +29,7 @@ class FileUpload < ActiveRecord::Base
   end
 
   def create_s3_url!
+
     from_dropbox = url.nil?
 
     if from_dropbox
@@ -37,41 +38,42 @@ class FileUpload < ActiveRecord::Base
       puts "FILE UPLOAD: Dropbox upload. File_upload url updated to " + self.url
 
       # video files are sent to S3 by the video encoding service
-      get_from_dropbox(self) unless video?
-      # send the file to Amazon
+      get_from_dropbox unless video?
+      send_file_to_s3 unless video?
     else
-      puts "FILE UPLOAD: Direct upload. File_upload url already exists"
+      puts "FILE UPLOAD: Direct upload. File_upload url already exists:"
       p self.url
     end  
      
   end
 
-# 
-# 
-# 
-def get_from_dropbox (file_upload)
-
-  file = open(self.file_name)
-  begin
-      http.request_get(self.url) do |resp|
+  def get_from_dropbox
+    puts "FILE UPLOAD: get_from_dropbox runs"
+    f = File.open("tmp/file-transfer/" + self.file_name , "wb")
+    begin
+      uri = URI(self.source_url)
+      Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https') do |http|
+        http.use_ssl = true
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        http.request_get(self.source_url) do |resp|
           resp.read_body do |segment|
-              file.write(segment)
+            f.write(segment)
           end
-      end
-  ensure
-      file.close()
+        end
+      end   
+    ensure
+        f.close()
+    end
   end
-end
 
+  def send_file_to_s3
+    puts "FILE UPLOAD: send_file_to_s3 runs"
+    
+    s3_object.write File.read("tmp/file-transfer/" + self.file_name)
 
-#
-#
-#
-
-
-# obj = s3.buckets['my_bucket'].objects['my_new_key.mov']
-# obj.write File.read(resp)
-
+    puts "FILE UPLOAD: AWS OBJECT IS..."
+    p s3_object
+  end  
 
   def queue_zencoder_job(attachable_type)
     job =
@@ -170,6 +172,16 @@ end
   def zencoder_failed?
     zencoder_status == "failed"
   end
+
+  def s3_object
+    S3_BUCKET.objects[s3_object_key]
+  end
+
+  def s3_object_key
+    url.match(/s3\.amazonaws\.com\/(.+)$/)[1]
+  end
+
+  delegate :url_for, to: :s3_object
 
   private
 
