@@ -29,25 +29,22 @@ class FileUpload < ActiveRecord::Base
   end
 
   def create_s3_url!
-   
-    self.from_dropbox = true if self.url == nil
+    from_dropbox = url.nil?
 
-    if self.from_dropbox == true 
+    if from_dropbox
       @target_url = "http://#{ENV["S3_BUCKET"]}.s3.amazonaws.com/uploads/#{SecureRandom.uuid}/#{file_name}"
       update(url: @target_url)
       puts "FILE UPLOAD: Dropbox upload. File_upload url updated to " + self.url
+
+      # video files are sent to S3 by the video encoding service
+      get_from_dropbox(self) unless video?
+      # send the file to Amazon
     else
       puts "FILE UPLOAD: Direct upload. File_upload url already exists"
       p self.url
-    end   
-
-    if self.from_dropbox == true && self.video? == false
-    # video files are sent to S3 by the video encoding service
-      get_from_dropbox(self)
-      # send the file to Amazon 
     end  
      
-  end  
+  end
 
 # 
 # 
