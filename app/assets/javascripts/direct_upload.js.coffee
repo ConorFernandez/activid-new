@@ -87,7 +87,8 @@ window.dU =
         # extract key and generate URL from response
         key = $(data.jqXHR.responseXML).find("Key").text()
         url = "//#{presignedPost.remote_host}/#{key}"
-
+        console.log "POSTing file url of", url
+        
         $.ajax
           type: "POST"
           url: "/file_uploads"

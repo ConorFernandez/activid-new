@@ -1,3 +1,6 @@
+require "net/http"
+require "uri"
+
 class FileUpload < ActiveRecord::Base
   FORMATS = {
     video: %w(mov mp4 mpg flv wmv 3gp asf rm swf avi),
@@ -27,15 +30,51 @@ class FileUpload < ActiveRecord::Base
 
   def create_s3_url!
    
-    if self.url == nil
+    self.from_dropbox = true if self.url == nil
+
+    if self.from_dropbox == true 
       @target_url = "http://#{ENV["S3_BUCKET"]}.s3.amazonaws.com/uploads/#{SecureRandom.uuid}/#{file_name}"
       update(url: @target_url)
       puts "FILE UPLOAD: Dropbox upload. File_upload url updated to " + self.url
     else
       puts "FILE UPLOAD: Direct upload. File_upload url already exists"
       p self.url
-    end 
+    end   
+
+    if self.from_dropbox == true && self.video? == false
+    # video files are sent to S3 by the video encoding service
+      get_from_dropbox(self)
+      # send the file to Amazon 
+    end  
+     
   end  
+
+# 
+# 
+# 
+def get_from_dropbox (file_upload)
+
+  file = open(self.file_name)
+  begin
+      http.request_get(self.url) do |resp|
+          resp.read_body do |segment|
+              file.write(segment)
+          end
+      end
+  ensure
+      file.close()
+  end
+end
+
+
+#
+#
+#
+
+
+# obj = s3.buckets['my_bucket'].objects['my_new_key.mov']
+# obj.write File.read(resp)
+
 
   def queue_zencoder_job(attachable_type)
     job =
