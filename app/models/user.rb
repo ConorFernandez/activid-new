@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   scope :editor, -> { where(role: ROLE::EDITOR) }
 
   def can_view_project?(project)
+    return unless project
     if user?
       # current users can only view their own projects and projects that don't belong to anyone
       project.user.nil? || project.user == self
