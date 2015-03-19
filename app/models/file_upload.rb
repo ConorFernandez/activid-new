@@ -19,32 +19,30 @@ class FileUpload < ActiveRecord::Base
   validates :uuid, presence: true,
                    uniqueness: true
 
-# Kinds of URL on this object:
-# - url / intially meaning a file which came in via direct upload. zencoder wants this prepended with s3://my-path
-# - target_url / a local value, not in schema 
-# - source_url / meaning a file via a dropbox url. zencoder wants this prepended with http://my-path plus some metadata about access control
+  # Kinds of URL on this object:
+  # - url / Files which start with a URL came in via direct upload presigned POST. zencoder wants this prepended with s3://my-path
+  #         All files get a url during processing. This is where download links are pointed. 
+  # - target_url / a local value, not in schema 
+  # - source_url / origin of a file via a dropbox url. zencoder wants this prepended with http://my-path plus some metadata about access control
 
   def to_param
     uuid
   end
 
   def create_s3_url!
-
     from_dropbox = url.nil?
 
     if from_dropbox
       @target_url = "http://#{ENV["S3_BUCKET"]}.s3.amazonaws.com/uploads/#{SecureRandom.uuid}/#{file_name}"
       update(url: @target_url)
-      puts "FILE UPLOAD: Dropbox upload. File_upload url updated to " + self.url
+      puts "FILE UPLOAD: Dropbox upload. File_upload url updated to #{self.url}"
 
       # video files are sent to S3 by the video encoding service
       get_from_dropbox unless video?
       send_file_to_s3 unless video?
     else
-      puts "FILE UPLOAD: Direct upload. File_upload url already exists:"
-      p self.url
+      puts "FILE UPLOAD: Direct upload. File_upload url already exists: #{self.url}"
     end  
-     
   end
 
   def get_from_dropbox
@@ -68,11 +66,7 @@ class FileUpload < ActiveRecord::Base
 
   def send_file_to_s3
     puts "FILE UPLOAD: send_file_to_s3 runs"
-  
     s3_object.write File.read("tmp/file-transfer/" + self.file_name), s3_options
-
-    puts "FILE UPLOAD: AWS OBJECT IS..."
-    p s3_object
   end
 
   def queue_zencoder_job(attachable_type)
@@ -123,8 +117,6 @@ class FileUpload < ActiveRecord::Base
         puts "FILE UPLOAD: ----- ERROR: queue_zencoder_job couldn't find a file_upload URL for cut -----"
       end
 
-    puts "FILE UPLOAD: Inspecting zencoder job"
-    p job
     update(zencoder_job_id: job.body["id"], zencoder_status: "processing") if job
   end
 
@@ -137,7 +129,6 @@ class FileUpload < ActiveRecord::Base
   end
 
   def extension
-    # p "FILE UPLOAD: extension runs: " + file_name.split(".").last.downcase + " from " + file_name
     file_name.split(".").last.downcase
   end
 
@@ -191,7 +182,7 @@ class FileUpload < ActiveRecord::Base
 
   def generate_uuid
     self.uuid = UUID.new.generate
-    puts "FILE UPLOAD: UUID generated: " + self.uuid
+    puts "FILE UPLOAD: UUID generated - #{self.uuid}"
   end
 
   def file_transfer_path

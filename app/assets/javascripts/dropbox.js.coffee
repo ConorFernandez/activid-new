@@ -28,7 +28,6 @@ $ ->
             form.find(".upload-wrapper .upload-spinner").show()
 
           for file in files
-            console.log "POSTing to /file_uploads with source_url", file.link
             $.ajax
               type: "POST"
               url: "/file_uploads"
