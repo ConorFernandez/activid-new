@@ -73,7 +73,7 @@ class FileUpload < ActiveRecord::Base
 
     puts "FILE UPLOAD: AWS OBJECT IS..."
     p s3_object
-  end   
+  end
 
   def queue_zencoder_job(attachable_type)
     job =
