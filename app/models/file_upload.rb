@@ -68,8 +68,8 @@ class FileUpload < ActiveRecord::Base
 
   def send_file_to_s3
     puts "FILE UPLOAD: send_file_to_s3 runs"
-    
-    s3_object.write File.read("tmp/file-transfer/" + self.file_name)
+  
+    s3_object.write File.read("tmp/file-transfer/" + self.file_name), s3_options
 
     puts "FILE UPLOAD: AWS OBJECT IS..."
     p s3_object
@@ -179,6 +179,10 @@ class FileUpload < ActiveRecord::Base
 
   def s3_object_key
     url.match(/s3\.amazonaws\.com\/(.+)$/)[1]
+  end
+
+  def s3_options
+    { content_disposition: 'attachment' }
   end
 
   delegate :url_for, to: :s3_object
