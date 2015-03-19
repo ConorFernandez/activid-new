@@ -49,7 +49,7 @@ class FileUpload < ActiveRecord::Base
 
   def get_from_dropbox
     puts "FILE UPLOAD: get_from_dropbox runs"
-    f = File.open("tmp/file-transfer/" + self.file_name , "wb")
+    f = File.open(file_transfer_path + self.file_name, "wb")
     begin
       uri = URI(self.source_url)
       Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https') do |http|
@@ -188,5 +188,9 @@ class FileUpload < ActiveRecord::Base
   def generate_uuid
     self.uuid = UUID.new.generate
     puts "FILE UPLOAD: UUID generated: " + self.uuid
+  end
+
+  def file_transfer_path
+    @file_transfer_path ||= Rails.root.join("tmp/file-transfer/").tap {|dir| FileUtils.mkdir_p(dir) }
   end
 end
