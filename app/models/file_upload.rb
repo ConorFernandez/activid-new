@@ -1,3 +1,6 @@
+require "net/http"
+require "uri"
+
 class FileUpload < ActiveRecord::Base
   FORMATS = {
     video: %w(mov mp4 mpg flv wmv 3gp asf rm swf avi),
@@ -16,37 +19,83 @@ class FileUpload < ActiveRecord::Base
   validates :uuid, presence: true,
                    uniqueness: true
 
+  # Kinds of URL on this object:
+  # - url / Files which start with a URL came in via direct upload presigned POST. zencoder wants this prepended with s3://my-path
+  #         All files get a url during processing. This is where download links are pointed. 
+  # - target_url / a local value, not in schema 
+  # - source_url / origin of a file via a dropbox url. zencoder wants this prepended with http://my-path plus some metadata about access control
+
   def to_param
     uuid
   end
 
   def create_s3_url!
-    if self.url == nil
-      @target_url = "//#{ENV["S3_BUCKET"]}.s3.amazonaws.com/uploads/#{SecureRandom.uuid}/#{file_name}"
+    from_dropbox = url.nil?
+
+    if from_dropbox
+      @target_url = "http://#{ENV["S3_BUCKET"]}.s3.amazonaws.com/uploads/#{SecureRandom.uuid}/#{file_name}"
       update(url: @target_url)
-      puts "FILE UPLOAD: file_upload URL updated to " + url
+      puts "FILE UPLOAD: Dropbox upload. File_upload url updated to #{self.url}"
+
+      # video files are sent to S3 by the video encoding service
+      get_from_dropbox unless video?
+      send_file_to_s3 unless video?
     else
-      puts "FILE UPLOAD: file_upload URL already exists"
-      p self.url
+      puts "FILE UPLOAD: Direct upload. File_upload url already exists: #{self.url}"
     end  
-  end  
+  end
+
+  def get_from_dropbox
+    puts "FILE UPLOAD: get_from_dropbox runs"
+    f = File.open(file_transfer_path + self.file_name, "wb")
+    begin
+      uri = URI(self.source_url)
+      Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https') do |http|
+        http.use_ssl = true
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        http.request_get(self.source_url) do |resp|
+          resp.read_body do |segment|
+            f.write(segment)
+          end
+        end
+      end   
+    ensure
+        f.close()
+    end
+  end
+
+  def send_file_to_s3
+    puts "FILE UPLOAD: send_file_to_s3 runs"
+    s3_object.write File.read("tmp/file-transfer/" + self.file_name), s3_options
+  end
 
   def queue_zencoder_job(attachable_type)
     job =
       case attachable_type
       when "project"
-        if url.present?
+        if source_url == nil
 
-          puts "FILE UPLOAD: queue_zencoder_job sent a job to Zencoder: " + url  
+          puts "FILE UPLOAD: queue_zencoder_job sent a direct upload file to Zencoder: #{url}"
           Zencoder::Job.create({
-            input: "s3:#{url}",
+            input: "s3:" + url,
             outputs: {
               type: "transfer-only"
             }
           })
 
         else
-          puts "FILE UPLOAD: ----- ERROR: queue_zencoder_job couldn't find a file_upload URL -----"  
+          puts "FILE UPLOAD: queue_zencoder_job sent a dropbox upload to Zencoder: #{url}"
+          Zencoder::Job.create({
+            input: source_url,
+            outputs: {
+              type: "transfer-only",
+              url: url,
+              access_control: [{
+                permission: ["READ_ACP", "READ"],
+                grantee: "http://acs.amazonaws.com/groups/global/AllUsers"
+              }]
+            }
+          })
         end
       when "cut"
         Zencoder::Job.create({
@@ -68,8 +117,6 @@ class FileUpload < ActiveRecord::Base
         puts "FILE UPLOAD: ----- ERROR: queue_zencoder_job couldn't find a file_upload URL for cut -----"
       end
 
-    puts "FILE UPLOAD: Inspecting zencoder job"
-    p job
     update(zencoder_job_id: job.body["id"], zencoder_status: "processing") if job
   end
 
@@ -82,7 +129,6 @@ class FileUpload < ActiveRecord::Base
   end
 
   def extension
-    # p "FILE UPLOAD: extension runs: " + file_name.split(".").last.downcase + " from " + file_name
     file_name.split(".").last.downcase
   end
 
@@ -118,10 +164,28 @@ class FileUpload < ActiveRecord::Base
     zencoder_status == "failed"
   end
 
+  def s3_object
+    S3_BUCKET.objects[s3_object_key]
+  end
+
+  def s3_object_key
+    url.match(/s3\.amazonaws\.com\/(.+)$/)[1]
+  end
+
+  def s3_options
+    { content_disposition: 'attachment' }
+  end
+
+  delegate :url_for, to: :s3_object
+
   private
 
   def generate_uuid
     self.uuid = UUID.new.generate
-    puts "FILE UPLOAD: UUID generated: " + self.uuid
+    puts "FILE UPLOAD: UUID generated - #{self.uuid}"
+  end
+
+  def file_transfer_path
+    @file_transfer_path ||= Rails.root.join("tmp/file-transfer/").tap {|dir| FileUtils.mkdir_p(dir) }
   end
 end
