@@ -81,7 +81,7 @@ class FileUpload < ActiveRecord::Base
       when "project"
         if source_url == nil
 
-          puts "FILE UPLOAD: queue_zencoder_job sent a direct upload file to Zencoder: " + url  
+          puts "FILE UPLOAD: queue_zencoder_job sent a direct upload file to Zencoder: #{url}"
           Zencoder::Job.create({
             input: "s3:" + url,
             outputs: {
@@ -90,7 +90,7 @@ class FileUpload < ActiveRecord::Base
           })
 
         else
-          puts "FILE UPLOAD: queue_zencoder_job sent a dropbox upload to Zencoder: " + url  
+          puts "FILE UPLOAD: queue_zencoder_job sent a dropbox upload to Zencoder: #{url}"
           Zencoder::Job.create({
             input: source_url,
             outputs: {
