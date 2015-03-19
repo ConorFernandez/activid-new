@@ -69,19 +69,11 @@ class FileUpload < ActiveRecord::Base
   def send_file_to_s3
     puts "FILE UPLOAD: send_file_to_s3 runs"
     
-<<<<<<< HEAD
     s3_object.write File.read("tmp/file-transfer/" + self.file_name)
 
     puts "FILE UPLOAD: AWS OBJECT IS..."
     p s3_object
-=======
-    obj = S3_BUCKET.objects[self.url]
-    obj.write File.read("tmp/file-transfer/" + self.file_name)
-
-    puts "AWS OBJECT IS..."
-    p obj.read
->>>>>>> creates send_file_to_s3 , WIP
-  end  
+  end   
 
   def queue_zencoder_job(attachable_type)
     job =
