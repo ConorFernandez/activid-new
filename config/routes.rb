@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   }
 
   get "file_uploads/presigned_post", to: "file_uploads#presigned_post"
+  get "file_uploads/presigned_posts/:number", to: "file_uploads#presigned_posts"
   resources :file_uploads
 
   resources :projects do

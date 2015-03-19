@@ -1,14 +1,14 @@
 $.fn.directUpload = ->
   formats = this.data("formats").split(",")
 
-  this.addFileUpload(formats)
+  this.addMultipleFileUpload(formats)
   this.bindUploadActions()
   this.find("button.add-file").click (event) ->
     event.preventDefault()
-    $("input[type=file]:last").click()
+    $("input#direct-upload").click()
 
-$.fn.addFileUpload = (formats) ->
-  dU.addFileUpload(this, formats)
+$.fn.addMultipleFileUpload = (formats) ->
+  dU.addMultipleFileUpload(this, formats)
 
 $.fn.bindUploadActions = ->
   dU.bindUploadActions(this)
@@ -17,6 +17,7 @@ $.fn.makeDirectUpload = (presignedPost) ->
   dU.makeDirectUpload(this, presignedPost)
 
 window.dU =
+  # @deprecated, please use addMultipleFileUpload()
   addFileUpload: (form, formats) ->
     fileUpload = $("<input>", type: "file")
     container = $("<div>", class: "upload-block-placeholder")
@@ -25,16 +26,41 @@ window.dU =
       container.append(fileUpload).insertBefore(form.find(".upload-wrapper footer"))
       dU.makeDirectUpload(fileUpload, data, formats)
 
-  makeDirectUpload: (fileInput, presignedPost, formats) ->
-    form = $(fileInput.parents("form:first"))
-    uploadContainer = $(fileInput.parents(".upload-block-placeholder:first"))
+  addMultipleFileUpload: (form, formats) ->
+    container = $("<div>", class: "upload-block-placeholder")
+    fileUpload = $("<input>", id: "direct-upload", type: "file", multiple: true)
+    fileUpload.on('change', this.filesAdded.bind({formats: formats}))
+    container.append(fileUpload).insertBefore(form.find(".upload-wrapper footer"))
+
+  filesAdded: (event) ->
+    formats = this.formats
+    files = event.originalEvent.target.files
+    $.get "/file_uploads/presigned_posts/#{files.length}", (data, status) ->
+      presignedPosts = data["presigned_posts"]
+      for post, index in presignedPosts
+        dU.makeFileInput(files[index], post, formats)
+
+  makeFileInput: (file, presignedPost, formats) ->
+    $fileInput = $("<input>", type: "file", id: "file-upload-#{new Date().getTime()}")
+    $fileInput.attr('data-name', file.name)
+    $('.upload-wrapper').append($fileInput)
+    dU.makeDirectUpload($fileInput, presignedPost, formats)
+    $fileInput.fileupload('add', files: [ file ])
+
+  makeDirectUpload: ($fileInput, presignedPost, formats) ->
+    form = $($fileInput.parents("form:first"))
+
+    uploadContainer = $(form.find(".upload-block-placeholder:first"))
+    if uploadContainer.hasClass('upload-block')
+      uploadContainer = $("<div>", class: "upload-block-placeholder")
+      uploadContainer.insertBefore(form.find(".upload-wrapper footer"))
 
     progressBar = $("<span>")
     barContainer = $("<div>", class: "upload-progress").append(progressBar)
     actionsContainer = $("<div>", class: "upload-actions").append(barContainer)
 
-    fileInput.fileupload
-      fileInput: fileInput
+    $fileInput.fileupload
+      fileInput: $fileInput
       url: presignedPost.post_url
       type: "POST"
       autoUpload: true
@@ -55,7 +81,7 @@ window.dU =
         form.find(".upload-wrapper .upload-errors").remove()
         form.find(".upload-wrapper .upload-empty").hide()
 
-        parts = e.target.value.split(/\/|\\/)
+        parts = $fileInput.data('name').split(/\/|\\/)
         fileName = parts[parts.length - 1]
 
         parts = fileName.split(".")
@@ -69,18 +95,16 @@ window.dU =
           return false
 
       start: (e) ->
-        # add element to be used by the next file upload
-        dU.addFileUpload(form, formats)
-
-        parts = e.target.value.split(/\/|\\/)
+        parts = $fileInput.data('name').split(/\/|\\/)
         fileName = parts[parts.length - 1]
 
         uploadContainer.prepend($("<h6>", html: fileName))
 
         uploadContainer.addClass("upload-block")
+        uploadContainer.removeClass("")
 
         progressBar.css("width", "0%")
-        fileInput.after(actionsContainer)
+        uploadContainer.append(actionsContainer)
         form.trigger("upload-start")
 
       done: (e, data) =>
