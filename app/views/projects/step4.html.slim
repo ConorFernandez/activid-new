@@ -53,7 +53,7 @@ section
                 = label_tag "stripe_card_id_#{card.id}", "#{card.brand}: *-#{card.last4}, Expires #{card.exp_month}/#{card.exp_year}"
 
             div
-              = radio_button_tag :stripe_card_id, ""
+              = radio_button_tag :stripe_card_id, "", true
               = label_tag "stripe_card_id_", "New card"
 
         .payment-errors
