@@ -8,7 +8,7 @@
     div class="upload-block #{file_upload.zencoder_failed? ? 'failed' : 'complete'}"
       = hidden_field_tag "file_upload_uuids[]", file_upload.uuid
 
-      h6= file_upload.file_name
+      h6= file_upload.pretty_file_name
 
       .upload-actions
         .upload-progress

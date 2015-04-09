@@ -128,6 +128,10 @@ class FileUpload < ActiveRecord::Base
     (url || source_url || "").split("/").last.split(/\?(?!\.)/).first
   end
 
+  def pretty_file_name
+    URI.decode(file_name).gsub('+', ' ')
+  end
+
   def extension
     file_name.split(".").last.downcase
   end
@@ -169,7 +173,10 @@ class FileUpload < ActiveRecord::Base
   end
 
   def s3_object_key
-    url.match(/s3\.amazonaws\.com\/(.+)$/)[1]
+    path = url.match(/s3\.amazonaws\.com\/(.+)$/)[1]
+    array = path.split('/').tap(&:pop)
+    array << URI.decode(file_name)
+    array.join('/')
   end
 
   def s3_options

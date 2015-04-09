@@ -37,7 +37,7 @@ $ ->
                 uploadBlock.append $("<input>", type: "hidden", name: "file_upload_uuids[]", value: data.uuid)
                 barContainer = $("<div>", class: "upload-progress").append($("<span>", style: "width: 100%"))
                 actionsContainer = $("<div>", class: "upload-actions").append(barContainer)
-                uploadBlock.prepend($("<h6>", html: data.file_name)).append(actionsContainer)
+                uploadBlock.prepend($("<h6>", html: decodeURIComponent(data.file_name))).append(actionsContainer)
                 dU.insertUploadActions(actionsContainer, "done", data.uuid, null)
 
                 form.find(".upload-wrapper").prepend(uploadBlock)
