@@ -15,7 +15,7 @@
       li 
         | No videos files for this project   
     - project.video_uploads.each do |upload|
-      li= link_to upload.file_name, upload.url, download: upload.file_name, class: "downloadable downloadable-video"
+      li= link_to upload.pretty_file_name, upload.url, download: upload.file_name, class: "downloadable downloadable-video"
 
 .file-list
   h6
@@ -31,7 +31,7 @@
     - project.activid_music_urls.each do |url|
       li= link_to url.split("/").last, url, class: "downloadable downloadable-audio"
     - project.music_uploads.each do |upload|
-      li= link_to upload.file_name, upload.url, class: "downloadable downloadable-audio"
+      li= link_to upload.pretty_file_name, upload.url, class: "downloadable downloadable-audio"
   
   .file-list
   h6
@@ -45,7 +45,7 @@
       li 
         | No image files for this project       
     - project.image_uploads.each do |upload|
-      li= link_to upload.file_name, upload.url, class: "downloadable downloadable-image"  
+      li= link_to upload.pretty_file_name, upload.url, class: "downloadable downloadable-image"  
 
 
 
