@@ -6,4 +6,4 @@
     - projects.each do |project|
      li
         = link_to project.name, project_path(project)
-        small= "(10/12/14)"
+        small= "(#{project.charged_at})"
