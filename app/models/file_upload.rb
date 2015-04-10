@@ -180,7 +180,7 @@ class FileUpload < ActiveRecord::Base
   end
 
   def s3_options
-    { content_disposition: 'attachment' }
+    { content_disposition: 'attachment', acl: :public_read }
   end
 
   delegate :url_for, to: :s3_object
