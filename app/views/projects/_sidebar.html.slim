@@ -31,7 +31,7 @@
 .project-meta
   - if project.completed?
     | Video approved on: 
-    span project.charged_at
+    span= project.charged_at
   - elsif project.needs_cut?
     | Cut due in: 
     span= cut_due_in(project)
