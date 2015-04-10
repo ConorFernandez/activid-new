@@ -16,10 +16,13 @@ section
   .bounds-wrapper
 
     .projects-wrapper.selected data-tab-content='available'
-      = render partial: "project", collection: @available
+      = render partial: "project", collection: @available.sort_by { |project| project.cut_due_at }
+
 
     .projects-wrapper data-tab-content='in-progress'
-      = render partial: "project", collection: @current
+      = render partial: "project", collection: @current.sort_by { |project| project.cut_due_at }
+
 
     .projects-wrapper data-tab-content='completed'
-      = render partial: "project", collection: @completed
+      = render partial: "project", collection: @completed.sort_by { |project| project.cut_due_at }
+
